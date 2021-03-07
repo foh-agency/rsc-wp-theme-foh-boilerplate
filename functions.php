@@ -7,9 +7,9 @@
  * @package FOH
  */
 
-if ( ! defined( '_S_VERSION' ) ) {
+if ( ! defined( 'FOH_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.0' );
+	define( 'FOH_VERSION', '1.0.0' );
 }
 
 if ( ! function_exists( 'foh_setup' ) ) :
@@ -140,10 +140,10 @@ add_action( 'widgets_init', 'foh_widgets_init' );
  * Enqueue scripts and styles.
  */
 function foh_scripts() {
-	wp_enqueue_style( 'foh-style', get_stylesheet_uri(), array(), _S_VERSION );
+	wp_enqueue_style( 'foh-style', get_stylesheet_uri(), array(), FOH_VERSION );
 	wp_style_add_data( 'foh-style', 'rtl', 'replace' );
 
-	wp_enqueue_script( 'foh-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+	wp_enqueue_script( 'foh-navigation', get_template_directory_uri() . '/js/navigation.js', array(), FOH_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
