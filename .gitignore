@@ -1,0 +1,11 @@
+# packages
+node_modules
+vendor
+
+# build
+dist
+
+# misc
+temp
+.DS_Store
+.vscode
