@@ -1,7 +1,75 @@
+# FOH starter theme
+
+<!-- The tables in this document might be easier to read in markdown preview mode -->
+
+## Contents
+
+<!-- TOC -->
+
+- [FOH starter theme](#foh-starter-theme)
+  - [Contents](#contents)
+  - [Intro](#intro)
+    - [New features introduced by FOH](#new-features-introduced-by-foh)
+    - [Pre-requisites](#pre-requisites)
+  - [Usage](#usage)
+    - [Naming conventions](#naming-conventions)
+  - [Appendix: Original documentation for Underscores starter theme](#appendix-original-documentation-for-underscores-starter-theme)
+    - [_s](#_s)
+      - [Installation](#installation)
+        - [Requirements](#requirements)
+        - [Quick Start](#quick-start)
+        - [Setup](#setup)
+        - [Available CLI commands](#available-cli-commands)
+
+<!-- /TOC -->
+
+## Intro
+
+This is a starter theme based on Underscores and adapted for FOH projects.
+
+Modify this theme for each project. Do not use it as a parent theme (all the Webpack stuff should be in the active theme directory).
+
+The original Underscores files say it's version 1.0.0, downloaded Feb 2021. Latest tested WordPress was 5.6.
+
+The original documentation included with Underscores theme is included at the end of this file for reference.
+
+### New features introduced by FOH
+
+-   Production: Webpack bundle optimizations
+-   Development: Webpack dev server with BrowserSync
+
+### Pre-requisites
+
+Familiarity with fundamental concepts of Composer, NPM, Sass, Babel, Webpack and WordPress theme development.
+
+## Usage
+
+Clone or download this repository into your WordPress site's `themes` dir.
+
+### Naming conventions
+
+Decide on a namespace for your project. E.g. If your project is called Megatherium, your namespace might be `mega` (this is also called your theme slug) .
+
+Change the dir name to something else (like, say, `mega`), and then you'll need to do a multi-step find and replace on the name in all the templates.
+
+1. Search for `'foh'` (inside single quotations) to capture the text domain and replace with: `'mega'`.
+2. Search for `"foh"` (inside double quotations) to capture the text domain and replace with: `"mega"`.
+3. Search for `foh_` to capture all the functions names and replace with: `mega_`.
+4. Search for `FOH_` (in uppercase) to capture constants and replace with: `MEGA_`.
+5. Search for `Text Domain: foh` in `style.css` and replace with: `Text Domain: mega`.
+6. Search for `foh.pot` and replace with: `mega.pot`,
+7. Search for ` foh` (with a space before it) to capture DocBlocks and replace with: ` Mega`.
+8. Search for `foh-`  (caution: manually exclude URLs) to capture prefixed handles and replace with: `mega-`.
+
+Then, update the stylesheet header in `style.css`, the links in `footer.php` with your own information and rename `foh.pot` from `languages` folder to use the theme's slug. Next, update or delete this readme.
+
+Note: The above instructions are an extension of the original ones that came with Underscores theme, included in the Appendix at the end of this document.
+
+## Appendix: Original documentation for Underscores starter theme
+
 [![Build Status](https://travis-ci.org/Automattic/_s.svg?branch=master)](https://travis-ci.org/Automattic/_s)
 
-_s
-===
+### _s
 
 Hi. I'm a starter theme called `_s`, or `underscores`, if you like. I'm a theme meant for hacking so don't use me as a Parent Theme. Instead try turning me into the next, most awesome, WordPress theme out there. That's what I'm here for.
 
@@ -19,17 +87,16 @@ Note: `.no-sidebar` styles are automatically loaded.
 * Full support for `WooCommerce plugin` integration with hooks in `inc/woocommerce.php`, styling override woocommerce.css with product gallery features (zoom, swipe, lightbox) enabled.
 * Licensed under GPLv2 or later. :) Use it to make something cool.
 
-Installation
----------------
+#### Installation
 
-### Requirements
+##### Requirements
 
 `_s` requires the following dependencies:
 
 - [Node.js](https://nodejs.org/)
 - [Composer](https://getcomposer.org/)
 
-### Quick Start
+##### Quick Start
 
 Clone or download this repository, change its name to something else (like, say, `megatherium-is-awesome`), and then you'll need to do a six-step find and replace on the name in all the templates.
 
@@ -42,7 +109,7 @@ Clone or download this repository, change its name to something else (like, say,
 
 Then, update the stylesheet header in `style.css`, the links in `footer.php` with your own information and rename `_s.pot` from `languages` folder to use the theme's slug. Next, update or delete this readme.
 
-### Setup
+##### Setup
 
 To start using all the tools that come with `_s`  you need to install the necessary Node.js and Composer dependencies :
 
@@ -51,7 +118,7 @@ $ composer install
 $ npm install
 ```
 
-### Available CLI commands
+##### Available CLI commands
 
 `_s` comes packed with CLI commands tailored for WordPress theme development :
 
