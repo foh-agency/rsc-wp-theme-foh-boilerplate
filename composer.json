@@ -22,6 +22,7 @@
     "require-dev": {
     },
     "scripts": {
+        "lint:php": "phpcs . --standard=phpcs.xml.dist",
         "make-pot": "wp i18n make-pot . languages/foh.pot"
     },
     "support": {

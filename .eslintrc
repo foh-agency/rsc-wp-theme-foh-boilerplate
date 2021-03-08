@@ -1,8 +1,13 @@
 {
     "extends": [
-        "plugin:@wordpress/eslint-plugin/esnext"
+        "plugin:@wordpress/eslint-plugin/esnext",
+        "prettier"
     ],
     "env": {
-        "browser": true
+        "browser": true,
+        "node": true
+    },
+    "rules": {
+      "space-in-parens": 0
     }
 }

@@ -1,18 +1,19 @@
 <?xml version="1.0"?>
-<ruleset name="WordPress Theme Coding Standards">
-	<!-- See https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml -->
-	<!-- See https://github.com/WordPress/WordPress-Coding-Standards -->
-	<!-- See https://github.com/WPTRT/WPThemeReview -->
-	<!-- See https://github.com/PHPCompatibility/PHPCompatibilityWP -->
 
+<!--
+###############################################################################
+WELCOME TO THE PHPCS RULESET
+See README.md: Workflows > Linting and Formatting > PHPCS
+###############################################################################
+-->
+
+<ruleset name="WordPress Theme Coding Standards">
 	<!-- Set a description for this ruleset. -->
 	<description>A custom set of code standard rules to check for WordPress themes.</description>
-
 
 	<!--
 	#############################################################################
 	COMMAND LINE ARGUMENTS
-	https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml
 	#############################################################################
 	-->
 
@@ -21,6 +22,9 @@
 		 s flag: Show sniff codes in all reports.
 	-->
 	<arg value="ps"/>
+  
+  <!-- Colorize the output. -->
+  <arg name="colors"/>
 
 	<!-- Strip the filepaths down to the relevant bit. -->
 	<arg name="basepath" value="./"/>
@@ -38,7 +42,6 @@
 	<exclude-pattern>/vendor/*</exclude-pattern>
 	<exclude-pattern>/node_modules/*</exclude-pattern>
 
-
 	<!--
 	#############################################################################
 	USE THE WordPress AND THE Theme Review RULESET
@@ -46,10 +49,11 @@
 	-->
 
 	<rule ref="WordPress">
-		<!-- This rule does not apply here since the foh prefix should be changed by the theme author. -->
+		<!-- This rule does not apply here since the _s prefix should be changed by the theme author. -->
 		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.ShortPrefixPassed"/>
 	</rule>
 	<rule ref="WPThemeReview"/>
+
 
 	<!--
 	#############################################################################
@@ -104,6 +108,7 @@
 	#############################################################################
 	-->
 
+  <!-- For a project which should be compatible with PHP 5.6 and higher -->
 	<config name="testVersion" value="5.6-"/>
 	<rule ref="PHPCompatibilityWP"/>
 

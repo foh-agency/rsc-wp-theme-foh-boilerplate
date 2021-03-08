@@ -1,16 +1,20 @@
 {
-    "extends": [
-        "stylelint-config-wordpress/scss"
-    ],
-    "ignoreFiles": [
-        "sass/_normalize.scss"
-    ],
-    "rules": {
-        "font-family-no-missing-generic-family-keyword": null,
-        "no-descending-specificity": null,
-        "block-no-empty": null,
-        "no-duplicate-selectors": null,
-        "font-family-no-duplicate-names": null,
-        "selector-class-pattern": null
-    }
+  "extends": [
+    "@wordpress/stylelint-config/scss",
+    "stylelint-config-prettier"
+  ],
+  "rules": {
+    "comment-empty-line-before": null,
+    "declaration-block-semicolon-newline-after": "always",
+    "rule-empty-line-before": [
+      "never",
+      {
+        "except": [
+          "after-rule",
+          "first-nested",
+          "inside-block"
+        ]
+      }
+    ]
+  }
 }

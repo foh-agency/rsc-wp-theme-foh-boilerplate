@@ -1,0 +1,13 @@
+# .gitignore
+node_modules
+vendor
+dist
+temp
+.DS_Store
+.vscode
+
+# normalize
+style.css
+
+# Uncomment to optionally ignore certain file types
+# *.html
