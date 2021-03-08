@@ -9,8 +9,12 @@
 - [FOH starter theme](#foh-starter-theme)
   - [Contents](#contents)
   - [Intro](#intro)
-    - [New features introduced by FOH](#new-features-introduced-by-foh)
     - [Pre-requisites](#pre-requisites)
+    - [New features introduced by FOH](#new-features-introduced-by-foh)
+    - [Underscores features removed by FOH](#underscores-features-removed-by-foh)
+      - [Composer packages and associated scripts](#composer-packages-and-associated-scripts)
+      - [NPM packages and associated scripts](#npm-packages-and-associated-scripts)
+      - [Features you may want to remove for your project](#features-you-may-want-to-remove-for-your-project)
   - [Usage](#usage)
     - [Naming conventions](#naming-conventions)
     - [Update package information](#update-package-information)
@@ -34,14 +38,41 @@ The original Underscores files say it's version 1.0.0, downloaded Feb 2021. Late
 
 The original documentation included with Underscores theme is included at the end of this file for reference.
 
+### Pre-requisites
+
+Familiarity with fundamental concepts of Composer, NPM, Sass, Babel, Webpack and WordPress theme development.
+
 ### New features introduced by FOH
 
 -   Production: Webpack bundle optimizations
 -   Development: Webpack dev server with BrowserSync
 
-### Pre-requisites
+### Underscores features removed by FOH
 
-Familiarity with fundamental concepts of Composer, NPM, Sass, Babel, Webpack and WordPress theme development.
+#### Composer packages and associated scripts
+
+- `dealerdirect/phpcodesniffer-composer-installer` (Installed globally).
+- `wptrt/wpthemereview` (Installed globally).
+- `php-parallel-lint/php-parallel-lint` (Replaced by VS Code extension).
+- `wp-cli/i18n-command` (Installed globally). <!-- TODO: Document this below -->
+
+More info in sections below:
+
+- [Linting and Formatting](#linting-and-formatting)
+- [Internationalization i18n and Localization l10n](#internationalization-i18n-and-localization-l10n)
+
+#### NPM packages and associated scripts
+
+- `@wordpress/scripts` (Replaced by custom scripts).
+- `dir-archiver` <!-- TODO: Replace with custom deployment script + workflow. -->
+- `node-sass` (Replaced by Webpack).
+- `rtlcss` and associated config in `package.json`. (Consider re-installing when adding rtl support).
+
+More info in the [NPM scripts](#npm-scripts) section below.
+
+#### Features you may want to remove for your project
+
+See below: [Appendix: Original documentation for Underscores starter theme](#appendix-original-documentation-for-underscores-starter-theme)
 
 ## Usage
 
