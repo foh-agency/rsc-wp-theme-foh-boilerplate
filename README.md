@@ -13,6 +13,7 @@
     - [Pre-requisites](#pre-requisites)
   - [Usage](#usage)
     - [Naming conventions](#naming-conventions)
+    - [Update package information](#update-package-information)
   - [Appendix: Original documentation for Underscores starter theme](#appendix-original-documentation-for-underscores-starter-theme)
     - [_s](#_s)
       - [Installation](#installation)
@@ -64,6 +65,29 @@ Change the dir name to something else (like, say, `mega`), and then you'll need 
 Then, update the stylesheet header in `style.css`, the links in `footer.php` with your own information and rename `foh.pot` from `languages` folder to use the theme's slug. Next, update or delete this readme.
 
 Note: The above instructions are an extension of the original ones that came with Underscores theme, included in the Appendix at the end of this document.
+
+### Update package information
+
+Package information is defined  somewhat redundantly across a few different places.
+Here are the main things to consider updating.
+
+Notes:
+- Authors could be one or many, and can optionally include a URI.
+- Tags in `style.css` are from a pre-defined list in the [Theme Developer Handbook](https://make.wordpress.org/themes/handbook/review/required/theme-tags/).
+- Extra information in `languages/foh.pot` is auto-generated from `style.css` when running the Composer `make-pot` script.
+
+| composer.json  | package.json   | readme.txt   | style.css    | languages/foh.pot    | GitHub repo |
+| :------------- | :------------- | :----------- | :----------- | :------------------- | :---------- |
+| name           | name           | top heading  | Theme Name   |                      |             |
+| description    | description    | Description  | Description  |                      | Description |
+|                | version        | Stable tag   | Version      | Project-Id-Version   |             |
+| license        | license        | License      | License      |                      |             |
+| homepage       | homepage       |              | Theme URI    |                      | Website     |
+| authors        | author         | Contributors | Author       |                      |             |
+| support.source | repository.url |              |              |                      |             |
+| support.issues | bugs.url       |              |              | Report-Msgid-Bugs-To |             |
+| keywords       | keywords       |              |              |                      | Topics      |
+| require.php    |                | Requires PHP | Requires PHP |                      |             |
 
 ## Appendix: Original documentation for Underscores starter theme
 
