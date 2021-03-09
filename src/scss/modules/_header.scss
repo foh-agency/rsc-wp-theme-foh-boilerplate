@@ -1,4 +1,8 @@
 #masthead {
 	position: fixed;
 	top: 0;
+
+	#header-logo {
+		opacity: 0;
+	}
 }

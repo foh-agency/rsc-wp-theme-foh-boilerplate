@@ -1,13 +1,16 @@
 // Styles
 import './scss/main.scss';
 
+// Local scripts
+import { initScrollableHeader } from './js/foh-scroll-features.js';
+
 // TODO: Consider better ways to import these default Underscores files:
 import './js/navigation.js';
 // import './js/customizer.js'; // This depends on jQuery and it's not a priority to include it right now, so let's not.
 
 (() => {
 	function main() {
-		console.log(`Hello world!`);
+		initScrollableHeader();
 	}
 
 	try {

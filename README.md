@@ -78,8 +78,8 @@ Familiarity with fundamental concepts of Composer, NPM, Sass, Babel, Webpack and
 
 ### New features introduced by FOH
 
--   Production: Webpack bundle optimizations
--   Development: Webpack dev server with BrowserSync
+-   Production: Webpack bundle optimizations and GSAP.
+-   Development: Webpack dev server with BrowserSync.
 
 ### Underscores features removed by FOH
 
@@ -213,6 +213,7 @@ The included `package.json` file contains handy scripts that run Webpack to buil
 | dependencies | Purpose |
 | :----------- | :------ |
 | `core-js`    | Babel polyfills |
+| `gsap`       | [GreenSock](https://greensock.com/), the industry standard animation library. |
 
 <!-- This table might be easier to read in markdown preview mode -->
 <!-- prettier-ignore -->
