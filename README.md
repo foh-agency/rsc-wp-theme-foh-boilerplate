@@ -112,13 +112,15 @@ See below: [Appendix: Original documentation for Underscores starter theme](#app
 
 Clone or download this repository into your WordPress site's `themes` dir.
 
+Install all dependencies, documented below: [Dependencies](#dependencies).
+
 In `webpack.common.js`, update the name of the local site dir (find "foh-starter-theme-test" and replace with the name of the local dir that contains `wp-config.php`, used during development).
 
 ### Naming conventions
 
 Decide on a namespace for your project. E.g. If your project is called Megatherium, your namespace might be `mega` (this is also called your theme slug) .
 
-Change the dir name to something else (like, say, `mega`), and then you'll need to do a multi-step find and replace on the name in all the templates.
+Change the theme dir name to `mega` (your slug), and then you'll need to do a multi-step find and replace on the name in all the templates.
 
 1. Search for `'foh'` (inside single quotations) to capture the text domain and replace with: `'mega'`.
 2. Search for `"foh"` (inside double quotations) to capture the text domain and replace with: `"mega"`.
@@ -129,7 +131,7 @@ Change the dir name to something else (like, say, `mega`), and then you'll need 
 7. Search for ` foh` (with a space before it) to capture DocBlocks and replace with: ` Mega`.
 8. Search for `foh-` (caution: manually exclude URLs) to capture prefixed handles and replace with: `mega-`.
 
-Then, update the stylesheet header in `style.css`, the links in `footer.php` with your own information and rename `foh.pot` from `languages` folder to use the theme's slug. Next, update or delete this readme.
+Then, update the stylesheet header in `style.css`, the links in `footer.php` with your own information and rename `foh.pot` from `languages` folder to use the theme's slug.
 
 Note: The above instructions are an extension of the original ones that came with Underscores theme, included in the Appendix at the end of this document.
 
@@ -200,7 +202,7 @@ The included `package.json` file contains handy scripts that run Webpack to buil
 
     `$ npm install`
 
-1. Check for outdated dependencies and upgrade if necessary:
+2. Check for outdated dependencies and update if necessary:
 
     `$ ncu`
 
@@ -250,14 +252,28 @@ The included `package.json` file contains handy scripts that run Webpack to buil
 
 ### Composer dependencies
 
-<!-- TODO: similar instructions to NPM... run install command... -->
-<!-- TODO: How do I check for updates (ncu equivalent?) wp vip page said so maybe? -->
+1. The dependencies listed below should be installed in your global composer directory.
+
+    On Unix systems you can find this with the following command (with example output):
+
+    ```Console
+    $ composer config --list --global | grep home
+    [home] /Users/<your-username>/.composer
+    ```
+
+2. Check for outdated dependencies and update if necessary:
+
+    From the directory we found in the previous step, check for outdated packages:
+
+    ```Composer
+    $ composer outdated
+    <some-old-package>
+    $composer update <some-old-package>
+    ```
 
 #### Global dependencies
 
 These global dependencies configure PHP linting.
-
-Your system may differ, but these show up in my `~/.composer/composer.json`.
 
 <!-- This table might be easier to read in markdown preview mode -->
 <!-- prettier-ignore -->
@@ -269,6 +285,8 @@ Your system may differ, but these show up in my `~/.composer/composer.json`.
 | `phpcompatibility/phpcompatibility-wp`           | Coding standards: PHPCompatibility, PHPCompatibilityParagonieRandomCompat, PHPCompatibilityParagonieSodiumCompat, PHPCompatibilityWP. |
 | `wptrt/wpthemereview`                            | Coding standard: WPThemeReview. |
 | `wp-coding-standards/wpcs`                       | Coding standards: WordPress, WordPress-Extra, WordPress-Docs, WordPress-Core. |
+
+Installation guide included below: [PHPCS setup](#phpcs-setup).
 
 #### Project dependencies
 
@@ -501,8 +519,6 @@ The subsection on formatting offers a couple of possible approaches to applying 
 
     These VS Code extensions read the included configs to make this happen:
 
-    <!-- TODO: fix prettier indentation issue. the below should appear as a list in preview. -->
-
     -   [PHP Sniffer & Beautifier](https://marketplace.visualstudio.com/items?itemName=ValeryanM.vscode-phpsab)
 
         Add the following to VS Code's `settings.json`:
@@ -532,11 +548,9 @@ The subsection on formatting offers a couple of possible approaches to applying 
             ]
             ```
 
-            <!-- - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) -->
-
 7.  Check setup was successful
 
--   Here's what should show up in `/Users/<your-username>/.composer/vendor/squizlabs/php_codesniffer/CodeSniffer.conf` (Make sure to replace all instances of `<your-username>`):
+    Here's what should show up in `/Users/<your-username>/.composer/vendor/squizlabs/php_codesniffer/CodeSniffer.conf` (Make sure to replace all instances of `<your-username>`):
 
     ```php
     <?php
