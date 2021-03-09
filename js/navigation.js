@@ -3,6 +3,8 @@
  *
  * Handles toggling the navigation menu for small screens and enables TAB key
  * navigation support for dropdown menus.
+ *
+ * This file was included with Underscores as-is.
  */
 (function () {
 	const siteNavigation = document.getElementById('site-navigation');
