@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-03-08T00:52:36+00:00\n"
+"POT-Creation-Date: 2021-03-09T08:45:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: foh\n"
@@ -91,56 +91,12 @@ msgstr ""
 msgid "Add widgets here."
 msgstr ""
 
-#: header.php:26
+#: header.php:27
 msgid "Skip to content"
 msgstr ""
 
-#: header.php:49
+#: header.php:50
 msgid "Primary Menu"
-msgstr ""
-
-#. translators: %s: post date.
-#: inc/template-tags.php:30
-msgctxt "post date"
-msgid "Posted on %s"
-msgstr ""
-
-#. translators: %s: post author.
-#: inc/template-tags.php:46
-msgctxt "post author"
-msgid "by %s"
-msgstr ""
-
-#. translators: used between list items, there is a space after the comma
-#: inc/template-tags.php:63
-msgid ", "
-msgstr ""
-
-#. translators: 1: list of categories.
-#: inc/template-tags.php:66
-msgid "Posted in %1$s"
-msgstr ""
-
-#. translators: used between list items, there is a space after the comma
-#: inc/template-tags.php:70
-msgctxt "list item separator"
-msgid ", "
-msgstr ""
-
-#. translators: 1: list of tags.
-#: inc/template-tags.php:73
-msgid "Tagged %1$s"
-msgstr ""
-
-#. translators: %s: post title
-#: inc/template-tags.php:83
-msgid "Leave a Comment<span class=\"screen-reader-text\"> on %s</span>"
-msgstr ""
-
-#. translators: %s: Name of current post. Only visible to screen readers
-#: inc/template-tags.php:100
-#: template-parts/content-page.php:39
-msgid "Edit <span class=\"screen-reader-text\">%s</span>"
 msgstr ""
 
 #. translators: %s: search query.
@@ -154,6 +110,50 @@ msgstr ""
 
 #: single.php:24
 msgid "Next:"
+msgstr ""
+
+#. translators: %s: post date.
+#: src/php/inc/template-tags.php:30
+msgctxt "post date"
+msgid "Posted on %s"
+msgstr ""
+
+#. translators: %s: post author.
+#: src/php/inc/template-tags.php:46
+msgctxt "post author"
+msgid "by %s"
+msgstr ""
+
+#. translators: used between list items, there is a space after the comma
+#: src/php/inc/template-tags.php:63
+msgid ", "
+msgstr ""
+
+#. translators: 1: list of categories.
+#: src/php/inc/template-tags.php:66
+msgid "Posted in %1$s"
+msgstr ""
+
+#. translators: used between list items, there is a space after the comma
+#: src/php/inc/template-tags.php:70
+msgctxt "list item separator"
+msgid ", "
+msgstr ""
+
+#. translators: 1: list of tags.
+#: src/php/inc/template-tags.php:73
+msgid "Tagged %1$s"
+msgstr ""
+
+#. translators: %s: post title
+#: src/php/inc/template-tags.php:83
+msgid "Leave a Comment<span class=\"screen-reader-text\"> on %s</span>"
+msgstr ""
+
+#. translators: %s: Name of current post. Only visible to screen readers
+#: src/php/inc/template-tags.php:100
+#: template-parts/content-page.php:39
+msgid "Edit <span class=\"screen-reader-text\">%s</span>"
 msgstr ""
 
 #: template-parts/content-none.php:14

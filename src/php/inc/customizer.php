@@ -56,6 +56,6 @@ function foh_customize_partial_blogdescription() {
  * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
  */
 function foh_customize_preview_js() {
-	wp_enqueue_script( 'foh-customizer', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview' ), FOH_VERSION, true );
+	wp_enqueue_script( 'foh-customizer', get_template_directory_uri() . '/src/js/customizer.js', array( 'customize-preview' ), FOH_VERSION, true );
 }
 add_action( 'customize_preview_init', 'foh_customize_preview_js' );
