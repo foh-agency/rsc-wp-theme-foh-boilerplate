@@ -21,6 +21,7 @@
     -   [Scripts](#scripts)
         -   [Composer scripts](#composer-scripts)
     -   [Dependencies](#dependencies)
+        -   [Binaries](#binaries)
         -   [NPM dependencies](#npm-dependencies)
         -   [Composer dependencies](#composer-dependencies)
             -   [Global dependencies](#global-dependencies)
@@ -43,6 +44,13 @@
                     -   [Method 1: Fast and furious](#method-1-fast-and-furious)
                     -   [Method 2: Slow and steady](#method-2-slow-and-steady)
                 -   [PHPCS false positives no need to fix these](#phpcs-false-positives-no-need-to-fix-these)
+        -   [Internationalization i18n and Localization l10n](#internationalization-i18n-and-localization-l10n)
+            -   [What gets overwritten by auto-updating with make-pot](#what-gets-overwritten-by-auto-updating-with-make-pot)
+            -   [Useful docs on i18n and l10n](#useful-docs-on-i18n-and-l10n)
+                -   [Fundamental concepts and the roles of related files .pot, .po and .mo](#fundamental-concepts-and-the-roles-of-related-files-pot-po-and-mo)
+                -   [Syntax in .pot and .po files, including comment types and auto-updates](#syntax-in-pot-and-po-files-including-comment-types-and-auto-updates)
+                -   [What's this %1$s syntax in some of the strings in the .pot file?](#whats-this-%251s-syntax-in-some-of-the-strings-in-the-pot-file)
+                -   [Bonus for deeper understanding](#bonus-for-deeper-understanding)
     -   [Appendix: Original documentation for Underscores starter theme](#appendix-original-documentation-for-underscores-starter-theme)
         -   [\_s](#%5C_s)
             -   [Installation](#installation)
@@ -79,7 +87,7 @@ Familiarity with fundamental concepts of Composer, NPM, Sass, Babel, Webpack and
 -   `dealerdirect/phpcodesniffer-composer-installer` (Installed globally).
 -   `wptrt/wpthemereview` (Installed globally).
 -   `php-parallel-lint/php-parallel-lint` (Replaced by VS Code extension).
--   `wp-cli/i18n-command` (Installed globally). <!-- TODO: Document this below -->
+-   `wp-cli/i18n-command` (Installed globally).
 
 More info in sections below:
 
@@ -154,8 +162,20 @@ Notes:
 | Script      | Usage                         | Summary |
 | :---------- | :---------------------------- | :------ |
 | `lint:php`  | If you need to debug PHPCS    | Manually run code sniffer with terminal output (redundant alternative to what VS Code does automatically on save with valeryanm.vscode-phpsab extension) |
+| `make-pot`  | When PHP source changes       | Re-generate `languages/foh.pot`. |
 
 ## Dependencies
+
+### Binaries
+
+-   WP-CLI (Installs the multi-purpose `wp` command).
+
+    -   [Global installation guide](https://make.wordpress.org/cli/handbook/guides/installing/)
+
+        See sections:
+
+        -   [Composer scripts](#composer-scripts)
+        -   [Internationalization i18n and Localization l10n](#internationalization-i18n-and-localization-l10n).
 
 ### NPM dependencies
 
@@ -588,6 +608,88 @@ FOUND 2 ERRORS AFFECTING 2 LINES
      |       | "wp_body_open". (WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound)
 ------------------------------------------------------------------------------------------------------------------
 ```
+
+### Internationalization (i18n) and Localization (l10n)
+
+If this is an unfamiliar topic, I'd recommend reading through the documentation links at the end of this section.
+
+In the `./languages/` dir is a `.pot` file that can be used as the basis
+for translations. This file references string locations in the source code,
+including line numbers.
+
+As the source is updated, these will go out of date, so it should be updated
+before sending it to translators. Some of the updates are handled manually,
+and some automatically. Keep this in mind to avoid having your manual edits
+accidentally overwritten.
+
+_Note: This Readme was written based only on a single `.pot` file, and might be
+missing details that apply to localized projects with `.po` and `.mo` files._
+
+<!-- TODO: update once you're using local translations -->
+<!-- TODO: Update this section after recommending Composer scripts -->
+
+To update `languages/foh.pot`, run this command from the theme root directory.
+(Uses [wp-cli](https://make.wordpress.org/cli/handbook/guides/quick-start/))
+
+```Console
+$ wp i18n make-pot . languages/foh.pot
+```
+
+#### What gets overwritten by auto-updating with make-pot
+
+Here's how different parts of the `.pot` file get updated:
+
+Based on theme info in `style.css`:
+
+-   Header entry (several headers)
+
+Based on code in the source dir (first arg):
+
+-   Translator comments will be deleted
+    This refers to comments _by_ translators, i.e. those starting with `#<space>`.
+    I guess it makes sense that they'd be deleted from `.pot` because translators
+    should be editing `.po` files, not `.pot`.
+
+-   References (filename and line number)
+
+-   Entire entries (if they exist in the source, they'll be created in the `.pot`),
+    along with developer comments (made by developers for translators).
+
+    Developer comments must be php (not html) comments in the following format:
+
+    `/* translators: blah */`
+
+    Editing or deleting entries in `.pot` is not a good idea, since they will be
+    re-generated from source. If you want some entries ignored, consider passing
+    options to `make-pot` to indicate a blacklist.
+
+    For `make-pot` to recognize something as an entry, it should be set with
+    `esc_html_e(...)` with a text domain in the second arg that matches the
+    text domain in the header of the `.pot` file.
+
+So far, the way this works is by calling [load_text_domain](https://developer.wordpress.org/reference/functions/load_theme_textdomain/) once during theme load.
+
+#### Useful docs on i18n and l10n
+
+-   [What is This esc_html_e() i wordpress php?](https://wordpress.stackexchange.com/questions/285657/what-is-this-esc-html-e-i-wordpress-php)
+-   [Documentation with extra options for make-pot](https://developer.wordpress.org/cli/commands/i18n/make-pot/)
+
+##### Fundamental concepts and the roles of related files (`.pot`, `.po` and `.mo`)
+
+-   [WP APIs handbook: Localization](https://developer.wordpress.org/apis/handbook/internationalization/localization/)
+
+##### Syntax in `.pot` and `.po` files, including comment types and auto-updates
+
+-   [The Format of PO Files](https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html)
+
+##### What's this `%1$s` syntax in some of the strings in the `.pot` file?
+
+-   [Learn the sprintf syntax](https://www.php.net/manual/en/function.sprintf.php)
+
+##### Bonus for deeper understanding
+
+-   [Header Entry](https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html#Header-Entry)
+-   [Header: Plural forms](https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html#Plural-forms)
 
 ## Appendix: Original documentation for Underscores starter theme
 
