@@ -12,6 +12,9 @@ if ( ! defined( 'FOH_VERSION' ) ) {
 	define( 'FOH_VERSION', '1.0.0' );
 }
 
+// Register menu locations and load other features.
+require_once get_stylesheet_directory() . '/src/php/utils/foh-theme-features.php';
+
 // Include things that Underscores does by default.
 require_once get_stylesheet_directory() . '/src/php/utils/underscores-theme-features.php';
 
