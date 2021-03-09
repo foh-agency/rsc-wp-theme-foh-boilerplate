@@ -1,0 +1,5 @@
+// style.css in the theme root contains the theme info required by WordPress.
+// It also contains some fallback styles (super basic starter ones that shipped with Underscores)
+
+@use "modules/base";
+@use "modules/header";

@@ -12,6 +12,9 @@ if ( ! defined( 'FOH_VERSION' ) ) {
 	define( 'FOH_VERSION', '1.0.0' );
 }
 
+// Enqueue styles and scripts.
+require_once get_stylesheet_directory() . '/src/php/utils/foh-enqueue-assets.php';
+
 // Register menu locations and load other features.
 require_once get_stylesheet_directory() . '/src/php/utils/foh-theme-features.php';
 

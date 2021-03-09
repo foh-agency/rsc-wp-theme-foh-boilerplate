@@ -19,6 +19,7 @@
         -   [Naming conventions](#naming-conventions)
         -   [Update package information](#update-package-information)
     -   [Scripts](#scripts)
+        -   [NPM scripts](#npm-scripts)
         -   [Composer scripts](#composer-scripts)
     -   [Dependencies](#dependencies)
         -   [Binaries](#binaries)
@@ -111,6 +112,8 @@ See below: [Appendix: Original documentation for Underscores starter theme](#app
 
 Clone or download this repository into your WordPress site's `themes` dir.
 
+In `webpack.common.js`, update the name of the local site dir (find "foh-starter-theme-test" and replace with the name of the local dir that contains `wp-config.php`, used during development).
+
 ### Naming conventions
 
 Decide on a namespace for your project. E.g. If your project is called Megatherium, your namespace might be `mega` (this is also called your theme slug) .
@@ -156,8 +159,22 @@ Notes:
 
 ## Scripts
 
+### NPM scripts
+
+The included `package.json` file contains handy scripts that run Webpack to build assets at different parts of the development and testing process.
+
+<!-- This table might be easier to read in markdown preview mode -->
+<!-- prettier-ignore -->
+| Script                  | Usage                             | Summary |
+| :---------------------- | :-------------------------------- | :------ |
+| `start`                 | During development                | Start dev server with hot module replacement and live reload. |
+| `dev`                   | As needed                         | Run a single build in development mode. |
+| `build-prod-in-dev-env` | To test before shipping           | Create a production build where paths resolve for the local environment (so we can test the production build locally). |
+| `build`                 | When ready to ship                | Create a shippable production build with remote paths. |
+
 ### Composer scripts
 
+<!-- This table might be easier to read in markdown preview mode -->
 <!-- prettier-ignore -->
 | Script      | Usage                         | Summary |
 | :---------- | :---------------------------- | :------ |
@@ -191,15 +208,44 @@ Notes:
 
     `$ npm install -g npm-check-updates`
 
+<!-- These tables might be easier to read in markdown preview mode -->
 <!-- prettier-ignore -->
-| devDependencies              | Purpose |
-| :--------------------------- | :------ |
-| `@wordpress/eslint-plugin`   | ESLint plugin including configurations and custom rules for WordPress development. |
-| `@wordpress/prettier-config` | WordPress Prettier shareable config for Prettier. |
+| dependencies | Purpose |
+| :----------- | :------ |
+| `core-js`    | Babel polyfills |
+
+<!-- This table might be easier to read in markdown preview mode -->
+<!-- prettier-ignore -->
+| devDependencies               | Purpose |
+| :---------------------------- | :------ |
+| `@babel/core`                 | This is Babel! But it's useless without plugins or presets (which are collections of plugins). |
+| `@babel/preset-env`           | Preset based on [caniuse](https://caniuse.com/). I decide which syntax to change depending on the project's supported browsers. |
+| `@babel/register`             | Support ES6 syntax within the Webpack config files. |
+| `@wordpress/eslint-plugin`    | ESLint plugin including configurations and custom rules for WordPress development. |
+| `@wordpress/prettier-config`  | WordPress Prettier shareable config for Prettier. |
 | `@wordpress/stylelint-config` | Adopt WordPress coding standards for S(CSS). |
-| `eslint-config-prettier`     | Turns off all rules that are unnecessary or might conflict with Prettier. |
-| `prettier`                   | Automatic code formatter (specifies the version to be used by VS Code extension). |
-| `stylelint-config-prettier`  | Turns off all rules that are unnecessary or might conflict with Prettier. |
+| `babel-loader`                | Enable Webpack to run `@babel/core`. |
+| `browser-sync`                | Enable live reloading during development. |
+| `browser-sync-webpack-plugin` | Allow BrowserSync to work with Webpack. |
+| `clean-webpack-plugin`        | Clean out old unused files from `dist/` on every build. |
+| `css-loader`                  | Enable CSS to be piped to `style-loader`. |
+| `cssnano`                     | Plugin used by postcss. Minifies CSS. |
+| `fibers`                      | Make SCSS compilation faster as recommended in [the docs](https://webpack.js.org/loaders/sass-loader/). |
+| `eslint-config-prettier`      | Turns off all rules that are unnecessary or might conflict with Prettier. |
+| `fibers`                      | Make SCSS compilation faster as recommended in [the docs](https://webpack.js.org/loaders/sass-loader/). |
+| `mini-css-extract-plugin`     | Generate static CSS files so users without JS still have a stylish time. |
+| `postcss-loader`              | Enable CSS to run through plugins before it hits `dist/`. |
+| `postcss-preset-env`          | Plugin used by postcss. Includes [Autoprefixer](http://autoprefixer.github.io/). |
+| `prettier`                    | Automatic code formatter (specifies the version to be used by VS Code extension). |
+| `sass`                        | Compile SCSS syntax into CSS. |
+| `sass-loader`                 | Enable Webpack to run `sass`. |
+| `stylelint-config-prettier`   | Turns off all rules that are unnecessary or might conflict with Prettier. |
+| `webpack`                     | Your humble bundler. |
+| `webpack-bundle-analyzer`     | On each build, display a graphical representation of bundle files and their sizes. |
+| `webpack-cli`                 | A required helper for Webpack. |
+| `webpack-dev-server`          | Enable a no-refresh dev experience, including [hot module replacement (HMR)](https://webpack.js.org/concepts/hot-module-replacement/). |
+| `webpack-manifest-plugin`     | Keep track of cacheable filenames for all assets. See detailed usage at `src/php/enqueue_assets.php`. |
+| `webpack-merge`               | Enable split config files for dev and prod purposes (and common configs to both). |
 
 ### Composer dependencies
 
@@ -253,7 +299,7 @@ Maybe we can configure it away. Here's what I tried:
     - The main advice I fount online was 'disable Prettier for Markdown'.
     - I couldn't find specific config options to customize.
     - I couldn't find documentation for `@wordpress/prettier-config`, to see which options they are.
-      <!-- TODO: where in the source should i look? -->
+          <!-- TODO: where in the source should i look? -->
 
 2. Workaround method (In use. Doesn't do what I want, but gets rid of excessive underlines).
 
