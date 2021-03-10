@@ -122,6 +122,8 @@ Decide on a namespace for your project. E.g. If your project is called Megatheri
 
 Change the theme dir name to `mega` (your slug), and then you'll need to do a multi-step find and replace on the name in all the templates.
 
+**Important:** Step through this manually with patience. Things like URLs get tricky.
+
 1. Search for `'foh'` (inside single quotations) to capture the text domain and replace with: `'mega'`.
 2. Search for `"foh"` (inside double quotations) to capture the text domain and replace with: `"mega"`.
 3. Search for `foh_` to capture all the functions names and replace with: `mega_`.
