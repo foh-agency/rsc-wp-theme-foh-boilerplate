@@ -10,6 +10,7 @@
     "GSAP"
   ],
   "homepage": "https://www.foh-agency.com/",
+  "author": "FOH Agency (https://www.foh-agency.com/)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate"
