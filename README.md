@@ -6,59 +6,59 @@
 
 <!-- TOC -->
 
--   [FOH starter theme](#foh-starter-theme)
-    -   [Contents](#contents)
-    -   [Intro](#intro)
-        -   [Pre-requisites](#pre-requisites)
-        -   [New features introduced by FOH](#new-features-introduced-by-foh)
-        -   [Underscores features removed by FOH](#underscores-features-removed-by-foh)
-            -   [Composer packages and associated scripts](#composer-packages-and-associated-scripts)
-            -   [NPM packages and associated scripts](#npm-packages-and-associated-scripts)
-            -   [Features you may want to remove for your project](#features-you-may-want-to-remove-for-your-project)
-    -   [Usage](#usage)
-        -   [Naming conventions](#naming-conventions)
-        -   [Update package information](#update-package-information)
-    -   [Scripts](#scripts)
-        -   [NPM scripts](#npm-scripts)
-        -   [Composer scripts](#composer-scripts)
-    -   [Dependencies](#dependencies)
-        -   [Binaries](#binaries)
-        -   [NPM dependencies](#npm-dependencies)
-        -   [Composer dependencies](#composer-dependencies)
-            -   [Global dependencies](#global-dependencies)
-            -   [Project dependencies](#project-dependencies)
-    -   [Workflows](#workflows)
-        -   [Linting and Formatting](#linting-and-formatting)
-            -   [Markdown: Markdownlint](#markdown-markdownlint)
-            -   [Sass / CSS: stylelint](#sass--css-stylelint)
-                -   [Stylelint extended configs](#stylelint-extended-configs)
-                -   [Troubleshooting ignore files](#troubleshooting-ignore-files)
-                -   [VS-Code overrides](#vs-code-overrides)
-            -   [JavaScript: ESLint](#javascript-eslint)
-                -   [ESLint setup](#eslint-setup)
-                -   [ESLint usage](#eslint-usage)
-            -   [PHP: PHP Code Sniffer PHPCS](#php-php-code-sniffer-phpcs)
-                -   [PHPCS setup](#phpcs-setup)
-                    -   [Links that inspired this PHPCS setup](#links-that-inspired-this-phpcs-setup)
-                -   [PHPCS usage linting](#phpcs-usage-linting)
-                -   [PHPCBF usage formatting](#phpcbf-usage-formatting)
-                    -   [Method 1: Fast and furious](#method-1-fast-and-furious)
-                    -   [Method 2: Slow and steady](#method-2-slow-and-steady)
-                -   [PHPCS false positives no need to fix these](#phpcs-false-positives-no-need-to-fix-these)
-        -   [Internationalization i18n and Localization l10n](#internationalization-i18n-and-localization-l10n)
-            -   [What gets overwritten by auto-updating with make-pot](#what-gets-overwritten-by-auto-updating-with-make-pot)
-            -   [Useful docs on i18n and l10n](#useful-docs-on-i18n-and-l10n)
-                -   [Fundamental concepts and the roles of related files .pot, .po and .mo](#fundamental-concepts-and-the-roles-of-related-files-pot-po-and-mo)
-                -   [Syntax in .pot and .po files, including comment types and auto-updates](#syntax-in-pot-and-po-files-including-comment-types-and-auto-updates)
-                -   [What's this %1$s syntax in some of the strings in the .pot file?](#whats-this-%251s-syntax-in-some-of-the-strings-in-the-pot-file)
-                -   [Bonus for deeper understanding](#bonus-for-deeper-understanding)
-    -   [Appendix: Original documentation for Underscores starter theme](#appendix-original-documentation-for-underscores-starter-theme)
-        -   [\_s](#%5C_s)
-            -   [Installation](#installation)
-                -   [Requirements](#requirements)
-                -   [Quick Start](#quick-start)
-                -   [Setup](#setup)
-                -   [Available CLI commands](#available-cli-commands)
+- [FOH starter theme](#foh-starter-theme)
+  - [Contents](#contents)
+  - [Intro](#intro)
+    - [Pre-requisites](#pre-requisites)
+    - [New features introduced by FOH](#new-features-introduced-by-foh)
+    - [Underscores features removed by FOH](#underscores-features-removed-by-foh)
+      - [Composer packages and associated scripts](#composer-packages-and-associated-scripts)
+      - [NPM packages and associated scripts](#npm-packages-and-associated-scripts)
+      - [Features you may want to remove for your project](#features-you-may-want-to-remove-for-your-project)
+  - [Usage](#usage)
+    - [Naming conventions](#naming-conventions)
+    - [Update package information](#update-package-information)
+  - [Scripts](#scripts)
+    - [NPM scripts](#npm-scripts)
+    - [Composer scripts](#composer-scripts)
+  - [Dependencies](#dependencies)
+    - [Binaries](#binaries)
+    - [NPM dependencies](#npm-dependencies)
+    - [Composer dependencies](#composer-dependencies)
+      - [Global dependencies](#global-dependencies)
+      - [Project dependencies](#project-dependencies)
+  - [Workflows](#workflows)
+    - [Linting and Formatting](#linting-and-formatting)
+      - [Markdown: Markdownlint](#markdown-markdownlint)
+      - [Sass / CSS: stylelint](#sass--css-stylelint)
+        - [Stylelint extended configs](#stylelint-extended-configs)
+        - [Troubleshooting ignore files](#troubleshooting-ignore-files)
+        - [VS-Code overrides](#vs-code-overrides)
+      - [JavaScript: ESLint](#javascript-eslint)
+        - [ESLint setup](#eslint-setup)
+        - [ESLint usage](#eslint-usage)
+      - [PHP: PHP Code Sniffer PHPCS](#php-php-code-sniffer-phpcs)
+        - [PHPCS setup](#phpcs-setup)
+          - [Links that inspired this PHPCS setup](#links-that-inspired-this-phpcs-setup)
+        - [PHPCS usage linting](#phpcs-usage-linting)
+        - [PHPCBF usage formatting](#phpcbf-usage-formatting)
+          - [Method 1: Fast and furious](#method-1-fast-and-furious)
+          - [Method 2: Slow and steady](#method-2-slow-and-steady)
+        - [PHPCS false positives no need to fix these](#phpcs-false-positives-no-need-to-fix-these)
+    - [Internationalization i18n and Localization l10n](#internationalization-i18n-and-localization-l10n)
+      - [What gets overwritten by auto-updating with make-pot](#what-gets-overwritten-by-auto-updating-with-make-pot)
+      - [Useful docs on i18n and l10n](#useful-docs-on-i18n-and-l10n)
+        - [Fundamental concepts and the roles of related files .pot, .po and .mo](#fundamental-concepts-and-the-roles-of-related-files-pot-po-and-mo)
+        - [Syntax in .pot and .po files, including comment types and auto-updates](#syntax-in-pot-and-po-files-including-comment-types-and-auto-updates)
+        - [What's this %1$s syntax in some of the strings in the .pot file?](#whats-this-%251s-syntax-in-some-of-the-strings-in-the-pot-file)
+        - [Bonus for deeper understanding](#bonus-for-deeper-understanding)
+  - [Appendix: Original documentation for Underscores starter theme](#appendix-original-documentation-for-underscores-starter-theme)
+    - [\_s](#%5C_s)
+      - [Installation](#installation)
+        - [Requirements](#requirements)
+        - [Quick Start](#quick-start)
+        - [Setup](#setup)
+        - [Available CLI commands](#available-cli-commands)
 
 <!-- /TOC -->
 
@@ -131,9 +131,14 @@ Change the theme dir name to `mega` (your slug), and then you'll need to do a mu
 5. Search for `Text Domain: foh` in `style.css` and replace with: `Text Domain: mega`.
 6. Search for `foh.pot` and replace with: `mega.pot`,
 7. Search for ` foh` (with a space before it) to capture DocBlocks and replace with: ` Mega`.
-8. Search for `foh-` (caution: manually exclude URLs) to capture prefixed handles and replace with: `mega-`.
+8. Search for `foh-` to capture prefixed handles and replace with: `mega-`.
+9. Rename files if you modify them:
+    - `languages/foh.pot` => `mega.pot`
+    - `js/foh-scroll-features.js` => `js/mega-scroll-features`
+    - `php/foh-enqueue-assets.php` => `php/mega-enqueue-assets.php`
+    - `php/foh-theme-features.php` => `php/mega-theme-features.php`
 
-Then, update the stylesheet header in `style.css`, the links in `footer.php` with your own information and rename `foh.pot` from `languages` folder to use the theme's slug.
+Then, update the stylesheet header in `style.css`, the links in `footer.php` with your own information.
 
 Note: The above instructions are an extension of the original ones that came with Underscores theme, included in the Appendix at the end of this document.
 
@@ -320,7 +325,7 @@ Maybe we can configure it away. Here's what I tried:
     - The main advice I fount online was 'disable Prettier for Markdown'.
     - I couldn't find specific config options to customize.
     - I couldn't find documentation for `@wordpress/prettier-config`, to see which options they are.
-          <!-- TODO: where in the source should i look? -->
+        <!-- TODO: where in the source should i look? -->
 
 2. Workaround method (In use. Doesn't do what I want, but gets rid of excessive underlines).
 
