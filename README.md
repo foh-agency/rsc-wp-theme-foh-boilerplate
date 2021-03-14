@@ -132,7 +132,8 @@ Change the theme dir name to `mega` (your slug), and then you'll need to do a mu
 6. Search for `foh.pot` and replace with: `mega.pot`,
 7. Search for ` foh` (with a space before it) to capture DocBlocks and replace with: ` Mega`.
 8. Search for `foh-` to capture prefixed handles and replace with: `mega-`.
-9. Rename files if you modify them:
+9. Search for `[foh` (opening bracket only, to capture function prefix) and replace with: `[mega`.
+10. Rename files if you modify them:
     - `languages/foh.pot` => `mega.pot`
     - `js/foh-scroll-features.js` => `js/mega-scroll-features`
     - `php/foh-enqueue-assets.php` => `php/mega-enqueue-assets.php`
