@@ -78,8 +78,9 @@ Familiarity with fundamental concepts of Composer, NPM, Sass, Babel, Webpack and
 
 ### New features introduced by FOH
 
--   Production: Webpack bundle optimizations and GSAP.
--   Development: Webpack dev server with BrowserSync.
+-   Set three nav menu locations (header, footer, legal)
+-   Webpack for production: Optimize bundle for caching. Include GSAP for animation.
+-   Webpack for development: Dev server with BrowserSync.
 
 ### Underscores features removed by FOH
 

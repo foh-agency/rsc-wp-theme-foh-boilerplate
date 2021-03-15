@@ -12,6 +12,33 @@
 ?>
 
 	<footer id="colophon" class="site-footer">
+		<!-- Footer menu location -->
+		<nav id="foh-footer-navigation">
+			<?php
+			wp_nav_menu(
+				array(
+					'theme_location' => 'footer',
+					'menu_id'        => 'foh-footer-menu',
+					'depth'          => 1,
+					'fallback_cb'    => false,
+				)
+			);
+			?>
+		</nav><!-- #foh-footer-navigation -->
+
+		<!-- Legal menu location -->
+		<nav id="foh-legal-navigation">
+			<?php
+			wp_nav_menu(
+				array(
+					'theme_location' => 'legal',
+					'menu_id'        => 'foh-legal-menu',
+					'fallback_cb'    => false,
+				)
+			);
+			?>
+		</nav><!-- #foh-legal-navigation -->
+
 		<div class="site-info">
 			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'foh' ) ); ?>">
 				<?php

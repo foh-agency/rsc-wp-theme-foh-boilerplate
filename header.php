@@ -47,12 +47,14 @@
 		</div><!-- .site-branding -->
 
 		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'foh' ); ?></button>
+			<button class="menu-toggle" aria-controls="foh-header-menu" aria-expanded="false"><?php esc_html_e( 'Menu', 'foh' ); ?></button>
+			<!-- Header menu location -->
 			<?php
 			wp_nav_menu(
 				array(
-					'theme_location' => 'menu-1',
-					'menu_id'        => 'primary-menu',
+					'theme_location' => 'header',
+					'menu_id'        => 'foh-header-menu',
+					'fallback_cb'    => false,
 				)
 			);
 			?>
