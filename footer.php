@@ -26,6 +26,9 @@
 			?>
 		</nav><!-- #foh-footer-navigation -->
 
+		<!-- Footer widget area 1 -->
+		<?php get_sidebar( 'footer-1' ); ?>
+
 		<!-- Legal menu location -->
 		<nav id="foh-legal-navigation">
 			<?php

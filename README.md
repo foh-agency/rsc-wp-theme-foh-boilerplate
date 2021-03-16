@@ -78,7 +78,8 @@ Familiarity with fundamental concepts of Composer, NPM, Sass, Babel, Webpack and
 
 ### New features introduced by FOH
 
--   Set three nav menu locations (header, footer, legal)
+-   Three nav menu locations (header, footer, legal)
+-   Two widget areas (sidebar, footer)
 -   Webpack for production: Optimize bundle for caching. Include GSAP for animation.
 -   Webpack for development: Dev server with BrowserSync.
 
