@@ -5,9 +5,6 @@
  * @package foh
  */
 
-/* Menu support */
-add_theme_support( 'menus' );
-
 /**
  * Add menu support and register menu locations
  */
