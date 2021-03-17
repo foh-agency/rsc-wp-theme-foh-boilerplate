@@ -135,11 +135,10 @@ Change the theme dir name to `mega` (your slug), and then you'll need to do a mu
 7. Search for ` foh` (with a space before it) to capture DocBlocks and replace with: ` Mega`.
 8. Search for `foh-` to capture prefixed handles and replace with: `mega-`.
 9. Search for `[foh` (opening bracket only, to capture function prefix) and replace with: `[mega`.
-10. Rename files if you modify them:
+10. Rename files and directories if you modify them:
     - `languages/foh.pot` => `mega.pot`
-    - `js/foh-scroll-features.js` => `js/mega-scroll-features`
-    - `php/foh-enqueue-assets.php` => `php/mega-enqueue-assets.php`
-    - `php/foh-theme-features.php` => `php/mega-theme-features.php`
+    - `src/js/foh-scroll-features.js` => `src/js/mega-scroll-features`
+    - `src/php/foh-features/` => `src/php/mega-features/`
 
 Then, update the stylesheet header in `style.css`, the links in `footer.php` with your own information.
 
@@ -668,7 +667,7 @@ patching file functions.php
 False positive identified in [Trac ticket 49539](https://core.trac.wordpress.org/ticket/49539).
 
 ```Console
-FILE: src/php/inc/template-tags.php
+FILE: src/php/underscores-features/inc/template-tags.php
 ------------------------------------------------------------------------------------------------------------------
 FOUND 2 ERRORS AFFECTING 2 LINES
 ------------------------------------------------------------------------------------------------------------------
@@ -774,14 +773,14 @@ My ultra-minimal CSS might make me look like theme tartare but that means less s
 
 -   A modern workflow with a pre-made command-line interface to turn your project into a more pleasant experience.
 -   A just right amount of lean, well-commented, modern, HTML5 templates.
--   A custom header implementation in `src/php/inc/custom-header.php`. Just add the code snippet found in the comments of `src/php/inc/custom-header.php` to your `header.php` template.
--   Custom template tags in `src/php/inc/template-tags.php` that keep your templates clean and neat and prevent code duplication.
--   Some small tweaks in `src/php/inc/template-functions.php` that can improve your theming experience.
+-   A custom header implementation in `src/php/underscores-features/inc/custom-header.php`. Just add the code snippet found in the comments of `src/php/underscores-features/inc/custom-header.php` to your `header.php` template.
+-   Custom template tags in `src/php/underscores-features/inc/template-tags.php` that keep your templates clean and neat and prevent code duplication.
+-   Some small tweaks in `src/php/underscores-features/inc/template-functions.php` that can improve your theming experience.
 -   A script at `src/js/navigation.js` that makes your menu a toggled dropdown on small screens (like your phone), ready for CSS artistry. It's enqueued in `functions.php`.
 -   2 sample layouts in `sass/layouts/` made using CSS Grid for a sidebar on either side of your content. Just uncomment the layout of your choice in `sass/style.scss`.
     Note: `.no-sidebar` styles are automatically loaded.
 -   Smartly organized starter CSS in `style.css` that will help you to quickly get your design off the ground.
--   Full support for `WooCommerce plugin` integration with hooks in `src/php/inc/woocommerce.php`, styling override woocommerce.css with product gallery features (zoom, swipe, lightbox) enabled.
+-   Full support for `WooCommerce plugin` integration with hooks in `src/php/underscores-features/inc/woocommerce.php`, styling override woocommerce.css with product gallery features (zoom, swipe, lightbox) enabled.
 -   Licensed under GPLv2 or later. :) Use it to make something cool.
 
 #### Installation

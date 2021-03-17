@@ -1,30 +1,14 @@
 <?php
 /**
- * Theme features
- * 
+ * Widget areas.
+ *
+ * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
+ *
  * @package foh
  */
 
 /**
- * Add menu support and register menu locations
- */
-function foh_nav_menus() {
-	add_theme_support( 'menus' );
-	
-	register_nav_menus(
-		array(
-			'header' => esc_html__( 'Header', 'foh' ),
-			'footer' => esc_html__( 'Footer', 'foh' ),
-			'legal'  => esc_html__( 'Legal', 'foh' ),
-		)
-	);
-}
-add_action( 'init', 'foh_nav_menus' );
-
-/**
- * Register widget areas.
- *
- * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
+ * Register widget areas 
  */
 function foh_widgets_init() {
 	// Sidebar 1.
@@ -54,14 +38,3 @@ function foh_widgets_init() {
 	);
 }
 add_action( 'widgets_init', 'foh_widgets_init' );
-
-/* Blog area */
-
-/**
- * Replaces the excerpt "Read More" text by a link
- * */
-function foh_excerpt_more() {
-	global $post;
-	return '... <a class="moretag" href="' . get_permalink( $post->ID ) . '"> Read more</a>';
-}
-add_filter( 'excerpt_more', 'foh_excerpt_more' );

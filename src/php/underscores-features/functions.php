@@ -105,26 +105,26 @@ add_action( 'after_setup_theme', 'foh_content_width', 0 );
 /**
  * Implement the Custom Header feature.
  */
-require get_template_directory() . '/src/php/inc/custom-header.php';
+require get_template_directory() . '/src/php/underscores-features/inc/custom-header.php';
 
 /**
  * Custom template tags for this theme.
  */
-require get_template_directory() . '/src/php/inc/template-tags.php';
+require get_template_directory() . '/src/php/underscores-features/inc/template-tags.php';
 
 /**
  * Functions which enhance the theme by hooking into WordPress.
  */
-require get_template_directory() . '/src/php/inc/template-functions.php';
+require get_template_directory() . '/src/php/underscores-features/inc/template-functions.php';
 
 /**
  * Customizer additions.
  */
-require get_template_directory() . '/src/php/inc/customizer.php';
+require get_template_directory() . '/src/php/underscores-features/inc/customizer.php';
 
 /**
  * Load Jetpack compatibility file.
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
-	require get_template_directory() . '/src/php/inc/jetpack.php';
+	require get_template_directory() . '/src/php/underscores-features/inc/jetpack.php';
 }

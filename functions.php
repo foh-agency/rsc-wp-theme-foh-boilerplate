@@ -1,6 +1,6 @@
 <?php
 /**
- * FOH functions and definitions
+ * Functions and definitions for FOH starter theme
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
@@ -12,17 +12,14 @@ if ( ! defined( 'FOH_VERSION' ) ) {
 	define( 'FOH_VERSION', '1.0.0' );
 }
 
-// Enqueue styles and scripts.
-require_once get_stylesheet_directory() . '/src/php/utils/foh-enqueue-assets.php';
-
-// Register menu locations and load other features.
-require_once get_stylesheet_directory() . '/src/php/utils/foh-theme-features.php';
-
-// Include things that Underscores does by default.
-require_once get_stylesheet_directory() . '/src/php/utils/underscores-theme-features.php';
+/**
+ * Housekeeping
+ */
+// Enqueue foh scripts and styles from dist/ (Webpack).
+require_once get_stylesheet_directory() . '/src/php/foh-features/enqueue-assets.php';
 
 /**
- * Enqueue scripts and styles.
+ * Enqueue Underscores scripts and styles.
  */
 function foh_scripts() {
 	wp_enqueue_style( 'foh-style', get_stylesheet_uri(), array(), FOH_VERSION );
@@ -34,3 +31,18 @@ function foh_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'foh_scripts' );
+
+/**
+ * Features
+ */
+// Load blog features.
+require_once get_stylesheet_directory() . '/src/php/foh-features/blog.php';
+
+// Load navigation features.
+require_once get_stylesheet_directory() . '/src/php/foh-features/navigation.php';
+
+// Load widget areas (also called sidebars).
+require_once get_stylesheet_directory() . '/src/php/foh-features/widget-areas.php';
+
+// Include things that Underscores does by default.
+require_once get_stylesheet_directory() . '/src/php/underscores-features/functions.php';
