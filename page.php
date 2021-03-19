@@ -31,6 +31,13 @@ get_header();
 		endwhile; // End of the loop.
 		?>
 
+		<!-- Contextual nav to prev + next siblings -->
+		<?php
+		if ( ! foh_is_top_level( $post ) ) {
+			echo wp_kses( foh_get_context_nav_links( $post ), 'post' );
+		}
+		?>
+
 	</main><!-- #main -->
 
 <?php

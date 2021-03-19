@@ -15,6 +15,7 @@ if ( ! defined( 'FOH_VERSION' ) ) {
 /**
  * Housekeeping
  */
+
 // Enqueue foh scripts and styles from dist/ (Webpack).
 require_once get_stylesheet_directory() . '/src/php/foh-features/enqueue-assets.php';
 
@@ -32,9 +33,13 @@ function foh_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'foh_scripts' );
 
+// Load utility functions.
+require_once get_stylesheet_directory() . '/src/php/foh-features/utils.php';
+
 /**
  * Features
  */
+
 // Load blog features.
 require_once get_stylesheet_directory() . '/src/php/foh-features/blog.php';
 
