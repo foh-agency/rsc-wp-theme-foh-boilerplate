@@ -24,12 +24,13 @@ get_header();
 			get_template_part( 'template-parts/content', 'page' );
 
 		endwhile; // End of the loop.
-		?>
-
-		<!-- Contextual nav to prev + next siblings -->
-		<?php
+		
 		if ( ! foh_is_top_level( $post ) ) {
+			// Link to Prev and Next pages under the same parent, if available.
 			echo wp_kses( foh_get_context_nav_links( $post ), 'post' );
+
+			// Display breadcrumbs.
+			echo wp_kses( foh_get_breadcrumbs( $post ), 'post' );
 		}
 		?>
 

@@ -22,6 +22,47 @@ function foh_nav_menus() {
 add_action( 'init', 'foh_nav_menus' );
 
 /**
+ * Get breadcrumbs for current post.
+ * 
+ * @param WP_Post $post WP_Post object.
+ * @return string $breadcrumbs div.foh-breadcrumbs
+ */
+function foh_get_breadcrumbs( $post ) {
+	$breadcrumbs = array();
+
+	// Sort higher-level posts first.
+	$ancestors = array_reverse( get_post_ancestors( $post ) );
+
+	// Start the list.
+	$breadcrumbs[] = '
+		<div class="foh-breadcrumbs">
+			<ul>
+	';
+
+	// Populate the list with links to ancestors.
+	foreach ( $ancestors as $ancestor ) {
+		$breadcrumbs[] = '<li>'
+										. '<a href="'
+										. get_permalink( $ancestor )
+										. '">'
+										. get_the_title( $ancestor )
+										. '</a>'
+										. '</li>';
+	}
+
+	// Add a final list item with the current post title.
+	$breadcrumbs[] = '<li>' . get_the_title( $post ) . '</li>';
+
+	// End the list.
+	$breadcrumbs[] = '
+			</ul>
+		</div><!-- .foh-breadcrumbs -->
+	';
+
+	return join( $breadcrumbs );
+}
+
+/**
  * Contextual navigation for subpages (Prev and Next links).
  * 
  * The functions below ensure that pages are sorted according
