@@ -78,8 +78,10 @@ Familiarity with fundamental concepts of Composer, NPM, Sass, Babel, Webpack and
 
 ### New features introduced by FOH
 
--   Three nav menu locations (header, footer, legal)
--   Contextual navigation ('prev' and 'next' links between sibling pages that aren't top level)
+-   Navigation
+    -   Three nav menu locations (header, footer, legal)
+    -   Breadcrumbs for pages that aren't top level.
+    -   Contextual navigation ('prev' and 'next' links between sibling pages that aren't top level)
 -   Two widget areas (sidebar, footer)
 -   Webpack for production: Optimize bundle for caching. Include GSAP for animation.
 -   Webpack for development: Dev server with BrowserSync.
@@ -328,7 +330,7 @@ Maybe we can configure it away. Here's what I tried:
     - The main advice I fount online was 'disable Prettier for Markdown'.
     - I couldn't find specific config options to customize.
     - I couldn't find documentation for `@wordpress/prettier-config`, to see which options they are.
-      <!-- TODO: where in the source should i look? -->
+        <!-- TODO: where in the source should i look? -->
 
 2. Workaround method (In use. Doesn't do what I want, but gets rid of excessive underlines).
 
