@@ -27,9 +27,9 @@ function foh_widgets_init() {
 	// Footer widget area 1.
 	register_sidebar(
 		array(
-			'name'          => esc_html__( 'Footer widget area 1', 'foh' ),
-			'id'            => 'footer-widgets-1',
-			'description'   => esc_html__( 'Add widgets here.', 'foh' ),
+			'name'          => esc_html__( 'Footer logo widget area', 'foh' ),
+			'id'            => 'footer-logo',
+			'description'   => esc_html__( 'Add an image widget here.', 'foh' ),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h2 class="widget-title">',

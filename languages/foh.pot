@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-03-17T19:53:33+00:00\n"
+"POT-Creation-Date: 2021-03-20T17:55:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: foh\n"
@@ -103,12 +103,15 @@ msgid "Sidebar"
 msgstr ""
 
 #: src/php/foh-features/widget-areas.php:19
-#: src/php/foh-features/widget-areas.php:32
 msgid "Add widgets here."
 msgstr ""
 
 #: src/php/foh-features/widget-areas.php:30
-msgid "Footer widget area 1"
+msgid "Footer logo widget area"
+msgstr ""
+
+#: src/php/foh-features/widget-areas.php:32
+msgid "Add an image widget here."
 msgstr ""
 
 #. translators: %s: post date.

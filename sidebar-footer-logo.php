@@ -8,11 +8,11 @@
  * @package foh
  */
 
-if ( ! is_active_sidebar( 'footer-widgets-1' ) ) {
+if ( ! is_active_sidebar( 'footer-logo' ) ) {
 	return;
 }
 ?>
 
-<div id="foh-footer-widgets-1" class="widget-area">
-	<?php dynamic_sidebar( 'footer-widgets-1' ); ?>
-</div><!-- #foh-footer-widgets-1 -->
+<div id="foh-footer-logo" class="widget-area">
+	<?php dynamic_sidebar( 'footer-logo' ); ?>
+</div><!-- #foh-footer-logo -->
