@@ -2,32 +2,32 @@
 /**
  * Navigation features
  * 
- * @package foh
+ * @package eltheme
  */
 
 /**
  * Add menu support and register menu locations
  */
-function foh_nav_menus() {
+function eltheme_nav_menus() {
 	add_theme_support( 'menus' );
 	
 	register_nav_menus(
 		array(
-			'header' => esc_html__( 'Header', 'foh' ),
-			'footer' => esc_html__( 'Footer', 'foh' ),
-			'legal'  => esc_html__( 'Legal', 'foh' ),
+			'header' => esc_html__( 'Header', 'eltheme' ),
+			'footer' => esc_html__( 'Footer', 'eltheme' ),
+			'legal'  => esc_html__( 'Legal', 'eltheme' ),
 		)
 	);
 }
-add_action( 'init', 'foh_nav_menus' );
+add_action( 'init', 'eltheme_nav_menus' );
 
 /**
  * Get breadcrumbs for current post.
  * 
  * @param WP_Post $post WP_Post object.
- * @return string $breadcrumbs div.foh-breadcrumbs
+ * @return string $breadcrumbs div.eltheme-breadcrumbs
  */
-function foh_get_breadcrumbs( $post ) {
+function eltheme_get_breadcrumbs( $post ) {
 	$breadcrumbs = array();
 
 	// Sort higher-level posts first.
@@ -35,7 +35,7 @@ function foh_get_breadcrumbs( $post ) {
 
 	// Start the list.
 	$breadcrumbs[] = '
-		<div class="foh-breadcrumbs">
+		<div class="eltheme-breadcrumbs">
 			<ul>
 	';
 
@@ -56,7 +56,7 @@ function foh_get_breadcrumbs( $post ) {
 	// End the list.
 	$breadcrumbs[] = '
 			</ul>
-		</div><!-- .foh-breadcrumbs -->
+		</div><!-- .eltheme-breadcrumbs -->
 	';
 
 	return join( $breadcrumbs );
@@ -72,7 +72,7 @@ function foh_get_breadcrumbs( $post ) {
 
 /**
  * 
- * Filter used to modify part of the query in foh_get_context_nav_links
+ * Filter used to modify part of the query in eltheme_get_context_nav_links
  * Applied to WordPress filters:
  * - get_previous_post_sort
  * - get_next_post_sort
@@ -91,14 +91,14 @@ function foh_get_breadcrumbs( $post ) {
  * expected to be invoked with the value:
  * 'ORDER BY p.post_date DESC LIMIT 1'.
  */
-function foh_sort_by_menu_order( $order_by ) {
+function eltheme_sort_by_menu_order( $order_by ) {
 	// Replace 'p.post_date' so we're sorting by 'menu_order' instead.
 	$new_order = str_replace( 'p.post_date', 'menu_order', $order_by );
 	return $new_order;
 }
 
 /**
- * Filter used to modify part of the query in foh_get_context_nav_links
+ * Filter used to modify part of the query in eltheme_get_context_nav_links
  * Applied to WordPress filters:
  * - get_previous_post_where
  * - get_next_post_where
@@ -132,7 +132,7 @@ function foh_sort_by_menu_order( $order_by ) {
  * @param WP_Post $post           WP_Post object.
  * @return string $new_where Described above.
  */
-function foh_query_adjacent_sibling_by_menu_order( $where, $in_same_term, $excluded_terms, $taxonomy, $post ) {
+function eltheme_query_adjacent_sibling_by_menu_order( $where, $in_same_term, $excluded_terms, $taxonomy, $post ) {
 	$parent_id = wp_get_post_parent_id( $post );
 
 	// Sort by menu_order.
@@ -158,21 +158,21 @@ function foh_query_adjacent_sibling_by_menu_order( $where, $in_same_term, $exclu
  * @param WP_Post $post WP_Post object.
  * @return string <nav>
  */
-function foh_get_context_nav_links( $post ) {
+function eltheme_get_context_nav_links( $post ) {
 	$parent = get_post( wp_get_post_parent_id( $post ) );
 
 	// Go by menu order instead of the default chronological order.
-	add_filter( 'get_previous_post_sort', 'foh_sort_by_menu_order' );
-	add_filter( 'get_next_post_sort', 'foh_sort_by_menu_order' );
+	add_filter( 'get_previous_post_sort', 'eltheme_sort_by_menu_order' );
+	add_filter( 'get_next_post_sort', 'eltheme_sort_by_menu_order' );
 
 	/**
 	 * Only look for prev and next pages under the same parent.
 	 * 
 	 * The final integer arg here needs to indicate the number of
-	 * args accepted by foh_query_adjacent_sibling_by_menu_order.
+	 * args accepted by eltheme_query_adjacent_sibling_by_menu_order.
 	 */
-	add_filter( 'get_previous_post_where', 'foh_query_adjacent_sibling_by_menu_order', 10, 5 );
-	add_filter( 'get_next_post_where', 'foh_query_adjacent_sibling_by_menu_order', 10, 5 );
+	add_filter( 'get_previous_post_where', 'eltheme_query_adjacent_sibling_by_menu_order', 10, 5 );
+	add_filter( 'get_next_post_where', 'eltheme_query_adjacent_sibling_by_menu_order', 10, 5 );
 
 	$args = array(
 		'prev_text'          => '%title',
@@ -192,11 +192,11 @@ function foh_get_context_nav_links( $post ) {
 	 * Remove filters so the post nav works the default way in other areas
 	 * (e.g. if it's used to navigate blog posts).
 	 */
-	remove_filter( 'get_previous_post_where', 'foh_query_adjacent_sibling_by_menu_order', 10, 5 );
-	remove_filter( 'get_next_post_where', 'foh_query_adjacent_sibling_by_menu_order', 10, 5 );
-	remove_filter( 'get_previous_post_sort', 'foh_sort_by_menu_order' );
-	remove_filter( 'get_next_post_sort', 'foh_sort_by_menu_order' );
+	remove_filter( 'get_previous_post_where', 'eltheme_query_adjacent_sibling_by_menu_order', 10, 5 );
+	remove_filter( 'get_next_post_where', 'eltheme_query_adjacent_sibling_by_menu_order', 10, 5 );
+	remove_filter( 'get_previous_post_sort', 'eltheme_sort_by_menu_order' );
+	remove_filter( 'get_next_post_sort', 'eltheme_sort_by_menu_order' );
 
 	return $nav_html;
 }
-add_action( 'wp_enqueue_scripts', 'foh_get_context_nav_links' );
+add_action( 'wp_enqueue_scripts', 'eltheme_get_context_nav_links' );

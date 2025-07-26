@@ -2,7 +2,7 @@
 import './scss/main.scss';
 
 // Local scripts
-import { initScrollableHeader } from './js/foh-scroll-features.js';
+import { initScrollableHeader } from './js/eltheme-scroll-features.js';
 
 // TODO: Consider better ways to import these default Underscores files:
 import './js/navigation.js';

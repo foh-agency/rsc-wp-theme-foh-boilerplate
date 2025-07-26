@@ -59,12 +59,12 @@ export function initScrollableHeader() {
 	}
 
 	/**
-	 * @function fohRevealLogo
+	 * @function elthemeRevealLogo
 	 * At top of page, hide the logo.
 	 * On scroll, reveal the logo (slide down and fade in)
 	 * @return {Object} gsap timeline instance
 	 */
-	function fohRevealLogo() {
+	function elthemeRevealLogo() {
 		const logoTl = gsap.timeline();
 
 		const logo = document.querySelector( '#header-logo' );
@@ -84,12 +84,12 @@ export function initScrollableHeader() {
 	}
 
 	/**
-	 * @function fohRevealEdge
+	 * @function elthemeRevealEdge
 	 * At top of page, hide the edge of the header.
 	 * On scroll, reveal a border and shadow.
 	 * @return {Object} gsap timeline instance
 	 */
-	function fohRevealEdge() {
+	function elthemeRevealEdge() {
 		const shadowTl = gsap.timeline();
 
 		const header = document.querySelector( '#masthead' );
@@ -109,5 +109,5 @@ export function initScrollableHeader() {
 		return shadowTl;
 	}
 
-	triggerTimelines( [ fohRevealLogo, fohRevealEdge ] );
+	triggerTimelines( [ elthemeRevealLogo, elthemeRevealEdge ] );
 }

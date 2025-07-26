@@ -24,7 +24,7 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'foh' ); ?></a>
+	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'eltheme' ); ?></a>
 
 	<header id="masthead" class="site-header">
 		<div id="header-logo">
@@ -39,21 +39,21 @@
 				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
 				<?php
 			endif;
-			$foh_description = get_bloginfo( 'description', 'display' );
-			if ( $foh_description || is_customize_preview() ) :
+			$eltheme_description = get_bloginfo( 'description', 'display' );
+			if ( $eltheme_description || is_customize_preview() ) :
 				?>
-				<p class="site-description"><?php echo $foh_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+				<p class="site-description"><?php echo $eltheme_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
 			<?php endif; ?>
 		</div><!-- #header-logo -->
 
 		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="foh-header-menu" aria-expanded="false"><?php esc_html_e( 'Menu', 'foh' ); ?></button>
+			<button class="menu-toggle" aria-controls="eltheme-header-menu" aria-expanded="false"><?php esc_html_e( 'Menu', 'eltheme' ); ?></button>
 			<!-- Header menu location -->
 			<?php
 			wp_nav_menu(
 				array(
 					'theme_location' => 'header',
-					'menu_id'        => 'foh-header-menu',
+					'menu_id'        => 'eltheme-header-menu',
 					'fallback_cb'    => false,
 				)
 			);

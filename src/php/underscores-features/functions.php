@@ -5,7 +5,7 @@
  * @package _s
  */
 
-if ( ! function_exists( 'foh_setup' ) ) :
+if ( ! function_exists( 'eltheme_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
 	 *
@@ -13,14 +13,14 @@ if ( ! function_exists( 'foh_setup' ) ) :
 	 * runs before the init hook. The init hook is too late for some features, such
 	 * as indicating support for post thumbnails.
 	 */
-	function foh_setup() {
+	function eltheme_setup() {
 		/*
 		 * Make theme available for translation.
 		 * Translations can be filed in the /languages/ directory.
 		 * If you're building a theme based on FOH, use a find and replace
-		 * to change 'foh' to the name of your theme in all the template files.
+		 * to change 'eltheme' to the name of your theme in all the template files.
 		 */
-		load_theme_textdomain( 'foh', get_template_directory() . '/languages' );
+		load_theme_textdomain( 'eltheme', get_template_directory() . '/languages' );
 
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );
@@ -61,7 +61,7 @@ if ( ! function_exists( 'foh_setup' ) ) :
 		add_theme_support(
 			'custom-background',
 			apply_filters(
-				'foh_custom_background_args',
+				'eltheme_custom_background_args',
 				array(
 					'default-color' => 'ffffff',
 					'default-image' => '',
@@ -88,7 +88,7 @@ if ( ! function_exists( 'foh_setup' ) ) :
 		);
 	}
 endif;
-add_action( 'after_setup_theme', 'foh_setup' );
+add_action( 'after_setup_theme', 'eltheme_setup' );
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -97,10 +97,10 @@ add_action( 'after_setup_theme', 'foh_setup' );
  *
  * @global int $content_width
  */
-function foh_content_width() {
-	$GLOBALS['content_width'] = apply_filters( 'foh_content_width', 640 );
+function eltheme_content_width() {
+	$GLOBALS['content_width'] = apply_filters( 'eltheme_content_width', 640 );
 }
-add_action( 'after_setup_theme', 'foh_content_width', 0 );
+add_action( 'after_setup_theme', 'eltheme_content_width', 0 );
 
 /**
  * Implement the Custom Header feature.

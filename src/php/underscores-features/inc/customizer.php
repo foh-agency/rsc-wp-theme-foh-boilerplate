@@ -10,7 +10,7 @@
  *
  * @param WP_Customize_Manager $wp_customize Theme Customizer object.
  */
-function foh_customize_register( $wp_customize ) {
+function eltheme_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
 	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
@@ -20,26 +20,26 @@ function foh_customize_register( $wp_customize ) {
 			'blogname',
 			array(
 				'selector'        => '.site-title a',
-				'render_callback' => 'foh_customize_partial_blogname',
+				'render_callback' => 'eltheme_customize_partial_blogname',
 			)
 		);
 		$wp_customize->selective_refresh->add_partial(
 			'blogdescription',
 			array(
 				'selector'        => '.site-description',
-				'render_callback' => 'foh_customize_partial_blogdescription',
+				'render_callback' => 'eltheme_customize_partial_blogdescription',
 			)
 		);
 	}
 }
-add_action( 'customize_register', 'foh_customize_register' );
+add_action( 'customize_register', 'eltheme_customize_register' );
 
 /**
  * Render the site title for the selective refresh partial.
  *
  * @return void
  */
-function foh_customize_partial_blogname() {
+function eltheme_customize_partial_blogname() {
 	bloginfo( 'name' );
 }
 
@@ -48,14 +48,14 @@ function foh_customize_partial_blogname() {
  *
  * @return void
  */
-function foh_customize_partial_blogdescription() {
+function eltheme_customize_partial_blogdescription() {
 	bloginfo( 'description' );
 }
 
 /**
  * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
  */
-function foh_customize_preview_js() {
-	wp_enqueue_script( 'foh-customizer', get_template_directory_uri() . '/src/js/customizer.js', array( 'customize-preview' ), FOH_VERSION, true );
+function eltheme_customize_preview_js() {
+	wp_enqueue_script( 'eltheme-customizer', get_template_directory_uri() . '/src/js/customizer.js', array( 'customize-preview' ), ELTHEME_VERSION, true );
 }
-add_action( 'customize_preview_init', 'foh_customize_preview_js' );
+add_action( 'customize_preview_init', 'eltheme_customize_preview_js' );

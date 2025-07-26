@@ -14,33 +14,33 @@
 /**
  * Set up the WordPress core custom header feature.
  *
- * @uses foh_header_style()
+ * @uses eltheme_header_style()
  */
-function foh_custom_header_setup() {
+function eltheme_custom_header_setup() {
 	add_theme_support(
 		'custom-header',
 		apply_filters(
-			'foh_custom_header_args',
+			'eltheme_custom_header_args',
 			array(
 				'default-image'      => '',
 				'default-text-color' => '000000',
 				'width'              => 1000,
 				'height'             => 250,
 				'flex-height'        => true,
-				'wp-head-callback'   => 'foh_header_style',
+				'wp-head-callback'   => 'eltheme_header_style',
 			)
 		)
 	);
 }
-add_action( 'after_setup_theme', 'foh_custom_header_setup' );
+add_action( 'after_setup_theme', 'eltheme_custom_header_setup' );
 
-if ( ! function_exists( 'foh_header_style' ) ) :
+if ( ! function_exists( 'eltheme_header_style' ) ) :
 	/**
 	 * Styles the header image and text displayed on the blog.
 	 *
-	 * @see foh_custom_header_setup().
+	 * @see eltheme_custom_header_setup().
 	 */
-	function foh_header_style() {
+	function eltheme_header_style() {
 		$header_text_color = get_header_textcolor();
 
 		/*
