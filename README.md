@@ -245,16 +245,13 @@ The included `package.json` file contains handy scripts that run Webpack to buil
 | `clean-webpack-plugin`        | Clean out old unused files from `dist/` on every build. |
 | `css-loader`                  | Enable CSS to be piped to `style-loader`. |
 | `cssnano`                     | Plugin used by postcss. Minifies CSS. |
-| `fibers`                      | Make SCSS compilation faster as recommended in [the docs](https://webpack.js.org/loaders/sass-loader/). |
 | `eslint-config-prettier`      | Turns off all rules that are unnecessary or might conflict with Prettier. |
-| `fibers`                      | Make SCSS compilation faster as recommended in [the docs](https://webpack.js.org/loaders/sass-loader/). |
 | `mini-css-extract-plugin`     | Generate static CSS files so users without JS still have a stylish time. |
 | `postcss-loader`              | Enable CSS to run through plugins before it hits `dist/`. |
 | `postcss-preset-env`          | Plugin used by postcss. Includes [Autoprefixer](http://autoprefixer.github.io/). |
 | `prettier`                    | Automatic code formatter (specifies the version to be used by VS Code extension). |
 | `sass`                        | Compile SCSS syntax into CSS. |
 | `sass-loader`                 | Enable Webpack to run `sass`. |
-| `stylelint-config-prettier`   | Turns off all rules that are unnecessary or might conflict with Prettier. |
 | `webpack`                     | Your humble bundler. |
 | `webpack-bundle-analyzer`     | On each build, display a graphical representation of bundle files and their sizes. |
 | `webpack-cli`                 | A required helper for Webpack. |
