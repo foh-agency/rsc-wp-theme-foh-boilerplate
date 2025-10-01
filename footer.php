@@ -45,7 +45,7 @@
 		<div class="site-info">
 			<?php $eltheme_blog_info = get_bloginfo( 'name' ); ?>
 			<?php if ( ! empty( $eltheme_blog_info ) ) : ?>
-				<?php echo esc_html( sprintf( '&copy; %s %s', $eltheme_blog_info, strftime( '%G' ) ) ); ?>
+				<?php echo esc_html( sprintf( '&copy; %s %s', $eltheme_blog_info, date_format( date_create(), 'o' ) ) ); ?>
 			<?php endif; ?>
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->
