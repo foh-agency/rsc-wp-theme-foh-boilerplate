@@ -17,7 +17,7 @@ if ( ! defined( 'ELTHEME_VERSION' ) ) {
  */
 
 // Enqueue eltheme scripts and styles from dist/ (Webpack).
-require_once get_stylesheet_directory() . '/src/php/eltheme-features/enqueue-assets.php';
+require_once get_stylesheet_directory() . '/src/php/theme-features/enqueue-assets.php';
 
 /**
  * Enqueue Underscores scripts and styles.
@@ -34,20 +34,20 @@ function eltheme_scripts() {
 add_action( 'wp_enqueue_scripts', 'eltheme_scripts' );
 
 // Load utility functions.
-require_once get_stylesheet_directory() . '/src/php/eltheme-features/utils.php';
+require_once get_stylesheet_directory() . '/src/php/theme-features/utils.php';
 
 /**
  * Features
  */
 
 // Load blog features.
-require_once get_stylesheet_directory() . '/src/php/eltheme-features/blog.php';
+require_once get_stylesheet_directory() . '/src/php/theme-features/blog.php';
 
 // Load navigation features.
-require_once get_stylesheet_directory() . '/src/php/eltheme-features/navigation.php';
+require_once get_stylesheet_directory() . '/src/php/theme-features/navigation.php';
 
 // Load widget areas (also called sidebars).
-require_once get_stylesheet_directory() . '/src/php/eltheme-features/widget-areas.php';
+require_once get_stylesheet_directory() . '/src/php/theme-features/widget-areas.php';
 
 // Include things that Underscores does by default.
 require_once get_stylesheet_directory() . '/src/php/underscores-features/functions.php';
