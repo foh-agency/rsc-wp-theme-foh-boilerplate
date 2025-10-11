@@ -40,7 +40,6 @@
     "@wordpress/stylelint-config": "^23.21.0",
     "babel-loader": "^10.0.0",
     "browser-sync": "^3.0.4",
-    "browser-sync-webpack-plugin": "^2.4.0",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^7.1.2",
     "cssnano": "^7.1.1",
