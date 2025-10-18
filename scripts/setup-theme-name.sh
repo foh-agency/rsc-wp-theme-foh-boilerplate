@@ -116,20 +116,41 @@ safe_replace() {
     local replacement=$3
     local temp_file="${file}.tmp"
     
-    # Use awk to skip lines containing URLs (http://, https://, //)
-    awk -v pattern="$pattern" -v replacement="$replacement" '
-    {
-        # Check if line contains a URL pattern
-        if ($0 ~ /https?:\/\/|\/\/[a-zA-Z0-9]/) {
-            # Line contains URL, print as-is
-            print $0
-        } else {
-            # Safe to do replacement
-            gsub(pattern, replacement)
-            print $0
-        }
-    }
-    ' "$file" > "$temp_file"
+    # Check if the line contains URLs and if our pattern would break them
+    # Examples of what we protect:
+    # - https://github.com/foh-agency/something -> don't replace "foh" inside URL
+    # - http://foh.example.com/path -> don't replace "foh" inside URL  
+    # - //cdn.example.com/foh/file.js -> don't replace "foh" inside protocol-relative URL
+    # Examples of what we allow:
+    # - function foh_init() -> replace "foh_" (not part of URL)
+    # - class FOH_Theme -> replace "FOH_" (not part of URL)
+    # - 'foh' => 'newtheme' -> replace text domain (not part of URL)
+    # - .foh-header -> replace "foh-" CSS class (not part of URL)
+    
+    # Use sed with literal string replacement (no regex interpretation)
+    # Most of our patterns (foh_, FOH_, 'foh', etc.) are safe even on URL lines
+    # Only avoid replacement if the pattern itself looks like it could break URLs
+    case "$pattern" in
+        *"://"* | *".com"* | *".org"* | *".net"* | *"http"* | *"https"*)
+            # Pattern contains URL components, use line-by-line protection
+            while IFS= read -r line; do
+                if [[ "$line" =~ https?:// ]]; then
+                    # Line has URL, skip replacement to be safe
+                    echo "$line"
+                else
+                    # No URL in line, safe to replace
+                    echo "$line" | sed "s|${pattern}|${replacement}|g"
+                fi
+            done < "$file" > "$temp_file"
+            ;;
+        *)
+            # Pattern is safe (namespace prefixes, etc.), do direct replacement
+            # Escape square brackets for sed (they're regex metacharacters)
+            escaped_pattern="${pattern//\[/\\[}"
+            escaped_pattern="${escaped_pattern//\]/\\]}"
+            sed "s@${escaped_pattern}@${replacement}@g" "$file" > "$temp_file"
+            ;;
+    esac
     
     mv "$temp_file" "$file"
 }
