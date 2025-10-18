@@ -215,7 +215,8 @@ get_theme_slug() {
     echo
     echo "Note: Use only lowercase letters (no numbers or special characters)"
     echo
-    read -p "Theme slug: " THEME_SLUG
+    read -p "Theme slug (mega): " THEME_SLUG
+    THEME_SLUG=${THEME_SLUG:-mega}
 
     # Validate slug
     if ! validate_slug "$THEME_SLUG"; then
@@ -233,8 +234,10 @@ get_theme_slug() {
     echo "  Title Case: ${THEME_SLUG_TITLE}"
     echo
     
-    read -p "Does this look correct? (y/n): " -n 1 -r
+    read -p "Does this look correct? [Y/n]: " -n 1 -r
     echo
+    # Default to 'y' if empty (just Enter pressed)
+    REPLY=${REPLY:-y}
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         print_error "Setup cancelled."
         exit 1
@@ -248,25 +251,16 @@ get_theme_info() {
     echo
     
     # Get theme name
-    read -p "Enter theme name (e.g., 'Megatherium Theme'): " -r THEME_NAME
-    while [[ -z "$THEME_NAME" ]]; do
-        print_error "Theme name cannot be empty."
-        read -p "Enter theme name: " -r THEME_NAME
-    done
+    read -p "Enter theme name (Megatherium Theme): " -r THEME_NAME
+    THEME_NAME=${THEME_NAME:-"Megatherium Theme"}
     
     # Get theme description
-    read -p "Enter theme description: " -r THEME_DESCRIPTION
-    while [[ -z "$THEME_DESCRIPTION" ]]; do
-        print_error "Theme description cannot be empty."
-        read -p "Enter theme description: " -r THEME_DESCRIPTION
-    done
+    read -p "Enter theme description (A test WordPress theme): " -r THEME_DESCRIPTION
+    THEME_DESCRIPTION=${THEME_DESCRIPTION:-"A test WordPress theme"}
     
     # Get author name
-    read -p "Enter author name: " -r THEME_AUTHOR
-    while [[ -z "$THEME_AUTHOR" ]]; do
-        print_error "Author name cannot be empty."
-        read -p "Enter author name: " -r THEME_AUTHOR
-    done
+    read -p "Enter author name (Test Author): " -r THEME_AUTHOR
+    THEME_AUTHOR=${THEME_AUTHOR:-"Test Author"}
 }
 
 # Function to get and validate repository URL
@@ -276,11 +270,8 @@ get_repository_url() {
     echo "Enter the GitHub URL (HTTPS or SSH format):"
     echo "  HTTPS: https://github.com/username/repo-name"
     echo "  SSH:   git@github.com:username/repo-name.git"
-    read -p "Repository URL: " -r REPO_URL
-    while [[ -z "$REPO_URL" ]]; do
-        print_error "Repository URL cannot be empty."
-        read -p "Repository URL: " -r REPO_URL
-    done
+    read -p "Repository URL (https://github.com/testuser/test-theme): " -r REPO_URL
+    REPO_URL=${REPO_URL:-"https://github.com/testuser/test-theme"}
     
     # Convert SSH format to HTTPS if needed
     if [[ "$REPO_URL" =~ ^git@github\.com: ]]; then
@@ -315,8 +306,10 @@ get_final_confirmation() {
     echo
     echo -e "${BOLD}Are you ready to modify files in place?${NC}"
     print_warning "Make sure you have a backup or clean git state!"
-    read -p "Continue? (y/n): " -n 1 -r
+    read -p "Continue? [Y/n]: " -n 1 -r
     echo
+    # Default to 'y' if empty (just Enter pressed)  
+    REPLY=${REPLY:-y}
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         print_error "Setup cancelled."
         exit 1
