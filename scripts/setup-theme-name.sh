@@ -10,6 +10,9 @@
 # -o pipefail  Fail if any command in the pipe fails, not just the last one.
 set -euo pipefail
 
+# Disable terminal bell
+set bell-style none 2>/dev/null || true
+
 # Options to debug this script
 # set -x # Debug
 # set -v # Verbose
