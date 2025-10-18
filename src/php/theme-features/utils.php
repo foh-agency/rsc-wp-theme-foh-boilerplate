@@ -2,7 +2,7 @@
 /**
  * Utility functions.
  *
- * @package eltheme
+ * @package foh
  */
 
 /**
@@ -11,7 +11,7 @@
  * @param WP_Post $post WP_Post object.
  * @return bool is_top_level
  */
-function eltheme_is_top_level( $post ) {
+function foh_is_top_level( $post ) {
 	$levels_deep = count( get_post_ancestors( $post ) );
 	return 0 === $levels_deep;
 }

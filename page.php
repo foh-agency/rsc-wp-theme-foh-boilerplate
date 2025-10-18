@@ -25,12 +25,12 @@ get_header();
 
 		endwhile; // End of the loop.
 		
-		if ( ! eltheme_is_top_level( $post ) ) {
+		if ( ! foh_is_top_level( $post ) ) {
 			// Link to Prev and Next pages under the same parent, if available.
-			echo wp_kses( eltheme_get_context_nav_links( $post ), 'post' );
+			echo wp_kses( foh_get_context_nav_links( $post ), 'post' );
 
 			// Display breadcrumbs.
-			echo wp_kses( eltheme_get_breadcrumbs( $post ), 'post' );
+			echo wp_kses( foh_get_breadcrumbs( $post ), 'post' );
 		}
 		?>
 

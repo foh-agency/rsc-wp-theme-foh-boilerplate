@@ -22,14 +22,14 @@
 			?>
 			<div class="entry-meta">
 				<?php
-				eltheme_posted_on();
-				eltheme_posted_by();
+				foh_posted_on();
+				foh_posted_by();
 				?>
 			</div><!-- .entry-meta -->
 		<?php endif; ?>
 	</header><!-- .entry-header -->
 
-	<?php eltheme_post_thumbnail(); ?>
+	<?php foh_post_thumbnail(); ?>
 
 	<div class="entry-content">
 		<?php
@@ -37,7 +37,7 @@
 			sprintf(
 				wp_kses(
 					/* translators: %s: Name of current post. Only visible to screen readers */
-					__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'eltheme' ),
+					__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'foh' ),
 					array(
 						'span' => array(
 							'class' => array(),
@@ -50,7 +50,7 @@
 
 		wp_link_pages(
 			array(
-				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'eltheme' ),
+				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'foh' ),
 				'after'  => '</div>',
 			)
 		);
@@ -58,6 +58,6 @@
 	</div><!-- .entry-content -->
 
 	<footer class="entry-footer">
-		<?php eltheme_entry_footer(); ?>
+		<?php foh_entry_footer(); ?>
 	</footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->

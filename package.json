@@ -1,5 +1,5 @@
 {
-  "name": "eltheme",
+  "name": "foh",
   "version": "1.0.0",
   "description": "Custom WordPress theme boilerplate based on Underscores, with Webpack and GSAP.",
   "license": "ISC",
@@ -9,14 +9,14 @@
     "Webpack",
     "GSAP"
   ],
-  "homepage": "https://www.evalarumbe.com/",
+  "homepage": "https://www.foh-agency.com/",
   "author": "FOH Agency (https://www.foh-agency.com/)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/foh-agency/prj-wp-theme-evalarumbe"
+    "url": "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate"
   },
   "bugs": {
-    "url": "https://github.com/foh-agency/prj-wp-theme-evalarumbe/issues"
+    "url": "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate/issues"
   },
   "browserslist": [
     "defaults"

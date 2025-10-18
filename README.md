@@ -1,4 +1,4 @@
-# EL Theme
+# FOH Theme
 Based on FOH starter theme
 
 <!-- The tables in this document might be easier to read in markdown preview mode -->
@@ -7,7 +7,7 @@ Based on FOH starter theme
 
 <!-- TOC -->
 
-- [EL Theme](#el-theme)
+- [FOH Theme](#foh-theme)
   - [Contents](#contents)
   - [Intro to FOH starter theme](#intro-to-foh-starter-theme)
     - [Pre-requisites](#pre-requisites)

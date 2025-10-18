@@ -7,31 +7,31 @@
  * @package FOH
  */
 
-if ( ! defined( 'ELTHEME_VERSION' ) ) {
+if ( ! defined( 'FOH_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( 'ELTHEME_VERSION', '1.0.0' );
+	define( 'FOH_VERSION', '1.0.0' );
 }
 
 /**
  * Housekeeping
  */
 
-// Enqueue eltheme scripts and styles from dist/ (Webpack).
+// Enqueue foh scripts and styles from dist/ (Webpack).
 require_once get_stylesheet_directory() . '/src/php/theme-features/enqueue-assets.php';
 
 /**
  * Enqueue Underscores scripts and styles.
  */
-function eltheme_scripts() {
-	wp_enqueue_style( 'eltheme-style', get_stylesheet_uri(), array(), ELTHEME_VERSION );
+function foh_scripts() {
+	wp_enqueue_style( 'foh-style', get_stylesheet_uri(), array(), FOH_VERSION );
 
-	wp_enqueue_script( 'eltheme-navigation', get_template_directory_uri() . '/src/js/navigation.js', array(), ELTHEME_VERSION, true );
+	wp_enqueue_script( 'foh-navigation', get_template_directory_uri() . '/src/js/navigation.js', array(), FOH_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'eltheme_scripts' );
+add_action( 'wp_enqueue_scripts', 'foh_scripts' );
 
 // Load utility functions.
 require_once get_stylesheet_directory() . '/src/php/theme-features/utils.php';
