@@ -109,6 +109,18 @@ generate_title_case() {
     echo "$(tr '[:lower:]' '[:upper:]' <<< ${slug:0:1})${slug:1}"
 }
 
+# Simple function to replace [foh with [theme_slug (no closing bracket)
+replace_bracket_foh() {
+    local file=$1
+    local theme_slug=$2
+    local temp_file="${file}.tmp"
+    
+    # Use sed with a simple literal replacement
+    # The pattern \\\\[foh becomes \[foh in the actual search
+    sed 's/\\\[foh/['"${theme_slug}"'/g' "$file" > "$temp_file"
+    mv "$temp_file" "$file"
+}
+
 # Function to perform safe replacement (avoiding URLs)
 safe_replace() {
     local file=$1
@@ -116,41 +128,17 @@ safe_replace() {
     local replacement=$3
     local temp_file="${file}.tmp"
     
-    # Check if the line contains URLs and if our pattern would break them
-    # Examples of what we protect:
-    # - https://github.com/foh-agency/something -> don't replace "foh" inside URL
-    # - http://foh.example.com/path -> don't replace "foh" inside URL  
-    # - //cdn.example.com/foh/file.js -> don't replace "foh" inside protocol-relative URL
-    # Examples of what we allow:
-    # - function foh_init() -> replace "foh_" (not part of URL)
-    # - class FOH_Theme -> replace "FOH_" (not part of URL)
-    # - 'foh' => 'newtheme' -> replace text domain (not part of URL)
-    # - .foh-header -> replace "foh-" CSS class (not part of URL)
-    
-    # Use sed with literal string replacement (no regex interpretation)
-    # Most of our patterns (foh_, FOH_, 'foh', etc.) are safe even on URL lines
-    # Only avoid replacement if the pattern itself looks like it could break URLs
-    case "$pattern" in
-        *"://"* | *".com"* | *".org"* | *".net"* | *"http"* | *"https"*)
-            # Pattern contains URL components, use line-by-line protection
-            while IFS= read -r line; do
-                if [[ "$line" =~ https?:// ]]; then
-                    # Line has URL, skip replacement to be safe
-                    echo "$line"
-                else
-                    # No URL in line, safe to replace
-                    echo "$line" | sed "s|${pattern}|${replacement}|g"
-                fi
-            done < "$file" > "$temp_file"
-            ;;
-        *)
-            # Pattern is safe (namespace prefixes, etc.), do direct replacement
-            # Escape square brackets for sed (they're regex metacharacters)
-            escaped_pattern="${pattern//\[/\\[}"
-            escaped_pattern="${escaped_pattern//\]/\\]}"
-            sed "s@${escaped_pattern}@${replacement}@g" "$file" > "$temp_file"
-            ;;
-    esac
+    # Simple logic: only protect foh when it's part of foh-agency.com
+    # Everything else gets replaced normally
+    while IFS= read -r line; do
+        if [[ "$line" == *"foh-agency.com"* ]]; then
+            # Line contains foh-agency.com, don't replace to avoid breaking the URL
+            echo "$line"
+        else
+            # Safe to replace - no foh-agency.com URL to protect
+            echo "$line" | sed "s@${pattern}@${replacement}@g"
+        fi
+    done < "$file" > "$temp_file"
     
     mv "$temp_file" "$file"
 }
@@ -429,7 +417,7 @@ main() {
     # Step 9: Replace [foh function prefix in comments
     print_info "Step 9/11: Replacing function prefix in brackets..."
     while read -r file; do
-        safe_replace "$file" "\\\\[foh" "[${THEME_SLUG}"
+        replace_bracket_foh "$file" "${THEME_SLUG}"
     done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
     print_success "Function prefix in brackets replaced"
 
