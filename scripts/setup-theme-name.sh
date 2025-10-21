@@ -24,15 +24,17 @@ set bell-style none 2>/dev/null || true
 # CONSTANTS
 
 # Colors for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
+RED='\033[1;31m'
+GREEN='\033[1;32m'
 YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
+BLUE='\033[1;34m'
 BOLD='\033[1m'
 NC='\033[0m' # No Color
 
 # Common exclusion paths for find commands (global variable)
-EXCLUDE_PATHS='-not -path "*/node_modules/*" -not -path "*/vendor/*" -not -path "*/dist/*"'
+EXCLUDE_PATHS='-not -path "*/dist/*" \
+              -not -path "*/node_modules/*" \
+              -not -path "*/vendor/*"'
 
 # File extensions that should be processed (text files only)
 TEXT_FILE_EXTENSIONS='-name "*.php" -o -name "*.js" -o -name "*.css" -o -name "*.scss" -o -name "*.json" -o -name "*.md" -o -name "*.txt" -o -name "*.pot" -o -name "*.xml" -o -name "*.yml" -o -name "*.yaml" -o -name "*.ini" -o -name "*.conf"'
