@@ -2,7 +2,7 @@
 /**
  * Navigation features
  * 
- * @package foh
+ * @package FOH
  */
 
 /**

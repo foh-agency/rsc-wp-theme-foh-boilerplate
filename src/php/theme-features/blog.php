@@ -2,7 +2,7 @@
 /**
  * Blog features
  * 
- * @package foh
+ * @package FOH
  */
 
 /**

@@ -2,7 +2,7 @@
 /**
  * Utility functions.
  *
- * @package foh
+ * @package FOH
  */
 
 /**
