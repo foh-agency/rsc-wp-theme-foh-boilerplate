@@ -195,10 +195,6 @@ get_theme_info() {
     # Get theme description
     read -p "Enter theme description (A test WordPress theme): " -r THEME_DESCRIPTION
     THEME_DESCRIPTION=${THEME_DESCRIPTION:-"A test WordPress theme"}
-    
-    # Get author name
-    read -p "Enter author name (Test Author): " -r THEME_AUTHOR
-    THEME_AUTHOR=${THEME_AUTHOR:-"Test Author"}
 }
 
 # Function to get and validate repository URL
@@ -429,7 +425,6 @@ update_theme_header() {
     sed -i.bak \
         -e "s/^Theme Name:.*/Theme Name: ${THEME_NAME}/" \
         -e "s/^Description:.*/Description: ${THEME_DESCRIPTION}/" \
-        -e "s/^Author:.*/Author: ${THEME_AUTHOR}/" \
         -e "s/Text Domain: foh/Text Domain: ${THEME_SLUG}/g" \
         style.css
     
@@ -506,7 +501,7 @@ show_completion_summary() {
     echo "  • Hyphen prefixes (excluding special names and URLs): foh- → ${THEME_SLUG}-"
     echo "  • Slugs with slashes: /foh → /${THEME_SLUG}"
     echo "  • Camel prefixes: fohFooBar → ${THEME_SLUG}FooBar"
-    echo "  • Theme info: ${THEME_NAME} by ${THEME_AUTHOR}"
+    echo "  • Theme name: ${THEME_NAME}"
     echo "  • Repository: ${REPO_URL}"
     echo
     print_warning "📋 Your manual next steps:"
