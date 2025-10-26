@@ -30,10 +30,24 @@ BOLD='\033[1m'
 NC='\033[0m' # No Color
 
 # Common exclusion paths for find commands (global variable)
-EXCLUDE_PATHS='-not -path "*/node_modules/*" -not -path "*/vendor/*" -not -path "*/dist/*"'
+EXCLUDE_PATHS=(-not -path "*/node_modules/*" \
+               -not -path "*/vendor/*" \
+               -not -path "*/dist/*")
 
 # File extensions that should be processed (text files only)
-TEXT_FILE_EXTENSIONS='-name "*.php" -o -name "*.js" -o -name "*.css" -o -name "*.scss" -o -name "*.json" -o -name "*.md" -o -name "*.txt" -o -name "*.pot" -o -name "*.xml" -o -name "*.yml" -o -name "*.yaml" -o -name "*.ini" -o -name "*.conf"'
+TEXT_FILE_EXTENSIONS=( \( -name "*.conf" \
+                        -o -name "*.css" \
+                        -o -name "*.ini" \
+                        -o -name "*.js" \
+                        -o -name "*.json" \
+                        -o -name "*.md" \
+                        -o -name "*.php"\
+                        -o -name "*.pot" \
+                        -o -name "*.scss" \
+                        -o -name "*.txt" \
+                        -o -name "*.xml" \
+                        -o -name "*.yaml" \
+                        -o -name "*.yml" \) )
 
 # LOGGERS
 
