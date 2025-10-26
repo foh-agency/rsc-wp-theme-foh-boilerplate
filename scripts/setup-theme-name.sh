@@ -26,7 +26,8 @@ error_handler() {
     local line_number=$1
     echo "ERROR: Script failed at line $line_number with exit code $exit_code" >&2
     echo "Command: ${BASH_COMMAND}" >&2
-    exit $exit_code
+    # Kill the entire process group to ensure main script exits upon subshell error
+    kill -TERM 0 2>/dev/null || exit $exit_code
 }
 
 # Set up ERR trap to catch all errors, even in functions and subshells
