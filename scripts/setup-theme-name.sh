@@ -337,7 +337,22 @@ replace_pot_references() {
 # Callback function for handle prefixes
 replace_handle_prefixes() {
     local file="$1"
-    safe_replace "$file" "foh-" "${THEME_SLUG}-"
+    local pattern="foh-"
+    local replacement="${THEME_SLUG}-"
+    local temp_file="${file}.tmp"
+    
+    # Protect URLs
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        if [[ "$line" == *"http"* ]] || [[ "$line" == *"github.com"* ]] || [[ "$line" == *"foh-agency.com"* ]]; then
+            # Line contains any URL, don't replace to avoid breaking URLs
+            echo "$line"
+        else
+            # Safe to replace - no URLs to protect
+            echo "$line" | sed "s@${pattern}@${replacement}@g"
+        fi
+    done < "$file" > "$temp_file"
+    
+    mv "$temp_file" "$file"
 }
 
 # Callback function for docblocks
@@ -502,10 +517,11 @@ main() {
     # update_theme_header || return 1
     # update_pot_references || return 1
     # update_docblocks || return 1
-    # TODO: SHOULD NOT MATCH URLS BUT CURRENTLY DOES: update_handle_prefixes || return 1
+    # TODO: SHOULD NOT MATCH URLS BUT CURRENTLY DOES: 
+    update_handle_prefixes || return 1
     # TODO: update_bracket_references || return 1
     # update_repo_urls || return 1
-    rename_files || return 1
+    # rename_files || return 1
 
     # Only show completion summary if all steps succeeded
     show_completion_summary
