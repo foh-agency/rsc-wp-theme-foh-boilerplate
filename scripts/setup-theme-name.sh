@@ -289,13 +289,13 @@ update_text_domains() {
     print_info "Step 1/11: Replacing text domain in single quotes..."
     while read -r file; do
         safe_replace "$file" "'foh'" "'${THEME_SLUG}'" || return 1
-    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
+    done < <(find . -type f "${TEXT_FILE_EXTENSIONS[@]}" "${EXCLUDE_PATHS[@]}")
     print_success "Text domain (single quotes) replaced"
 
     print_info "Step 2/11: Replacing text domain in double quotes..."
     while read -r file; do
         safe_replace "$file" "\"foh\"" "\"${THEME_SLUG}\"" || return 1
-    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
+    done < <(find . -type f "${TEXT_FILE_EXTENSIONS[@]}" "${EXCLUDE_PATHS[@]}")
     print_success "Text domain (double quotes) replaced"
 }
 
