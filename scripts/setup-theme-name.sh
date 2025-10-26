@@ -369,7 +369,7 @@ replace_repo_urls() {
     safe_replace "$file" "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate" "$REPO_URL"
 }
 
-# Callback function for bracket references (simple version - just replace 'foh')
+# Callback function for bracket references [foh (no closing bracket)
 replace_bracket_references() {
     local file="$1"
     safe_replace "$file" "\\[foh" "\\[${THEME_SLUG}"
