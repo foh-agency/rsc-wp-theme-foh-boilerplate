@@ -330,31 +330,39 @@ update_text_domains() {
     # Simple approach: just check if the function exists first
     declare -f safe_replace >/dev/null || { print_error "safe_replace function missing!"; return 1; }
     
+    local file_count=0
     while read -r file; do
         safe_replace "$file" "'foh'" "'${THEME_SLUG}'" || return 1
+        ((file_count++))
     done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success "Text domain (single quotes) replaced"
+    print_success "Text domain (single quotes) replaced in $file_count files"
 
     print_info "Step 2/11: Replacing text domain in double quotes..."
+    file_count=0
     while read -r file; do
         safe_replace "$file" "\"foh\"" "\"${THEME_SLUG}\"" || return 1
+        ((file_count++))
     done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success "Text domain (double quotes) replaced"
+    print_success "Text domain (double quotes) replaced in $file_count files"
 }
 
 # Replace function prefixes and constants
 update_code_prefixes() {
     print_info "Step 3/11: Replacing function prefix..."
+    local file_count=0
     while read -r file; do
         safe_replace "$file" "foh_" "${THEME_SLUG}_"
+        ((file_count++))
     done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success "Function prefix replaced"
+    print_success "Function prefix replaced in $file_count files"
 
     print_info "Step 4/11: Replacing constants..."
+    file_count=0
     while read -r file; do
         safe_replace "$file" "FOH_" "${THEME_SLUG_UPPER}_"
+        ((file_count++))
     done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success "Constants replaced"
+    print_success "Constants replaced in $file_count files"
 }
 
 # Update style.css theme header
@@ -375,46 +383,56 @@ update_theme_header() {
 # Replace translation file references
 update_pot_references() {
     print_info "Step 6/11: Replacing .pot file references..."
+    local file_count=0
     while read -r file; do
         safe_replace "$file" "foh\\.pot" "${THEME_SLUG}.pot"
+        ((file_count++))
     done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success ".pot file references replaced"
+    print_success ".pot file references replaced in $file_count files"
 }
 
 # Update DocBlock namespaces and comments
 update_docblocks() {
     print_info "Step 7/11: Replacing namespace in DocBlocks..."
+    local file_count=0
     while read -r file; do
         safe_replace "$file" " foh" " ${THEME_SLUG_TITLE}"
+        ((file_count++))
     done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success "DocBlocks updated"
+    print_success "DocBlocks updated in $file_count files"
 }
 
 # Replace handle prefixes (CSS/JS handles, etc.)
 update_handle_prefixes() {
     print_info "Step 8/11: Replacing prefixed handles..."
+    local file_count=0
     while read -r file; do
         safe_replace "$file" "foh-" "${THEME_SLUG}-"
+        ((file_count++))
     done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success "Prefixed handles replaced"
+    print_success "Prefixed handles replaced in $file_count files"
 }
 
 # Replace bracketed function references in comments
 update_bracket_references() {
     print_info "Step 9/11: Replacing function prefix in brackets..."
+    local file_count=0
     while read -r file; do
         replace_bracket_foh "$file" "${THEME_SLUG}"
+        ((file_count++))
     done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success "Function prefix in brackets replaced"
+    print_success "Function prefix in brackets replaced in $file_count files"
 }
 
 # Update repository URLs
 update_repo_urls() {
     print_info "Step 10/11: Replacing repository URLs..."
+    local file_count=0
     while read -r file; do
         replace_url "$file" "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate" "$REPO_URL"
+        ((file_count++))
     done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success "Repository URLs replaced"
+    print_success "Repository URLs replaced in $file_count files"
 }
 
 # Rename files and clean up
@@ -440,12 +458,13 @@ cleanup_temp_files() {
     print_info "Checking for any remaining temporary backup files..."
     backup_files=$(find . -name "*.bak" -type f ${EXCLUDE_PATHS})
     if [[ -n "$backup_files" ]]; then
+        local file_count=$(echo "$backup_files" | wc -l)
         echo "$backup_files"
         read -p "Remove these backup files? (y/n): " -n 1 -r
         echo
         if [[ $REPLY =~ ^[Yy]$ ]]; then
             find . -name "*.bak" -type f ${EXCLUDE_PATHS} -delete
-            print_success "Backup files removed"
+            print_success "Backup files removed ($file_count files)"
         fi
     else
         print_success "No temporary backup files found"
