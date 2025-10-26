@@ -517,7 +517,6 @@ main() {
     # update_theme_header || return 1
     # update_pot_references || return 1
     # update_docblocks || return 1
-    # TODO: SHOULD NOT MATCH URLS BUT CURRENTLY DOES: 
     update_handle_prefixes || return 1
     # TODO: update_bracket_references || return 1
     # update_repo_urls || return 1
