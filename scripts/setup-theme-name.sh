@@ -260,15 +260,18 @@ get_user_input() {
 # TRANSFORMATION HELPERS
 
 # Function to perform safe replacement (avoiding URLs)
+# Only protect foh when it's part of foh-agency.com
+# All other instances of foh get replaced normally
 safe_replace() {
     local file=$1
     local pattern=$2
     local replacement=$3
     local temp_file="${file}.tmp"
     
-    # Simple logic: only protect foh when it's part of foh-agency.com
-    # Everything else gets replaced normally
-    while IFS= read -r line; do
+    # read -r line returns false when it hits EOF
+    # To avoid unexpected behavior when files don't end in a new line,
+    # [[ -n "$line" ]] returns true if $line contains any characters
+    while IFS= read -r line || [[ -n "$line" ]]; do
         if [[ "$line" == *"foh-agency.com"* ]]; then
             # Line contains foh-agency.com, don't replace to avoid breaking the URL
             echo "$line"
