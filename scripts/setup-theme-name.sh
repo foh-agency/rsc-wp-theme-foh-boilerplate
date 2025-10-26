@@ -340,6 +340,13 @@ replace_handle_prefixes() {
     safe_replace "$file" "foh-" "${THEME_SLUG}-"
 }
 
+# Callback function for docblocks
+replace_docblocks() {
+    local file="$1"
+    safe_replace "$file" " foh" " ${THEME_SLUG_TITLE}"
+}
+
+
 # TRANSFORMATION STEPS
 
 # Replace slug in single and double quotes
@@ -384,6 +391,13 @@ update_pot_references() {
     print_info "Step 6/11: Replacing .pot file references..."
     replace_in_theme_files replace_pot_references
     print_success ".pot file references replaced. ${files_processed} files checked."
+}
+
+# Update DocBlock namespaces and comments
+update_docblocks() {
+    print_info "Step 7/11: Replacing namespace in DocBlocks..."
+    replace_in_theme_files replace_docblocks
+    print_success "DocBlocks updated. ${files_processed} files checked."
 }
 
 # Replace handle prefixes (CSS/JS handles, etc.)
@@ -447,9 +461,9 @@ main() {
     # update_code_prefixes || return 1
     # update_theme_header || return 1
     # update_pot_references || return 1
-    # TODO: update_docblocks || return 1
-    update_handle_prefixes || return 1
-    # update_bracket_references || return 1
+    update_docblocks || return 1
+    # TODO: SHOULD NOT MATCH URLS BUT CURRENTLY DOES: update_handle_prefixes || return 1
+    # TODO: update_bracket_references || return 1
     # update_repo_urls || return 1
     # rename_files || return 1
 
