@@ -422,6 +422,31 @@ update_repo_urls() {
     print_success "Repository URLs replaced. ${files_processed} files checked."
 }
 
+# Rename files and clean up
+rename_files() {
+    echo
+    print_info "Step 11/11: Renaming files..."
+
+    local files_renamed=0
+
+    # Rename languages/foh.pot if it exists
+    if [ -f "languages/foh.pot" ]; then
+        mv "languages/foh.pot" "languages/${THEME_SLUG}.pot"
+        print_success "Renamed languages/foh.pot → languages/${THEME_SLUG}.pot"
+        ((files_renamed++))
+    fi
+
+    # Rename files with foh- prefix
+    while read -r file; do
+        newfile="${file/foh-/${THEME_SLUG}-}"
+        mv "$file" "$newfile"
+        print_success "Renamed: $(basename "$file") → $(basename "$newfile")"
+        ((files_renamed++))
+    done < <(find . -type f -name "foh-*" "${EXCLUDE_PATHS[@]}")
+
+    print_success "File renaming completed. ${files_renamed} files processed."
+}
+
 
 # SUMMARY
 
@@ -479,8 +504,8 @@ main() {
     # update_docblocks || return 1
     # TODO: SHOULD NOT MATCH URLS BUT CURRENTLY DOES: update_handle_prefixes || return 1
     # TODO: update_bracket_references || return 1
-    update_repo_urls || return 1
-    # rename_files || return 1
+    # update_repo_urls || return 1
+    rename_files || return 1
 
     # Only show completion summary if all steps succeeded
     show_completion_summary
