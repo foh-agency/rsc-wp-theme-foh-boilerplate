@@ -369,6 +369,12 @@ replace_repo_urls() {
     safe_replace "$file" "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate" "$REPO_URL"
 }
 
+# Callback function for bracket references (simple version - just replace 'foh')
+replace_bracket_references() {
+    local file="$1"
+    safe_replace "$file" "\\[foh" "\\[${THEME_SLUG}"
+}
+
 
 # TRANSFORMATION STEPS
 
@@ -432,9 +438,16 @@ update_handle_prefixes() {
 
 # Update repository URLs
 update_repo_urls() {
-    print_info "Step 10/11: Replacing repository URLs..."
+    print_info "Step 9/11: Replacing repository URLs..."
     replace_in_theme_files replace_repo_urls
     print_success "Repository URLs replaced. ${files_processed} files checked."
+}
+
+# Update bracket references - simple approach
+update_bracket_references() {
+    print_info "Step 10/11: Replacing bracket references..."
+    replace_in_theme_files replace_bracket_references
+    print_success "Bracket references replaced. ${files_processed} files checked."
 }
 
 # Rename files and clean up
@@ -517,8 +530,8 @@ main() {
     # update_theme_header || return 1
     # update_pot_references || return 1
     # update_docblocks || return 1
-    update_handle_prefixes || return 1
-    # TODO: update_bracket_references || return 1
+    # update_handle_prefixes || return 1
+    update_bracket_references || return 1
     # update_repo_urls || return 1
     # rename_files || return 1
 
