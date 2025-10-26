@@ -353,6 +353,21 @@ update_code_prefixes() {
     print_success "Constants replaced. ${files_processed} files checked."
 }
 
+# Update style.css theme header
+update_theme_header() {
+    print_info "Step 5/11: Updating style.css header information..."
+    
+    sed -i.bak \
+        -e "s/^Theme Name:.*/Theme Name: ${THEME_NAME}/" \
+        -e "s/^Description:.*/Description: ${THEME_DESCRIPTION}/" \
+        -e "s/^Author:.*/Author: ${THEME_AUTHOR}/" \
+        -e "s/Text Domain: foh/Text Domain: ${THEME_SLUG}/g" \
+        style.css
+    
+    rm -f style.css.bak
+    print_success "style.css header updated. 1 file checked."
+}
+
 
 # SUMMARY
 
@@ -404,8 +419,8 @@ main() {
 
     # Execute all transformation steps
     # update_text_domains || return 1
-    update_code_prefixes || return 1
-    # update_theme_header || return 1
+    # update_code_prefixes || return 1
+    update_theme_header || return 1
     # update_pot_references || return 1
     # update_docblocks || return 1
     # update_handle_prefixes || return 1
