@@ -326,6 +326,159 @@ get_final_confirmation() {
 }
 
 
+# TRANSFORMATION FUNCTIONS
+
+# Replace text domain in single and double quotes
+update_text_domains() {
+    print_info "Step 1/11: Replacing text domain in single quotes..."
+    while read -r file; do
+        safe_replace "$file" "'foh'" "'${THEME_SLUG}'"
+    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
+    print_success "Text domain (single quotes) replaced"
+
+    print_info "Step 2/11: Replacing text domain in double quotes..."
+    while read -r file; do
+        safe_replace "$file" "\"foh\"" "\"${THEME_SLUG}\""
+    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
+    print_success "Text domain (double quotes) replaced"
+}
+
+# Replace function prefixes and constants
+update_code_prefixes() {
+    print_info "Step 3/11: Replacing function prefix..."
+    while read -r file; do
+        safe_replace "$file" "foh_" "${THEME_SLUG}_"
+    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
+    print_success "Function prefix replaced"
+
+    print_info "Step 4/11: Replacing constants..."
+    while read -r file; do
+        safe_replace "$file" "FOH_" "${THEME_SLUG_UPPER}_"
+    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
+    print_success "Constants replaced"
+}
+
+# Update style.css theme header
+update_theme_header() {
+    print_info "Step 5/11: Updating style.css header information..."
+    
+    sed -i.bak \
+        -e "s/^Theme Name:.*/Theme Name: ${THEME_NAME}/" \
+        -e "s/^Description:.*/Description: ${THEME_DESCRIPTION}/" \
+        -e "s/^Author:.*/Author: ${THEME_AUTHOR}/" \
+        -e "s/Text Domain: foh/Text Domain: ${THEME_SLUG}/g" \
+        style.css
+    
+    rm -f style.css.bak
+    print_success "style.css header updated"
+}
+
+# Replace translation file references
+update_pot_references() {
+    print_info "Step 6/11: Replacing .pot file references..."
+    while read -r file; do
+        safe_replace "$file" "foh\\.pot" "${THEME_SLUG}.pot"
+    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
+    print_success ".pot file references replaced"
+}
+
+# Update DocBlock namespaces and comments
+update_docblocks() {
+    print_info "Step 7/11: Replacing namespace in DocBlocks..."
+    while read -r file; do
+        safe_replace "$file" " foh" " ${THEME_SLUG_TITLE}"
+    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
+    print_success "DocBlocks updated"
+}
+
+# Replace handle prefixes (CSS/JS handles, etc.)
+update_handle_prefixes() {
+    print_info "Step 8/11: Replacing prefixed handles..."
+    while read -r file; do
+        safe_replace "$file" "foh-" "${THEME_SLUG}-"
+    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
+    print_success "Prefixed handles replaced"
+}
+
+# Replace bracketed function references in comments
+update_bracket_references() {
+    print_info "Step 9/11: Replacing function prefix in brackets..."
+    while read -r file; do
+        replace_bracket_foh "$file" "${THEME_SLUG}"
+    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
+    print_success "Function prefix in brackets replaced"
+}
+
+# Update repository URLs
+update_repo_urls() {
+    print_info "Step 10/11: Replacing repository URLs..."
+    while read -r file; do
+        replace_url "$file" "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate" "$REPO_URL"
+    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
+    print_success "Repository URLs replaced"
+}
+
+# Rename files and clean up
+rename_files() {
+    echo
+    print_info "Step 11/11: Renaming files..."
+
+    if [ -f "languages/foh.pot" ]; then
+        mv "languages/foh.pot" "languages/${THEME_SLUG}.pot"
+        print_success "Renamed languages/foh.pot → languages/${THEME_SLUG}.pot"
+    fi
+
+    while read -r file; do
+        newfile="${file/foh-/${THEME_SLUG}-}"
+        mv "$file" "$newfile"
+        print_success "Renamed: $(basename "$file") → $(basename "$newfile")"
+    done < <(find . -type f -name "foh-*" ${EXCLUDE_PATHS})
+}
+
+# Clean up temporary backup files
+cleanup_temp_files() {
+    echo
+    print_info "Checking for any remaining temporary backup files..."
+    backup_files=$(find . -name "*.bak" -type f ${EXCLUDE_PATHS})
+    if [[ -n "$backup_files" ]]; then
+        echo "$backup_files"
+        read -p "Remove these backup files? (y/n): " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            find . -name "*.bak" -type f ${EXCLUDE_PATHS} -delete
+            print_success "Backup files removed"
+        fi
+    else
+        print_success "No temporary backup files found"
+    fi
+}
+
+# Show completion summary
+show_completion_summary() {
+    echo
+    echo "═══════════════════════════════════════════════════════"
+    print_success "🎉 Namespace setup complete!"
+    echo "═══════════════════════════════════════════════════════"
+    echo
+    print_info "✨ What was changed:"
+    echo "  • Text domain: 'foh' → '${THEME_SLUG}'"
+    echo "  • Function prefix: foh_ → ${THEME_SLUG}_"
+    echo "  • Constants: FOH_ → ${THEME_SLUG_UPPER}_"
+    echo "  • Theme info: ${THEME_NAME} by ${THEME_AUTHOR}"
+    echo "  • Repository: ${REPO_URL}"
+    echo
+    print_warning "📋 Your manual next steps:"
+    echo "  1. Review the changes with: git diff"
+    echo "  2. Update footer.php links with your information"
+    echo "  3. Update webpack.common.js with your local site directory"
+    echo "  4. Run: npm install"
+    echo "  5. Run: composer install"
+    echo
+    print_info "📁 You should make sure the theme directory is renamed to: ${THEME_SLUG}"
+    print_success "🚀 You're all set! The theme is ready for development."
+    echo
+}
+
 # MAIN LOGIC
 
 main() {
@@ -349,138 +502,18 @@ main() {
     print_info "Starting namespace replacement..."
     echo
 
-    # Step 1: Replace 'foh' text domain (single quotes)
-    print_info "Step 1/11: Replacing text domain in single quotes..."
-    while read -r file; do
-        safe_replace "$file" "'foh'" "'${THEME_SLUG}'"
-    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success "Text domain (single quotes) replaced"
-
-    # Step 2: Replace "foh" text domain (double quotes)
-    print_info "Step 2/11: Replacing text domain in double quotes..."
-    while read -r file; do
-        safe_replace "$file" "\"foh\"" "\"${THEME_SLUG}\""
-    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success "Text domain (double quotes) replaced"
-
-    # Step 3: Replace foh_ function prefix
-    print_info "Step 3/11: Replacing function prefix..."
-    while read -r file; do
-        safe_replace "$file" "foh_" "${THEME_SLUG}_"
-    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success "Function prefix replaced"
-
-    # Step 4: Replace FOH_ constants
-    print_info "Step 4/11: Replacing constants..."
-    while read -r file; do
-        safe_replace "$file" "FOH_" "${THEME_SLUG_UPPER}_"
-    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success "Constants replaced"
-
-    # Step 5: Update style.css header information
-    print_info "Step 5/11: Updating style.css header information..."
-    
-    # Update multiple fields in style.css with a single backup
-    sed -i.bak \
-        -e "s/^Theme Name:.*/Theme Name: ${THEME_NAME}/" \
-        -e "s/^Description:.*/Description: ${THEME_DESCRIPTION}/" \
-        -e "s/^Author:.*/Author: ${THEME_AUTHOR}/" \
-        -e "s/Text Domain: foh/Text Domain: ${THEME_SLUG}/g" \
-        style.css
-    
-    # Clean up backup file
-    rm -f style.css.bak
-    
-    print_success "style.css header updated"
-
-    # Step 6: Replace foh.pot reference
-    print_info "Step 6/11: Replacing .pot file references..."
-    while read -r file; do
-        safe_replace "$file" "foh\\.pot" "${THEME_SLUG}.pot"
-    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success ".pot file references replaced"
-
-    # Step 7: Replace foh in DocBlocks (with space before)
-    print_info "Step 7/11: Replacing namespace in DocBlocks..."
-    while read -r file; do
-        safe_replace "$file" " foh" " ${THEME_SLUG_TITLE}"
-    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success "DocBlocks updated"
-
-    # Step 8: Replace foh- prefixed handles
-    print_info "Step 8/11: Replacing prefixed handles..."
-    while read -r file; do
-        safe_replace "$file" "foh-" "${THEME_SLUG}-"
-    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success "Prefixed handles replaced"
-
-    # Step 9: Replace [foh function prefix in comments
-    print_info "Step 9/11: Replacing function prefix in brackets..."
-    while read -r file; do
-        replace_bracket_foh "$file" "${THEME_SLUG}"
-    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success "Function prefix in brackets replaced"
-
-    # Step 10: Replace repository URLs
-    print_info "Step 10/11: Replacing repository URLs..."
-    while read -r file; do
-        replace_url "$file" "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate" "$REPO_URL"
-    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    print_success "Repository URLs replaced"
-
-    echo
-    print_info "Step 11/11: Renaming files..."
-
-    # Rename .pot file if it exists
-    if [ -f "languages/foh.pot" ]; then
-        mv "languages/foh.pot" "languages/${THEME_SLUG}.pot"
-        print_success "Renamed languages/foh.pot → languages/${THEME_SLUG}.pot"
-    fi
-
-    # Rename files with foh- prefix (any file type)
-    while read -r file; do
-        newfile="${file/foh-/${THEME_SLUG}-}"
-        mv "$file" "$newfile"
-        print_success "Renamed: $(basename "$file") → $(basename "$newfile")"
-    done < <(find . -type f -name "foh-*" ${EXCLUDE_PATHS})
-
-    echo
-    print_info "Checking for any remaining temporary backup files..."
-    backup_files=$(find . -name "*.bak" -type f ${EXCLUDE_PATHS})
-    if [[ -n "$backup_files" ]]; then
-        echo "$backup_files"
-        read -p "Remove these backup files? (y/n): " -n 1 -r
-        echo
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
-            find . -name "*.bak" -type f ${EXCLUDE_PATHS} -delete
-            print_success "Backup files removed"
-        fi
-    else
-        print_success "No temporary backup files found"
-    fi
-
-    echo
-    echo "═══════════════════════════════════════════════════════"
-    print_success "🎉 Namespace setup complete!"
-    echo "═══════════════════════════════════════════════════════"
-    echo
-    print_info "✨ What was changed:"
-    echo "  • Text domain: 'foh' → '${THEME_SLUG}'"
-    echo "  • Function prefix: foh_ → ${THEME_SLUG}_"
-    echo "  • Constants: FOH_ → ${THEME_SLUG_UPPER}_"
-    echo "  • Theme info: ${THEME_NAME} by ${THEME_AUTHOR}"
-    echo "  • Repository: ${REPO_URL}"
-    echo
-    print_warning "📋 Your manual next steps:"
-    echo "  1. Review the changes with: git diff"
-    echo "  2. Update footer.php links with your information"
-    echo "  3. Update webpack.common.js with your local site directory"
-    echo "  4. Run: npm install"
-    echo "  5. Run: composer install"
-    echo
-    print_info "📁 You should make sure the theme directory is renamed to: ${THEME_SLUG}"
-    print_success "🚀 You're all set! The theme is ready for development."
-    echo
+    # Execute all transformation steps
+    update_text_domains
+    update_code_prefixes
+    update_theme_header
+    update_pot_references
+    update_docblocks
+    update_handle_prefixes
+    update_bracket_references
+    update_repo_urls
+    rename_files
+    cleanup_temp_files
+    show_completion_summary
 }
 
 # ENTRY POINT

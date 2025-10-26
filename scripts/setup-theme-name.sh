@@ -227,6 +227,52 @@ get_user_input() {
     get_final_confirmation
 }
 
+
+# TRANSFORMATION STEPS
+
+# Replace text domain in single and double quotes
+update_text_domains() {
+    print_info "Step 1/11: Replacing text domain in single quotes..."
+    while read -r file; do
+        safe_replace "$file" "'foh'" "'${THEME_SLUG}'"
+    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
+    print_success "Text domain (single quotes) replaced"
+
+    print_info "Step 2/11: Replacing text domain in double quotes..."
+    while read -r file; do
+        safe_replace "$file" "\"foh\"" "\"${THEME_SLUG}\""
+    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
+    print_success "Text domain (double quotes) replaced"
+}
+
+
+# SUMMARY
+
+show_completion_summary() {
+    echo
+    echo "═══════════════════════════════════════════════════════"
+    print_success "🎉 Namespace setup complete!"
+    echo "═══════════════════════════════════════════════════════"
+    echo
+    print_info "✨ What was changed:"
+    echo "  • Text domain: 'foh' → '${THEME_SLUG}'"
+    echo "  • Function prefix: foh_ → ${THEME_SLUG}_"
+    echo "  • Constants: FOH_ → ${THEME_SLUG_UPPER}_"
+    echo "  • Theme info: ${THEME_NAME} by ${THEME_AUTHOR}"
+    echo "  • Repository: ${REPO_URL}"
+    echo
+    print_warning "📋 Your manual next steps:"
+    echo "  1. Review the changes with: git diff"
+    echo "  2. Update footer.php links with your information"
+    echo "  3. Update webpack.common.js with your local site directory"
+    echo "  4. Run: npm install"
+    echo "  5. Run: composer install"
+    echo
+    print_info "📁 You should make sure the theme directory is renamed to: ${THEME_SLUG}"
+    print_success "🚀 You're all set! The theme is ready for development."
+    echo
+}
+
 # MAIN LOGIC
 
 main() {
@@ -247,6 +293,19 @@ main() {
     echo
     print_info "Starting namespace replacement..."
     echo
+
+    # Execute all transformation steps
+    update_text_domains
+    # update_code_prefixes
+    # update_theme_header
+    # update_pot_references
+    # update_docblocks
+    # update_handle_prefixes
+    # update_bracket_references
+    # update_repo_urls
+    # rename_files
+
+    show_completion_summary
 }
 
 main
