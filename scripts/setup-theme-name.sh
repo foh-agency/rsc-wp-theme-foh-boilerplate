@@ -57,6 +57,41 @@ print_error() {
 
 # UTILITIES
 
+check_git_status() {
+    if command -v git >/dev/null 2>&1 && git rev-parse --git-dir >/dev/null 2>&1; then
+        if ! git diff-index --quiet HEAD -- 2>/dev/null; then
+            print_warning "You have uncommitted changes in git!"
+            print_warning ${BOLD}"It's highly recommended to commit or stash changes first."${NC}
+            read -p "Continue anyway? (y/n): " -n 1 -r
+            echo
+            if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                print_info "You have cancelled theme setup. Get to a clean git state, then try again."
+                exit 0
+            fi
+        else
+            print_success "✓ Git working directory is clean"
+        fi
+    fi
+}
+
+# Function to check if we're in the theme directory
+check_theme_directory() {
+    if [ ! -f "style.css" ] || [ ! -f "functions.php" ]; then
+        print_error "This doesn't appear to be a WordPress theme directory."
+        print_error "Please run this script from the theme root (where style.css is located)."
+        exit 1
+    fi
+    
+    if ! grep -q "FOH" style.css; then
+        print_error "This doesn't appear to be the FOH boilerplate theme."
+        print_error "Make sure you're in the right directory with the FOH theme files."
+        exit 1
+    fi
+    
+    # Check git status for safety
+    check_git_status
+}
+
 # Function to validate slug format (letters only)
 validate_slug() {
     local slug=$1
@@ -203,6 +238,9 @@ main() {
     echo "   FOH WordPress Theme - Namespace Setup"
     echo "═══════════════════════════════════════════════════════"
     echo
+
+    # Check if we're in the right directory
+    check_theme_directory
 
     get_user_input
 
