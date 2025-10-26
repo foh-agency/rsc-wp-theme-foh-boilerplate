@@ -346,6 +346,14 @@ replace_docblocks() {
     safe_replace "$file" " foh" " ${THEME_SLUG}"
 }
 
+# Callback function for repository URLs
+replace_repo_urls() {
+    local file="$1"
+    # Note: This needs a different approach since we need replace_url function
+    # We'll need to implement this differently in the main function
+    safe_replace "$file" "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate" "$REPO_URL"
+}
+
 
 # TRANSFORMATION STEPS
 
@@ -407,6 +415,13 @@ update_handle_prefixes() {
     print_success "Prefixed handles replaced. ${files_processed} files checked."
 }
 
+# Update repository URLs
+update_repo_urls() {
+    print_info "Step 10/11: Replacing repository URLs..."
+    replace_in_theme_files replace_repo_urls
+    print_success "Repository URLs replaced. ${files_processed} files checked."
+}
+
 
 # SUMMARY
 
@@ -457,14 +472,14 @@ main() {
     echo
 
     # Execute all transformation steps
-    update_slug_in_quotes || return 1
-    update_code_prefixes || return 1
+    # update_slug_in_quotes || return 1
+    # update_code_prefixes || return 1
     # update_theme_header || return 1
     # update_pot_references || return 1
-    update_docblocks || return 1
+    # update_docblocks || return 1
     # TODO: SHOULD NOT MATCH URLS BUT CURRENTLY DOES: update_handle_prefixes || return 1
     # TODO: update_bracket_references || return 1
-    # update_repo_urls || return 1
+    update_repo_urls || return 1
     # rename_files || return 1
 
     # Only show completion summary if all steps succeeded
