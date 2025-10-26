@@ -346,13 +346,13 @@ replace_hyphen_prefixes() {
     local replacement="${THEME_SLUG}-"
     local temp_file="${file}.tmp"
     
-    # Protect URLs
+    # Protect URLs and special names
     while IFS= read -r line || [[ -n "$line" ]]; do
-        if [[ "$line" == *"http"* ]] || [[ "$line" == *"github.com"* ]] || [[ "$line" == *"foh-agency.com"* ]]; then
-            # Line contains any URL, don't replace to avoid breaking URLs
+        if [[ "$line" == *"http"* ]] || [[ "$line" == *"github.com"* ]] || [[ "$line" == *"foh-agency.com"* ]] || [[ "$line" == *"foh-agency"* ]]; then
+            # Line contains any URL or special name, don't replace to avoid breaking them
             echo "$line"
         else
-            # Safe to replace - no URLs to protect
+            # Safe to replace - no URLs or special names to protect
             echo "$line" | sed "s@${pattern}@${replacement}@g"
         fi
     done < "$file" > "$temp_file"
@@ -369,8 +369,7 @@ replace_docblocks() {
 # Callback function for repository URLs
 replace_repo_urls() {
     local file="$1"
-    # Note: This needs a different approach since we need replace_url function
-    # We'll need to implement this differently in the main function
+    # Replace GitHub repository URL
     safe_replace "$file" "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate" "$REPO_URL"
 }
 
