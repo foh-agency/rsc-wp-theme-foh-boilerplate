@@ -31,25 +31,11 @@ BLUE='\033[1;34m'
 BOLD='\033[1m'
 NC='\033[0m' # No Color
 
-# Common exclusion paths for find commands (global variable)
-EXCLUDE_PATHS='-not -path "*/dist/*" \
-              -not -path "*/node_modules/*" \
-              -not -path "*/vendor/*"'
+# Common exclusion paths for find commands (array)
+EXCLUDE_PATHS=(-not -path "*/dist/*" -not -path "*/node_modules/*" -not -path "*/vendor/*")
 
-# File extensions that should be processed (text files only)
-TEXT_FILE_EXTENSIONS='-name "*.css" \
-                     -o -name "*.conf" \
-                     -o -name "*.ini" \
-                     -o -name "*.js" \
-                     -o -name "*.json" \
-                     -o -name "*.md" \
-                     -o -name "*.php" \
-                     -o -name "*.pot" \
-                     -o -name "*.scss" \
-                     -o -name "*.txt" \
-                     -o -name "*.xml" \
-                     -o -name "*.yaml" \
-                     -o -name "*.yml"'
+# File extensions that should be processed (array)
+TEXT_FILE_EXTENSIONS=( \( -name "*.conf" -o -name "*.css" -o -name "*.ini" -o -name "*.js" -o -name "*.json" -o -name "*.md" -o -name "*.php" -o -name "*.pot" -o -name "*.scss" -o -name "*.txt" -o -name "*.xml" -o -name "*.yaml" -o -name "*.yml" \) )
 
 
 # LOGGERS
@@ -149,7 +135,6 @@ safe_main() {
     main
     
     # If we get here, main succeeded
-    echo "${backup_dir}"
     echo "${backup_dir_ls}"
     cleanup_backup "${backup_dir}"
     
@@ -158,5 +143,13 @@ safe_main() {
 }
 
 
-# Run safe main function
-safe_main
+# EXECUTION GUARD: Only run main logic when script is executed directly
+# This allows the script to be safely sourced by tests without executing main()
+# 
+# ${BASH_SOURCE[0]} = path to current script file
+# ${0}              = path to the script being executed
+# When sourced: BASH_SOURCE[0] = this file, but ${0} = the sourcing script
+# When executed: both variables point to this same file
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    safe_main
+fi
