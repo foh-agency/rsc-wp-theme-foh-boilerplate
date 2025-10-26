@@ -329,7 +329,8 @@ replace_function_prefix() {
 }
 
 replace_camel_prefix() {
-
+    local file="$1"
+    safe_replace "$file" "foh\([A-Z]\)" "${THEME_SLUG}\1"
 }
 
 # Callback function for pot file references
@@ -535,10 +536,10 @@ main() {
 
     # Execute all transformation steps
     # update_slug_in_quotes || return 1
-    # update_code_prefixes || return 1
+    update_code_prefixes || return 1
     # update_theme_header || return 1
     # update_pot_references || return 1
-    update_docblocks || return 1
+    # update_docblocks || return 1
     # update_handle_prefixes || return 1
     # update_bracket_references || return 1
     # update_repo_urls || return 1
