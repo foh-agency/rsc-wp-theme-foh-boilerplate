@@ -79,10 +79,24 @@ create_backup() {
     local backup_dir="/tmp/com.foh-agency.theme-setup-backup-$$"
 
     print_info "Creating backup at: ${backup_dir}"
-    
+
     # Create backup dir
     # -p creates parent directories as needed
     mkdir -p "${backup_dir}"
+
+    # Copy all files that could be modified
+    # Only backup text files since we only modify text files
+    # E.g. file: ./src/php/theme-features/utils.php
+    while read -r file; do
+        # Store the file's path including its parent backup_dir
+        # E.g. /tmp/theme-setup-backup-30890/./src/php/theme-features
+        local dir_path="${backup_dir}/$(dirname ${file})"
+
+        # If the current 'file' (while loop iteration) is a directory, then
+        # create a directory with that name in the backup_dir
+        mkdir -p "${dir_path}"
+        cp "${file}" "${dir_path}"
+    done < <(find . -type f "${TEXT_FILE_EXTENSIONS[@]}" "${EXCLUDE_PATHS[@]}")
 
     echo "${backup_dir}"
 }
