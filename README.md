@@ -17,7 +17,7 @@ Based on FOH starter theme
       - [NPM packages and associated scripts](#npm-packages-and-associated-scripts)
       - [Features you may want to remove for your project](#features-you-may-want-to-remove-for-your-project)
   - [Usage](#usage)
-    - [Naming conventions](#naming-conventions)
+    - [Namespacing](#namespacing)
     - [Update package information](#update-package-information)
   - [Scripts](#scripts)
     - [NPM scripts](#npm-scripts)
@@ -122,13 +122,16 @@ Install all dependencies, documented below: [Dependencies](#dependencies).
 
 In `webpack.common.js`, update the name of the local site dir (find "foh-starter-theme-test" and replace with the name of the local dir that contains `wp-config.php`, used during development).
 
-### Naming conventions
+### Namespacing
 
 Decide on a namespace for your project. E.g. If your project is called Megatherium, your namespace might be `mega` (this is also called your theme slug) .
 
-Change the theme dir name to `mega` (your slug), and then you'll need to do a multi-step find and replace on the name in all the templates.
+From the theme dir, run the script to replace `foh` with your slug (e.g. `mega`):
+```sh
+./scripts/setup-theme-name.sh
+```
 
-**Important:** Step through this manually with patience. Things like URLs get tricky.
+**Important:** There are manual steps to complete after running the script. These are listed in the script, and will be echoed on successful completion. Step through these with patience.
 
 1. Search for `'foh'` (inside single quotations) to capture the text domain and replace with: `'mega'`.
 2. Search for `"foh"` (inside double quotations) to capture the text domain and replace with: `"mega"`.

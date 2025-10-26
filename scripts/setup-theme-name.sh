@@ -3,16 +3,38 @@
 # FOH WordPress Theme Namespace Setup Script
 # This script automates the namespace replacement process described in the README
 
+# SCRIPT SETTINGS, ERROR HANDLING
+
 # -e           Exit immediately if any command returns a non-zero status (fails).
 # -u           Exit if you try to use an undefined variable.
+# -E           ERR trap is inherited by shell functions, command substitutions, and subshells
 # -o pipefail  Fail if any command in the pipe fails, not just the last one.
-set -euo pipefail
+set -euEo pipefail
+
+# Disable terminal bell
+set bell-style none 2>/dev/null || true
 
 # Options to debug this script
 # set -x # Debug
 # set -v # Verbose
 # set -n # No execute / syntax check
 # set -o # Show all current settings
+
+# Global error handler - makes set -e more reliable
+error_handler() {
+    local exit_code=$?
+    local line_number=$1
+    echo "ERROR: Script failed at line $line_number with exit code $exit_code" >&2
+    echo "Command: ${BASH_COMMAND}" >&2
+    # Kill the entire process group to ensure main script exits upon subshell error
+    kill -TERM 0 2>/dev/null || exit $exit_code
+}
+
+# Set up ERR trap to catch all errors, even in functions and subshells
+trap 'error_handler ${LINENO}' ERR
+
+
+# CONSTANTS
 
 # Colors for output
 RED='\033[0;31m'
@@ -22,21 +44,65 @@ BLUE='\033[0;34m'
 BOLD='\033[1m'
 NC='\033[0m' # No Color
 
-# Function to print colored output
+# Common exclusion paths for find commands (global variable)
+EXCLUDE_PATHS=(-not -path "*/node_modules/*" \
+               -not -path "*/vendor/*" \
+               -not -path "*/dist/*" \
+               -not -path "./README.md")
+
+# File extensions that should be processed (text files only)
+TEXT_FILE_EXTENSIONS=( \( -name "*.conf" \
+                        -o -name "*.css" \
+                        -o -name "*.dist" \
+                        -o -name "*.ini" \
+                        -o -name "*.js" \
+                        -o -name "*.json" \
+                        -o -name "*.md" \
+                        -o -name "*.php"\
+                        -o -name "*.pot" \
+                        -o -name "*.scss" \
+                        -o -name "*.txt" \
+                        -o -name "*.xml" \
+                        -o -name "*.yaml" \
+                        -o -name "*.yml" \) )
+
+# LOGGERS
+
+# Function to print colored output to stderr
 print_info() {
-    echo -e "${BLUE}ℹ${NC} $1"
+    echo -e "${BLUE}ℹ${NC} $1" >&2
 }
 
 print_success() {
-    echo -e "${GREEN}✓${NC} $1"
+    echo -e "${GREEN}✓${NC} $1" >&2
 }
 
 print_warning() {
-    echo -e "${YELLOW}⚠${NC} $1"
+    echo -e "${YELLOW}⚠${NC} $1" >&2
 }
 
 print_error() {
-    echo -e "${RED}✗${NC} $1"
+    echo -e "${RED}✗${NC} $1" >&2
+}
+
+
+# UTILITIES
+
+check_git_status() {
+    if command -v git >/dev/null 2>&1 && git rev-parse --git-dir >/dev/null 2>&1; then
+        if ! git diff-index --quiet HEAD -- 2>/dev/null; then
+            print_warning "You have uncommitted changes in git!"
+            print_warning ${BOLD}"It's highly recommended to commit or stash changes first."${NC}
+            read -p "Continue anyway? (y/n): " -n 1 -r
+            echo
+            if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                print_info "You have cancelled theme setup. Get to a clean git state, then try again."
+                exit 0
+            fi
+        else
+            print_success "✓ Git working directory is clean"
+        fi
+    fi
 }
 
 # Function to check if we're in the theme directory
@@ -49,7 +115,12 @@ check_theme_directory() {
     
     if ! grep -q "FOH" style.css; then
         print_error "This doesn't appear to be the FOH boilerplate theme."
+        print_error "Make sure you're in the right directory with the FOH theme files."
+        exit 1
     fi
+    
+    # Check git status for safety
+    check_git_status
 }
 
 # Function to validate slug format (letters only)
@@ -69,47 +140,12 @@ generate_title_case() {
     echo "$(tr '[:lower:]' '[:upper:]' <<< ${slug:0:1})${slug:1}"
 }
 
-# Function to perform safe replacement (avoiding URLs)
-safe_replace() {
-    local file=$1
-    local pattern=$2
-    local replacement=$3
-    local temp_file="${file}.tmp"
-    
-    # Use awk to skip lines containing URLs (http://, https://, //)
-    awk -v pattern="$pattern" -v replacement="$replacement" '
-    {
-        # Check if line contains a URL pattern
-        if ($0 ~ /https?:\/\/|\/\/[a-zA-Z0-9]/) {
-            # Line contains URL, print as-is
-            print $0
-        } else {
-            # Safe to do replacement
-            gsub(pattern, replacement)
-            print $0
-        }
-    }
-    ' "$file" > "$temp_file"
-    
-    mv "$temp_file" "$file"
-}
 
-# Main script
-main() {
-    # Common exclusion paths for find commands
-    local EXCLUDE_PATHS='-not -path "*/node_modules/*" -not -path "*/vendor/*" -not -path "*/dist/*"'
-    
-    clear
-    echo "═══════════════════════════════════════════════════════"
-    echo "   FOH WordPress Theme - Namespace Setup"
-    echo "═══════════════════════════════════════════════════════"
-    echo
+# USER INPUT
 
-    # Check if we're in the right directory
-    check_theme_directory
-
+get_theme_slug() {
     # Get the new namespace/slug from user
-    echo "Enter your namespace slug (e.g., 'mega' for Megatherium project):"
+    echo "Enter your namespace slug (e.g., 'mega' for Megatherium Theme):"
     echo "This will be used as:"
     echo "  - Theme directory name"
     echo "  - Text domain"
@@ -118,7 +154,8 @@ main() {
     echo
     echo "Note: Use only lowercase letters (no numbers or special characters)"
     echo
-    read -p "Project slug: " THEME_SLUG
+    read -p "Theme slug (mega): " THEME_SLUG
+    THEME_SLUG=${THEME_SLUG:-mega}
 
     # Validate slug
     if ! validate_slug "$THEME_SLUG"; then
@@ -136,170 +173,390 @@ main() {
     echo "  Title Case: ${THEME_SLUG_TITLE}"
     echo
     
-    read -p "Does this look correct? (y/n): " -n 1 -r
+    read -p "Does this look correct? [Y/n]: " -n 1 -r
     echo
+    # Default to 'y' if empty (just Enter pressed)
+    REPLY=${REPLY:-y}
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         print_error "Setup cancelled."
         exit 1
     fi
+}
 
+# Function to get theme information
+get_theme_info() {
     echo
     print_info "Now let's update the theme information in style.css..."
     echo
     
     # Get theme name
-    read -p "Enter theme name (e.g., 'Megatherium Theme'): " -r THEME_NAME
-    while [[ -z "$THEME_NAME" ]]; do
-        print_error "Theme name cannot be empty."
-        read -p "Enter theme name: " -r THEME_NAME
-    done
+    read -p "Enter theme name (Megatherium Theme): " -r THEME_NAME
+    THEME_NAME=${THEME_NAME:-"Megatherium Theme"}
     
     # Get theme description
-    read -p "Enter theme description: " -r THEME_DESCRIPTION
-    while [[ -z "$THEME_DESCRIPTION" ]]; do
-        print_error "Theme description cannot be empty."
-        read -p "Enter theme description: " -r THEME_DESCRIPTION
-    done
-    
-    # Get author name
-    read -p "Enter author name: " -r THEME_AUTHOR
-    while [[ -z "$THEME_AUTHOR" ]]; do
-        print_error "Author name cannot be empty."
-        read -p "Enter author name: " -r THEME_AUTHOR
-    done
+    read -p "Enter theme description (A test WordPress theme): " -r THEME_DESCRIPTION
+    THEME_DESCRIPTION=${THEME_DESCRIPTION:-"A test WordPress theme"}
+}
 
+# Function to get and validate repository URL
+get_repository_url() {
+    echo
+    read -p "Enter the repository URL in HTTPS or SSH format (https://github.com/testuser/test-theme): " -r REPO_URL
+    REPO_URL=${REPO_URL:-"https://github.com/testuser/test-theme"}
+    
+    # Convert SSH format to HTTPS if needed
+    if [[ "$REPO_URL" =~ ^git@github\.com: ]]; then
+        # Convert git@github.com:username/repo.git to https://github.com/username/repo.git
+        REPO_URL="https://github.com/${REPO_URL#git@github.com:}"
+        print_info "Converted SSH format to HTTPS"
+    fi
+    
+    # Validate GitHub URL format
+    if [[ ! "$REPO_URL" =~ ^https://github\.com ]]; then
+        print_error "Doesn't appear to be a valid GitHub address. URL must start with https://github.com"
+        exit 1
+    fi
+    
+    # Clean up URL: remove .git suffix if present
+    if [[ "$REPO_URL" =~ \.git$ ]]; then
+        REPO_URL="${REPO_URL%.git}"
+        print_info "Removed .git suffix from URL"
+    fi
+    
+    # Clean up URL: remove trailing slash if present
+    if [[ "$REPO_URL" =~ /$ ]]; then
+        REPO_URL="${REPO_URL%/}"
+        print_info "Removed trailing slash from URL"
+    fi
+    
+    print_info "Using repository URL: ${REPO_URL}"
+}
+
+# Function to get final confirmation
+get_final_confirmation() {
     echo
     echo -e "${BOLD}Are you ready to modify files in place?${NC}"
-    print_warning "Make sure you have a backup or clean git state!"
-    read -p "Continue? (y/n): " -n 1 -r
+    print_warning "Make sure you have a backup or clean git state! Script may take 5–10 minutes"
+    read -p "Continue? [Y/n]: " -n 1 -r
     echo
+    # Default to 'y' if empty (just Enter pressed)  
+    REPLY=${REPLY:-y}
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         print_error "Setup cancelled."
         exit 1
     fi
+}
 
-    echo
-    print_info "Starting namespace replacement..."
-    echo
+get_user_input() {
+    get_theme_slug
+    get_theme_info
+    get_repository_url
+    get_final_confirmation
+}
 
-    # Step 1: Replace 'foh' text domain (single quotes)
-    print_info "Step 1/10: Replacing text domain in single quotes..."
-    find . -type f ${EXCLUDE_PATHS} | while read -r file; do
-        safe_replace "$file" "'foh'" "'${THEME_SLUG}'"
-    done
-    print_success "Text domain (single quotes) replaced"
 
-    # Step 2: Replace "foh" text domain (double quotes)
-    print_info "Step 2/10: Replacing text domain in double quotes..."
-    find . -type f ${EXCLUDE_PATHS} | while read -r file; do
-        safe_replace "$file" "\"foh\"" "\"${THEME_SLUG}\""
-    done
-    print_success "Text domain (double quotes) replaced"
+# TRANSFORMATION HELPERS
 
-    # Step 3: Replace foh_ function prefix
-    print_info "Step 3/10: Replacing function prefix..."
-    find . -type f -name "*.php" ${EXCLUDE_PATHS} | while read -r file; do
-        safe_replace "$file" "foh_" "${THEME_SLUG}_"
-    done
-    print_success "Function prefix replaced"
-
-    # Step 4: Replace FOH_ constants
-    print_info "Step 4/10: Replacing constants..."
-    find . -type f -name "*.php" ${EXCLUDE_PATHS} | while read -r file; do
-        safe_replace "$file" "FOH_" "${THEME_SLUG_UPPER}_"
-    done
-    print_success "Constants replaced"
-
-    # Step 5: Update style.css header information
-    print_info "Step 5/10: Updating style.css header information..."
+# Generic function to iterate over theme files and execute a callback function
+# Usage: replace_in_theme_files callback_function_name
+# Returns the number of files processed in global variable $files_processed
+replace_in_theme_files() {
+    local callback_function="$1"
+    files_processed=0
     
-    # Update multiple fields in style.css with a single backup
+    # Check if callback function exists
+    if ! declare -f "$callback_function" > /dev/null; then
+        print_error "Function '$callback_function' does not exist"
+        return 1
+    fi
+    
+    while read -r file; do
+        "$callback_function" "$file" || return 1
+        ((files_processed++))
+    done < <(find . -type f "${TEXT_FILE_EXTENSIONS[@]}" "${EXCLUDE_PATHS[@]}")
+    
+    return 0
+}
+
+# Function to perform safe replacement (avoiding URLs)
+# Only protect foh when it's part of foh-agency.com
+# All other instances of foh get replaced normally
+safe_replace() {
+    local file=$1
+    local pattern=$2
+    local replacement=$3
+    local temp_file="${file}.tmp"
+    
+    # read -r line returns false when it hits EOF
+    # To avoid unexpected behavior when files don't end in a new line,
+    # [[ -n "$line" ]] returns true if $line contains any characters
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        if [[ "$line" == *"foh-agency.com"* ]]; then
+            # Line contains foh-agency.com, don't replace to avoid breaking the URL
+            echo "$line"
+        else
+            # Safe to replace - no foh-agency.com URL to protect
+            echo "$line" | sed "s@${pattern}@${replacement}@g"
+        fi
+    done < "$file" > "$temp_file"
+    
+    mv "$temp_file" "$file"
+}
+
+# Callback functions for slug replacement
+replace_single_quotes() {
+    local file="$1"
+    safe_replace "$file" "'foh'" "'${THEME_SLUG}'"
+}
+
+replace_double_quotes() {
+    local file="$1"
+    safe_replace "$file" "\"foh\"" "\"${THEME_SLUG}\""
+}
+
+# Callback functions for code prefix replacement
+replace_constant_prefix() {
+    local file="$1"
+    safe_replace "$file" "FOH_" "${THEME_SLUG_UPPER}_"
+}
+
+replace_function_prefix() {
+    local file="$1"
+    safe_replace "$file" "foh_" "${THEME_SLUG}_"
+}
+
+replace_camel_prefix() {
+    local file="$1"
+    safe_replace "$file" "foh\([A-Z]\)" "${THEME_SLUG}\1"
+}
+
+# Callback function for slash prefixes
+replace_slash_slugs() {
+    local file="$1"
+    url_protected_replace "$file" "/foh" "/${THEME_SLUG}"
+}
+
+# Function to perform URL-protected replacement
+# Protects lines containing URLs or special names from replacement
+url_protected_replace() {
+    local file="$1"
+    local pattern="$2"
+    local replacement="$3"
+    local temp_file="${file}.tmp"
+    
+    # Protect URLs and special names
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        if [[ "$line" == *"http"* ]] || [[ "$line" == *"github.com"* ]] || [[ "$line" == *"foh-agency.com"* ]] || [[ "$line" == *"foh-agency"* ]]; then
+            # Line contains any URL or special name, don't replace to avoid breaking them
+            echo "$line"
+        else
+            # Safe to replace - no URLs or special names to protect
+            echo "$line" | sed "s@${pattern}@${replacement}@g"
+        fi
+    done < "$file" > "$temp_file"
+    
+    mv "$temp_file" "$file"
+}
+
+# Callback function for hyphen prefixes
+replace_hyphen_prefixes() {
+    local file="$1"
+    url_protected_replace "$file" "foh-" "${THEME_SLUG}-"
+}
+
+# Callback function for pot file references
+replace_pot_references() {
+    local file="$1"
+    safe_replace "$file" "foh\\.pot" "${THEME_SLUG}.pot"
+}
+
+# Callback function for docblocks
+replace_docblocks() {
+    local file="$1"
+    safe_replace "$file" "package FOH" "package ${THEME_SLUG_TITLE}"
+}
+
+# Callback function for repository URLs
+replace_repo_urls() {
+    local file="$1"
+    # Replace GitHub repository URL
+    safe_replace "$file" "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate" "$REPO_URL"
+}
+
+# Callback function for bracket references [foh (no closing bracket)
+replace_bracket_references() {
+    local file="$1"
+    safe_replace "$file" "\\[foh" "\\[${THEME_SLUG}"
+}
+
+
+# TRANSFORMATION STEPS
+
+# Replace slug in single and double quotes
+update_slug_in_quotes() {
+    print_info "Step 1/13: Replacing slug in single quotes..."
+    replace_in_theme_files replace_single_quotes
+    print_success "Slug (single quotes) replaced. ${files_processed} files checked."
+
+    print_info "Step 2/13: Replacing slug in double quotes..."
+    replace_in_theme_files replace_double_quotes
+    print_success "Slug (double quotes) replaced. ${files_processed} files checked."
+}
+
+# Replace code prefixes
+update_code_prefixes() {
+    print_info "Step 3/13: Replacing constants..."
+    replace_in_theme_files replace_constant_prefix
+    print_success "Constants replaced. ${files_processed} files checked."
+
+    print_info "Step 4/13: Replacing function prefix..."
+    replace_in_theme_files replace_function_prefix
+    print_success "Function prefix replaced. ${files_processed} files checked."
+
+    print_info "Step 5/13: Replacing prefixes with hyphens..."
+    replace_in_theme_files replace_hyphen_prefixes
+    print_success "Prefixes with hyphens replaced. ${files_processed} files checked."
+
+    print_info "Step 6/13: Replacing slugs with slashes..."
+    replace_in_theme_files replace_slash_slugs
+    print_success "Slugs with slashes replaced. ${files_processed} files checked."
+
+    print_info "Step 7/13: Replacing camel case prefixes..."
+    replace_in_theme_files replace_camel_prefix
+    print_success "Camel case prefixes replaced. ${files_processed} files checked."
+}
+
+# Update style.css theme header
+update_theme_header() {
+    print_info "Step 8/13: Updating style.css header information..."
+    
     sed -i.bak \
         -e "s/^Theme Name:.*/Theme Name: ${THEME_NAME}/" \
         -e "s/^Description:.*/Description: ${THEME_DESCRIPTION}/" \
-        -e "s/^Author:.*/Author: ${THEME_AUTHOR}/" \
         -e "s/Text Domain: foh/Text Domain: ${THEME_SLUG}/g" \
         style.css
     
-    # Clean up backup file
     rm -f style.css.bak
-    
-    print_success "style.css header updated"
+    print_success "style.css header updated. 1 file checked."
+}
 
-    # Step 6: Replace foh.pot reference
-    print_info "Step 6/10: Replacing .pot file references..."
-    find . -type f -name "*.php" ${EXCLUDE_PATHS} | while read -r file; do
-        safe_replace "$file" "foh\\.pot" "${THEME_SLUG}.pot"
-    done
-    print_success ".pot file references replaced"
+# Replace translation file references
+update_pot_references() {
+    print_info "Step 9/13: Replacing .pot file references..."
+    replace_in_theme_files replace_pot_references
+    print_success ".pot file references replaced. ${files_processed} files checked."
+}
 
-    # Step 7: Replace foh in DocBlocks (with space before)
-    print_info "Step 7/10: Replacing namespace in DocBlocks..."
-    find . -type f -name "*.php" ${EXCLUDE_PATHS} | while read -r file; do
-        safe_replace "$file" " foh" " ${THEME_SLUG_TITLE}"
-    done
-    print_success "DocBlocks updated"
+# Update DocBlock namespaces and comments
+update_docblocks() {
+    print_info "Step 10/13: Replacing namespace in DocBlocks..."
+    replace_in_theme_files replace_docblocks
+    print_success "DocBlocks updated. ${files_processed} files checked."
+}
 
-    # Step 8: Replace foh- prefixed handles
-    print_info "Step 8/10: Replacing prefixed handles..."
-    find . -type f \( -name "*.php" -o -name "*.js" \) ${EXCLUDE_PATHS} | while read -r file; do
-        safe_replace "$file" "foh-" "${THEME_SLUG}-"
-    done
-    print_success "Prefixed handles replaced"
+# Update repository URLs
+update_repo_urls() {
+    print_info "Step 11/13: Replacing repository URLs..."
+    replace_in_theme_files replace_repo_urls
+    print_success "Repository URLs replaced. ${files_processed} files checked."
+}
 
-    # Step 9: Replace [foh function prefix in comments
-    print_info "Step 9/10: Replacing function prefix in brackets..."
-    find . -type f -name "*.php" ${EXCLUDE_PATHS} | while read -r file; do
-        safe_replace "$file" "\\[foh" "[${THEME_SLUG}"
-    done
-    print_success "Function prefix in brackets replaced"
+# Update bracket references
+update_bracket_references() {
+    print_info "Step 12/13: Replacing bracket references..."
+    replace_in_theme_files replace_bracket_references
+    print_success "Bracket references replaced. ${files_processed} files checked."
+}
 
+# Rename files and clean up
+rename_files() {
     echo
-    print_info "Step 10/10: Renaming files..."
+    print_info "Step 13/13: Renaming files..."
 
-    # Rename .pot file if it exists
+    local files_renamed=0
+
+    # Rename languages/foh.pot if it exists
     if [ -f "languages/foh.pot" ]; then
         mv "languages/foh.pot" "languages/${THEME_SLUG}.pot"
         print_success "Renamed languages/foh.pot → languages/${THEME_SLUG}.pot"
+        ((files_renamed++))
     fi
 
-    # Rename JS files with foh prefix
-    find . -type f -name "foh-*.js" ${EXCLUDE_PATHS} | while read -r file; do
+    # Rename files with foh- prefix
+    while read -r file; do
         newfile="${file/foh-/${THEME_SLUG}-}"
         mv "$file" "$newfile"
         print_success "Renamed: $(basename "$file") → $(basename "$newfile")"
-    done
+        ((files_renamed++))
+    done < <(find . -type f -name "foh-*" "${EXCLUDE_PATHS[@]}")
 
-    echo
-    print_info "Checking for any remaining temporary backup files..."
-    backup_files=$(find . -name "*.bak" -type f ${EXCLUDE_PATHS})
-    if [[ -n "$backup_files" ]]; then
-        echo "$backup_files"
-        read -p "Remove these backup files? (y/n): " -n 1 -r
-        echo
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
-            find . -name "*.bak" -type f ${EXCLUDE_PATHS} -delete
-            print_success "Backup files removed"
-        fi
-    else
-        print_success "No temporary backup files found"
-    fi
+    print_success "File renaming completed. ${files_renamed} files processed."
+}
 
+
+# SUMMARY
+
+show_completion_summary() {
     echo
     echo "═══════════════════════════════════════════════════════"
-    print_success "Namespace setup complete!"
+    print_success "🎉 Namespace setup complete!"
     echo "═══════════════════════════════════════════════════════"
     echo
-    print_warning "Your manual next steps:"
+    print_info "✨ What was changed:"
+    echo "  • Slug: 'foh' → '${THEME_SLUG}'"
+    echo "  • Constants: FOH_ → ${THEME_SLUG_UPPER}_"
+    echo "  • Other underscored prefixes: foh_ → ${THEME_SLUG}_"
+    echo "  • Hyphen prefixes (excluding special names and URLs): foh- → ${THEME_SLUG}-"
+    echo "  • Slugs with slashes: /foh → /${THEME_SLUG}"
+    echo "  • Camel prefixes: fohFooBar → ${THEME_SLUG}FooBar"
+    echo "  • Theme name: ${THEME_NAME}"
+    echo "  • Repository: ${REPO_URL}"
+    echo
+    print_warning "${BOLD}📋 Your manual next steps:${NC}"
     echo "  1. Review the changes with: git diff"
     echo "  2. Update footer.php links with your information"
     echo "  3. Update webpack.common.js with your local site directory"
     echo "  4. Run: npm install"
     echo "  5. Run: composer install"
     echo
-    print_info "The theme directory itself should be renamed to: ${THEME_SLUG}"
+    print_info "📁 You should make sure the theme directory is renamed to: ${THEME_SLUG}"
+    print_success "🚀 You're all set! The theme is ready for development."
     echo
 }
 
-# Run main function
+# MAIN LOGIC
+
+main() {
+    
+    clear
+    echo
+    echo
+    echo "═══════════════════════════════════════════════════════"
+    echo "   FOH WordPress Theme - Namespace Setup"
+    echo "═══════════════════════════════════════════════════════"
+    echo
+
+    # Check if we're in the right directory
+    check_theme_directory
+
+    get_user_input
+
+    echo
+    print_info "Starting namespace replacement..."
+    echo
+
+    # Execute all transformation steps
+    update_slug_in_quotes || return 1
+    update_code_prefixes || return 1
+    update_theme_header || return 1
+    update_pot_references || return 1
+    update_docblocks || return 1
+    update_bracket_references || return 1
+    update_repo_urls || return 1
+    rename_files || return 1
+
+    # Only show completion summary if all steps succeeded
+    show_completion_summary
+}
+
 main
