@@ -333,14 +333,15 @@ replace_camel_prefix() {
 # Callback function for slash prefixes
 replace_slash_slugs() {
     local file="$1"
-    safe_replace "$file" "/foh" "/${THEME_SLUG}"
+    url_protected_replace "$file" "/foh" "/${THEME_SLUG}"
 }
 
-# Callback function for hyphen prefixes
-replace_hyphen_prefixes() {
+# Function to perform URL-protected replacement
+# Protects lines containing URLs or special names from replacement
+url_protected_replace() {
     local file="$1"
-    local pattern="foh-"
-    local replacement="${THEME_SLUG}-"
+    local pattern="$2"
+    local replacement="$3"
     local temp_file="${file}.tmp"
     
     # Protect URLs and special names
@@ -355,6 +356,12 @@ replace_hyphen_prefixes() {
     done < "$file" > "$temp_file"
     
     mv "$temp_file" "$file"
+}
+
+# Callback function for hyphen prefixes
+replace_hyphen_prefixes() {
+    local file="$1"
+    url_protected_replace "$file" "foh-" "${THEME_SLUG}-"
 }
 
 # Callback function for pot file references
@@ -505,7 +512,7 @@ show_completion_summary() {
     echo "  • Theme name: ${THEME_NAME}"
     echo "  • Repository: ${REPO_URL}"
     echo
-    print_warning "📋 Your manual next steps:"
+    print_warning "${BOLD}📋 Your manual next steps:${NC}"
     echo "  1. Review the changes with: git diff"
     echo "  2. Update footer.php links with your information"
     echo "  3. Update webpack.common.js with your local site directory"
