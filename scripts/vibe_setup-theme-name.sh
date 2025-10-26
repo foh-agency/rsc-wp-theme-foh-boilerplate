@@ -5,13 +5,57 @@
 
 # SCRIPT SETTINGS
 
+# Enhanced error handling for more reliable script execution
 # -e           Exit immediately if any command returns a non-zero status (fails).
 # -u           Exit if you try to use an undefined variable.
 # -o pipefail  Fail if any command in the pipe fails, not just the last one.
-set -euo pipefail
+# -E           ERR trap is inherited by shell functions, command substitutions, and subshells
+set -euEo pipefail
 
 # Disable terminal bell
 set bell-style none 2>/dev/null || true
+
+# Global error handler - makes set -e more reliable
+error_handler() {
+    local exit_code=$?
+    local line_number=$1
+    echo "ERROR: Script failed at line $line_number with exit code $exit_code" >&2
+    echo "Command: ${BASH_COMMAND}" >&2
+    exit $exit_code
+}
+
+# Set up ERR trap to catch all errors, even in functions and subshells
+trap 'error_handler ${LINENO}' ERR
+
+# Helper function for more reliable while loops with find
+safe_find_loop() {
+    local callback_func="$1"
+    shift
+    local callback_args=("$@")
+    
+    # Check if callback function exists
+    if ! declare -f "$callback_func" > /dev/null; then
+        print_error "Function '$callback_func' does not exist"
+        return 1
+    fi
+    
+    local file_count=0
+    while IFS= read -r -d '' file; do
+        if [[ -n "$file" ]]; then
+            "$callback_func" "$file" "${callback_args[@]}" || {
+                print_error "Failed to process: $file"
+                return 1
+            }
+            ((file_count++))
+        fi
+    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS} -print0)
+    
+    if [[ $file_count -eq 0 ]]; then
+        print_warning "No files found to process"
+    fi
+    
+    return 0
+}
 
 # Options to debug this script
 # set -x # Debug

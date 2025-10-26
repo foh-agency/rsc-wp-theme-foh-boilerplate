@@ -3,12 +3,13 @@
 # FOH WordPress Theme Namespace Setup Script
 # This script automates the namespace replacement process described in the README
 
-# SCRIPT SETTINGS
+# SCRIPT SETTINGS, ERROR HANDLING
 
 # -e           Exit immediately if any command returns a non-zero status (fails).
 # -u           Exit if you try to use an undefined variable.
+# -E           ERR trap is inherited by shell functions, command substitutions, and subshells
 # -o pipefail  Fail if any command in the pipe fails, not just the last one.
-set -euo pipefail
+set -euEo pipefail
 
 # Disable terminal bell
 set bell-style none 2>/dev/null || true
@@ -18,6 +19,19 @@ set bell-style none 2>/dev/null || true
 # set -v # Verbose
 # set -n # No execute / syntax check
 # set -o # Show all current settings
+
+# Global error handler - makes set -e more reliable
+error_handler() {
+    local exit_code=$?
+    local line_number=$1
+    echo "ERROR: Script failed at line $line_number with exit code $exit_code" >&2
+    echo "Command: ${BASH_COMMAND}" >&2
+    exit $exit_code
+}
+
+# Set up ERR trap to catch all errors, even in functions and subshells
+trap 'error_handler ${LINENO}' ERR
+
 
 # CONSTANTS
 
