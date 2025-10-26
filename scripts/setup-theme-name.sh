@@ -76,7 +76,9 @@ print_error() {
 
 create_backup() {
     # Set path with unique PID each time this script runs
-    local backup_dir="/tmp/theme-setup-backup-$$"
+    local backup_dir="/tmp/com.foh-agency.theme-setup-backup-$$"
+
+    print_info "Creating backup at: ${backup_dir}"
     
     # Create backup dir
     # -p creates parent directories as needed
