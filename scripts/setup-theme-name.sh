@@ -343,7 +343,7 @@ replace_handle_prefixes() {
 # Callback function for docblocks
 replace_docblocks() {
     local file="$1"
-    safe_replace "$file" " foh" " ${THEME_SLUG_TITLE}"
+    safe_replace "$file" " foh" " ${THEME_SLUG}"
 }
 
 
@@ -457,8 +457,8 @@ main() {
     echo
 
     # Execute all transformation steps
-    # update_slug_in_quotes || return 1
-    # update_code_prefixes || return 1
+    update_slug_in_quotes || return 1
+    update_code_prefixes || return 1
     # update_theme_header || return 1
     # update_pot_references || return 1
     update_docblocks || return 1
