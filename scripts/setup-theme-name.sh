@@ -239,7 +239,7 @@ get_repository_url() {
 get_final_confirmation() {
     echo
     echo -e "${BOLD}Are you ready to modify files in place?${NC}"
-    print_warning "Make sure you have a backup or clean git state!"
+    print_warning "Make sure you have a backup or clean git state! Script may take 5–10 minutes"
     read -p "Continue? [Y/n]: " -n 1 -r
     echo
     # Default to 'y' if empty (just Enter pressed)  
@@ -359,6 +359,7 @@ replace_handle_prefixes() {
 replace_docblocks() {
     local file="$1"
     safe_replace "$file" " foh" " ${THEME_SLUG}"
+    safe_replace "$file" " FOH" " ${THEME_SLUG_TITLE}"
 }
 
 # Callback function for repository URLs
@@ -525,15 +526,15 @@ main() {
     echo
 
     # Execute all transformation steps
-    update_slug_in_quotes || return 1
-    update_code_prefixes || return 1
-    update_theme_header || return 1
-    update_pot_references || return 1
+    # update_slug_in_quotes || return 1
+    # update_code_prefixes || return 1
+    # update_theme_header || return 1
+    # update_pot_references || return 1
     update_docblocks || return 1
-    update_handle_prefixes || return 1
-    update_bracket_references || return 1
-    update_repo_urls || return 1
-    rename_files || return 1
+    # update_handle_prefixes || return 1
+    # update_bracket_references || return 1
+    # update_repo_urls || return 1
+    # rename_files || return 1
 
     # Only show completion summary if all steps succeeded
     show_completion_summary
