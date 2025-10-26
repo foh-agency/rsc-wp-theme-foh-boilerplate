@@ -53,6 +53,7 @@ EXCLUDE_PATHS=(-not -path "*/node_modules/*" \
 # File extensions that should be processed (text files only)
 TEXT_FILE_EXTENSIONS=( \( -name "*.conf" \
                         -o -name "*.css" \
+                        -o -name "*.dist" \
                         -o -name "*.ini" \
                         -o -name "*.js" \
                         -o -name "*.json" \
