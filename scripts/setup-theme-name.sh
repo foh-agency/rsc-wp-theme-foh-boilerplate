@@ -320,6 +320,17 @@ replace_double_quotes() {
     safe_replace "$file" "\"foh\"" "\"${THEME_SLUG}\""
 }
 
+# Callback functions for code prefix replacement
+replace_function_prefix() {
+    local file="$1"
+    safe_replace "$file" "foh_" "${THEME_SLUG}_"
+}
+
+replace_constants() {
+    local file="$1"
+    safe_replace "$file" "FOH_" "${THEME_SLUG_UPPER}_"
+}
+
 # Replace text domain in single and double quotes
 update_text_domains() {
     print_info "Step 1/11: Replacing text domain in single quotes..."
@@ -329,6 +340,17 @@ update_text_domains() {
     print_info "Step 2/11: Replacing text domain in double quotes..."
     replace_in_theme_files replace_double_quotes
     print_success "Text domain (double quotes) replaced. ${files_processed} files checked."
+}
+
+# Replace function prefixes and constants
+update_code_prefixes() {
+    print_info "Step 3/11: Replacing function prefix..."
+    replace_in_theme_files replace_function_prefix
+    print_success "Function prefix replaced. ${files_processed} files checked."
+
+    print_info "Step 4/11: Replacing constants..."
+    replace_in_theme_files replace_constants
+    print_success "Constants replaced. ${files_processed} files checked."
 }
 
 
@@ -381,8 +403,8 @@ main() {
     echo
 
     # Execute all transformation steps
-    update_text_domains || return 1
-    # update_code_prefixes || return 1
+    # update_text_domains || return 1
+    update_code_prefixes || return 1
     # update_theme_header || return 1
     # update_pot_references || return 1
     # update_docblocks || return 1
