@@ -262,13 +262,13 @@ get_user_input() {
 update_text_domains() {
     print_info "Step 1/11: Replacing text domain in single quotes..."
     while read -r file; do
-        safe_replace "$file" "'foh'" "'${THEME_SLUG}'"
+        safe_replace "$file" "'foh'" "'${THEME_SLUG}'" || return 1
     done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
     print_success "Text domain (single quotes) replaced"
 
     print_info "Step 2/11: Replacing text domain in double quotes..."
     while read -r file; do
-        safe_replace "$file" "\"foh\"" "\"${THEME_SLUG}\""
+        safe_replace "$file" "\"foh\"" "\"${THEME_SLUG}\"" || return 1
     done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
     print_success "Text domain (double quotes) replaced"
 }
@@ -323,16 +323,17 @@ main() {
     echo
 
     # Execute all transformation steps
-    update_text_domains
-    # update_code_prefixes
-    # update_theme_header
-    # update_pot_references
-    # update_docblocks
-    # update_handle_prefixes
-    # update_bracket_references
-    # update_repo_urls
-    # rename_files
+    update_text_domains || return 1
+    # update_code_prefixes || return 1
+    # update_theme_header || return 1
+    # update_pot_references || return 1
+    # update_docblocks || return 1
+    # update_handle_prefixes || return 1
+    # update_bracket_references || return 1
+    # update_repo_urls || return 1
+    # rename_files || return 1
 
+    # Only show completion summary if all steps succeeded
     show_completion_summary
 }
 

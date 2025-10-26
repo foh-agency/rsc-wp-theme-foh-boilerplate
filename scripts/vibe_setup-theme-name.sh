@@ -205,55 +205,6 @@ replace_url() {
     mv "$temp_file" "$file"
 }
 
-# Create backup of all files that will be modified
-create_backup() {
-    local backup_dir="/tmp/theme-setup-backup-$$"
-    print_info "Creating backup at: ${backup_dir}"
-    
-    mkdir -p "${backup_dir}"
-    
-    # Copy all files that could be modified
-    # Only backup text files since we only modify text files
-    while read -r file; do
-        local dir_path="${backup_dir}/$(dirname "${file}")"
-        mkdir -p "${dir_path}"
-        cp "${file}" "${backup_dir}/${file}"
-    done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
-    
-    echo "${backup_dir}"
-}
-
-# Restore from backup if something goes wrong
-restore_backup() {
-    local backup_dir="$1"
-    
-    if [[ -d "${backup_dir}" ]]; then
-        print_error "Error occurred! Restoring files from backup..."
-        
-        # Restore all files from backup
-        while read -r backup_file; do
-            local relative_path="${backup_file#${backup_dir}/}"
-            cp "${backup_file}" "${relative_path}"
-        done < <(find "${backup_dir}" -type f)
-        
-        print_info "Files restored successfully."
-        rm -rf "${backup_dir}"
-    else
-        print_error "No such backup dir exists: ${backup_dir}"
-    fi
-}
-
-# Clean up backup after successful completion
-cleanup_backup() {
-    local backup_dir="$1"
-    
-    if [[ -d "${backup_dir}" ]]; then
-        print_success "All changes completed successfully. Cleaning up backup..."
-        rm -rf "${backup_dir}"
-        print_success "Deleted temporary backup dir: ${backup_dir}"
-    fi
-}
-
 
 # USER INPUT
 
@@ -375,14 +326,18 @@ get_final_confirmation() {
 # Replace text domain in single and double quotes
 update_text_domains() {
     print_info "Step 1/11: Replacing text domain in single quotes..."
+    
+    # Simple approach: just check if the function exists first
+    declare -f safe_replace >/dev/null || { print_error "safe_replace function missing!"; return 1; }
+    
     while read -r file; do
-        safe_replace "$file" "'foh'" "'${THEME_SLUG}'"
+        safe_replace "$file" "'foh'" "'${THEME_SLUG}'" || return 1
     done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
     print_success "Text domain (single quotes) replaced"
 
     print_info "Step 2/11: Replacing text domain in double quotes..."
     while read -r file; do
-        safe_replace "$file" "\"foh\"" "\"${THEME_SLUG}\""
+        safe_replace "$file" "\"foh\"" "\"${THEME_SLUG}\"" || return 1
     done < <(find . -type f \( ${TEXT_FILE_EXTENSIONS} \) ${EXCLUDE_PATHS})
     print_success "Text domain (double quotes) replaced"
 }
@@ -561,27 +516,4 @@ main() {
 }
 
 # ENTRY POINT
-
-# Safe execution wrapper with backup/restore
-safe_main() {
-    local backup_dir
-    
-    # Create backup before making any changes
-    backup_dir=$(create_backup)
-    
-    # Set up error handling to restore backup if anything inside trap fails
-    # This trap may not catch errors within subshells
-    trap "restore_backup '${backup_dir}'; exit 1" ERR
-    
-    # Run the main function
-    main
-    
-    # If we get here, main succeeded
-    cleanup_backup "${backup_dir}"
-    
-    # Clear the trap
-    trap - ERR
-}
-
-# Run safe main function
-safe_main
+main
