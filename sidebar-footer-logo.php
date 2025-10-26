@@ -5,7 +5,7 @@
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  * @link https://developer.wordpress.org/reference/functions/get_sidebar/
  *
- * @package foh
+ * @package FOH
  */
 
 if ( ! is_active_sidebar( 'footer-logo' ) ) {
