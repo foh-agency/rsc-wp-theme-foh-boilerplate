@@ -318,14 +318,18 @@ replace_double_quotes() {
 }
 
 # Callback functions for code prefix replacement
+replace_constant_prefix() {
+    local file="$1"
+    safe_replace "$file" "FOH_" "${THEME_SLUG_UPPER}_"
+}
+
 replace_function_prefix() {
     local file="$1"
     safe_replace "$file" "foh_" "${THEME_SLUG}_"
 }
 
-replace_constants() {
-    local file="$1"
-    safe_replace "$file" "FOH_" "${THEME_SLUG_UPPER}_"
+replace_camel_prefix() {
+
 }
 
 # Callback function for pot file references
@@ -358,8 +362,7 @@ replace_handle_prefixes() {
 # Callback function for docblocks
 replace_docblocks() {
     local file="$1"
-    safe_replace "$file" " foh" " ${THEME_SLUG}"
-    safe_replace "$file" " FOH" " ${THEME_SLUG_TITLE}"
+    safe_replace "$file" "package FOH" "package ${THEME_SLUG_TITLE}"
 }
 
 # Callback function for repository URLs
@@ -381,29 +384,33 @@ replace_bracket_references() {
 
 # Replace slug in single and double quotes
 update_slug_in_quotes() {
-    print_info "Step 1/11: Replacing slug in single quotes..."
+    print_info "Step 1/12: Replacing slug in single quotes..."
     replace_in_theme_files replace_single_quotes
     print_success "Slug (single quotes) replaced. ${files_processed} files checked."
 
-    print_info "Step 2/11: Replacing slug in double quotes..."
+    print_info "Step 2/12: Replacing slug in double quotes..."
     replace_in_theme_files replace_double_quotes
     print_success "Slug (double quotes) replaced. ${files_processed} files checked."
 }
 
-# Replace function prefixes and constants
+# Replace code prefixes
 update_code_prefixes() {
-    print_info "Step 3/11: Replacing function prefix..."
+    print_info "Step 3/12: Replacing constants..."
+    replace_in_theme_files replace_constant_prefix
+    print_success "Constants replaced. ${files_processed} files checked."
+
+    print_info "Step 4/12: Replacing function prefix..."
     replace_in_theme_files replace_function_prefix
     print_success "Function prefix replaced. ${files_processed} files checked."
 
-    print_info "Step 4/11: Replacing constants..."
-    replace_in_theme_files replace_constants
-    print_success "Constants replaced. ${files_processed} files checked."
+    print_info "Step 5/12: Replacing camel case prefix..."
+    replace_in_theme_files replace_camel_prefix
+    print_success "Camel case prefix replaced. ${files_processed} files checked."
 }
 
 # Update style.css theme header
 update_theme_header() {
-    print_info "Step 5/11: Updating style.css header information..."
+    print_info "Step 6/12: Updating style.css header information..."
     
     sed -i.bak \
         -e "s/^Theme Name:.*/Theme Name: ${THEME_NAME}/" \
@@ -418,35 +425,35 @@ update_theme_header() {
 
 # Replace translation file references
 update_pot_references() {
-    print_info "Step 6/11: Replacing .pot file references..."
+    print_info "Step 7/12: Replacing .pot file references..."
     replace_in_theme_files replace_pot_references
     print_success ".pot file references replaced. ${files_processed} files checked."
 }
 
 # Update DocBlock namespaces and comments
 update_docblocks() {
-    print_info "Step 7/11: Replacing namespace in DocBlocks..."
+    print_info "Step 8/12: Replacing namespace in DocBlocks..."
     replace_in_theme_files replace_docblocks
     print_success "DocBlocks updated. ${files_processed} files checked."
 }
 
 # Replace handle prefixes (CSS/JS handles, etc.)
 update_handle_prefixes() {
-    print_info "Step 8/11: Replacing prefixed handles..."
+    print_info "Step 9/12: Replacing prefixed handles..."
     replace_in_theme_files replace_handle_prefixes
     print_success "Prefixed handles replaced. ${files_processed} files checked."
 }
 
 # Update repository URLs
 update_repo_urls() {
-    print_info "Step 9/11: Replacing repository URLs..."
+    print_info "Step 10/12: Replacing repository URLs..."
     replace_in_theme_files replace_repo_urls
     print_success "Repository URLs replaced. ${files_processed} files checked."
 }
 
 # Update bracket references
 update_bracket_references() {
-    print_info "Step 10/11: Replacing bracket references..."
+    print_info "Step 11/12: Replacing bracket references..."
     replace_in_theme_files replace_bracket_references
     print_success "Bracket references replaced. ${files_processed} files checked."
 }
@@ -454,7 +461,7 @@ update_bracket_references() {
 # Rename files and clean up
 rename_files() {
     echo
-    print_info "Step 11/11: Renaming files..."
+    print_info "Step 12/12: Renaming files..."
 
     local files_renamed=0
 
@@ -487,8 +494,9 @@ show_completion_summary() {
     echo
     print_info "✨ What was changed:"
     echo "  • Slug: 'foh' → '${THEME_SLUG}'"
-    echo "  • Function prefix: foh_ → ${THEME_SLUG}_"
     echo "  • Constants: FOH_ → ${THEME_SLUG_UPPER}_"
+    echo "  • Function prefix: foh_ → ${THEME_SLUG}_"
+    echo "  • Camel prefixes: fohFooBar → ${THEME_SLUG}FooBar"
     echo "  • Theme info: ${THEME_NAME} by ${THEME_AUTHOR}"
     echo "  • Repository: ${REPO_URL}"
     echo
