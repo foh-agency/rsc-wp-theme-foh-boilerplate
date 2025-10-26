@@ -47,7 +47,8 @@ NC='\033[0m' # No Color
 # Common exclusion paths for find commands (global variable)
 EXCLUDE_PATHS=(-not -path "*/node_modules/*" \
                -not -path "*/vendor/*" \
-               -not -path "*/dist/*")
+               -not -path "*/dist/*" \
+               -not -path "./README.md")
 
 # File extensions that should be processed (text files only)
 TEXT_FILE_EXTENSIONS=( \( -name "*.conf" \
