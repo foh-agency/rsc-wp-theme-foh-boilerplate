@@ -443,7 +443,7 @@ update_repo_urls() {
     print_success "Repository URLs replaced. ${files_processed} files checked."
 }
 
-# Update bracket references - simple approach
+# Update bracket references
 update_bracket_references() {
     print_info "Step 10/11: Replacing bracket references..."
     replace_in_theme_files replace_bracket_references
@@ -525,15 +525,15 @@ main() {
     echo
 
     # Execute all transformation steps
-    # update_slug_in_quotes || return 1
-    # update_code_prefixes || return 1
-    # update_theme_header || return 1
-    # update_pot_references || return 1
-    # update_docblocks || return 1
-    # update_handle_prefixes || return 1
+    update_slug_in_quotes || return 1
+    update_code_prefixes || return 1
+    update_theme_header || return 1
+    update_pot_references || return 1
+    update_docblocks || return 1
+    update_handle_prefixes || return 1
     update_bracket_references || return 1
-    # update_repo_urls || return 1
-    # rename_files || return 1
+    update_repo_urls || return 1
+    rename_files || return 1
 
     # Only show completion summary if all steps succeeded
     show_completion_summary
