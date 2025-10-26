@@ -331,6 +331,12 @@ replace_constants() {
     safe_replace "$file" "FOH_" "${THEME_SLUG_UPPER}_"
 }
 
+# Callback function for pot file references
+replace_pot_references() {
+    local file="$1"
+    safe_replace "$file" "foh\\.pot" "${THEME_SLUG}.pot"
+}
+
 # Replace slug in single and double quotes
 update_slug_in_quotes() {
     print_info "Step 1/11: Replacing slug in single quotes..."
@@ -366,6 +372,13 @@ update_theme_header() {
     
     rm -f style.css.bak
     print_success "style.css header updated. 1 file checked."
+}
+
+# Replace translation file references
+update_pot_references() {
+    print_info "Step 6/11: Replacing .pot file references..."
+    replace_in_theme_files replace_pot_references
+    print_success ".pot file references replaced. ${files_processed} files checked."
 }
 
 
@@ -420,8 +433,8 @@ main() {
     # Execute all transformation steps
     # update_slug_in_quotes || return 1
     # update_code_prefixes || return 1
-    update_theme_header || return 1
-    # update_pot_references || return 1
+    # update_theme_header || return 1
+    update_pot_references || return 1
     # update_docblocks || return 1
     # update_handle_prefixes || return 1
     # update_bracket_references || return 1
