@@ -306,9 +306,6 @@ safe_replace() {
     mv "$temp_file" "$file"
 }
 
-
-# TRANSFORMATION STEPS
-
 # Callback functions for slug replacement
 replace_single_quotes() {
     local file="$1"
@@ -336,6 +333,14 @@ replace_pot_references() {
     local file="$1"
     safe_replace "$file" "foh\\.pot" "${THEME_SLUG}.pot"
 }
+
+# Callback function for handle prefixes
+replace_handle_prefixes() {
+    local file="$1"
+    safe_replace "$file" "foh-" "${THEME_SLUG}-"
+}
+
+# TRANSFORMATION STEPS
 
 # Replace slug in single and double quotes
 update_slug_in_quotes() {
@@ -379,6 +384,13 @@ update_pot_references() {
     print_info "Step 6/11: Replacing .pot file references..."
     replace_in_theme_files replace_pot_references
     print_success ".pot file references replaced. ${files_processed} files checked."
+}
+
+# Replace handle prefixes (CSS/JS handles, etc.)
+update_handle_prefixes() {
+    print_info "Step 8/11: Replacing prefixed handles..."
+    replace_in_theme_files replace_handle_prefixes
+    print_success "Prefixed handles replaced. ${files_processed} files checked."
 }
 
 
@@ -434,9 +446,9 @@ main() {
     # update_slug_in_quotes || return 1
     # update_code_prefixes || return 1
     # update_theme_header || return 1
-    update_pot_references || return 1
-    # update_docblocks || return 1
-    # update_handle_prefixes || return 1
+    # update_pot_references || return 1
+    # TODO: update_docblocks || return 1
+    update_handle_prefixes || return 1
     # update_bracket_references || return 1
     # update_repo_urls || return 1
     # rename_files || return 1
