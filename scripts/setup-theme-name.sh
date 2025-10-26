@@ -292,20 +292,17 @@ safe_replace() {
 update_text_domains() {
     print_info "Step 1/11: Replacing text domain in single quotes..."
 
-    local file_count=0
     while read -r file; do
         safe_replace "$file" "'foh'" "'${THEME_SLUG}'" || return 1
-        ((file_count++))
     done < <(find . -type f "${TEXT_FILE_EXTENSIONS[@]}" "${EXCLUDE_PATHS[@]}")
-    print_success "Text domain (single quotes) replaced in ${file_count} files"
+    print_success "Text domain (single quotes) replaced"
 
     print_info "Step 2/11: Replacing text domain in double quotes..."
 
-    file_count=0
     while read -r file; do
         safe_replace "$file" "\"foh\"" "\"${THEME_SLUG}\"" || return 1
     done < <(find . -type f "${TEXT_FILE_EXTENSIONS[@]}" "${EXCLUDE_PATHS[@]}")
-    print_success "Text domain (double quotes) replaced in ${file_count} files"
+    print_success "Text domain (double quotes) replaced"
 }
 
 
