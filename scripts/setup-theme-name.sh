@@ -309,7 +309,7 @@ safe_replace() {
 
 # TRANSFORMATION STEPS
 
-# Callback functions for text domain replacement
+# Callback functions for slug replacement
 replace_single_quotes() {
     local file="$1"
     safe_replace "$file" "'foh'" "'${THEME_SLUG}'"
@@ -331,15 +331,15 @@ replace_constants() {
     safe_replace "$file" "FOH_" "${THEME_SLUG_UPPER}_"
 }
 
-# Replace text domain in single and double quotes
-update_text_domains() {
-    print_info "Step 1/11: Replacing text domain in single quotes..."
+# Replace slug in single and double quotes
+update_slug_in_quotes() {
+    print_info "Step 1/11: Replacing slug in single quotes..."
     replace_in_theme_files replace_single_quotes
-    print_success "Text domain (single quotes) replaced. ${files_processed} files checked."
+    print_success "Slug (single quotes) replaced. ${files_processed} files checked."
 
-    print_info "Step 2/11: Replacing text domain in double quotes..."
+    print_info "Step 2/11: Replacing slug in double quotes..."
     replace_in_theme_files replace_double_quotes
-    print_success "Text domain (double quotes) replaced. ${files_processed} files checked."
+    print_success "Slug (double quotes) replaced. ${files_processed} files checked."
 }
 
 # Replace function prefixes and constants
@@ -378,7 +378,7 @@ show_completion_summary() {
     echo "═══════════════════════════════════════════════════════"
     echo
     print_info "✨ What was changed:"
-    echo "  • Text domain: 'foh' → '${THEME_SLUG}'"
+    echo "  • Slug: 'foh' → '${THEME_SLUG}'"
     echo "  • Function prefix: foh_ → ${THEME_SLUG}_"
     echo "  • Constants: FOH_ → ${THEME_SLUG_UPPER}_"
     echo "  • Theme info: ${THEME_NAME} by ${THEME_AUTHOR}"
@@ -418,7 +418,7 @@ main() {
     echo
 
     # Execute all transformation steps
-    # update_text_domains || return 1
+    # update_slug_in_quotes || return 1
     # update_code_prefixes || return 1
     update_theme_header || return 1
     # update_pot_references || return 1
