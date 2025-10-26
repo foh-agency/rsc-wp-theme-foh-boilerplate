@@ -260,6 +260,27 @@ get_user_input() {
 
 # TRANSFORMATION HELPERS
 
+# Generic function to iterate over theme files and execute a callback function
+# Usage: replace_in_theme_files callback_function_name
+# Returns the number of files processed in global variable $files_processed
+replace_in_theme_files() {
+    local callback_function="$1"
+    files_processed=0
+    
+    # Check if callback function exists
+    if ! declare -f "$callback_function" > /dev/null; then
+        print_error "Function '$callback_function' does not exist"
+        return 1
+    fi
+    
+    while read -r file; do
+        "$callback_function" "$file" || return 1
+        ((files_processed++))
+    done < <(find . -type f "${TEXT_FILE_EXTENSIONS[@]}" "${EXCLUDE_PATHS[@]}")
+    
+    return 0
+}
+
 # Function to perform safe replacement (avoiding URLs)
 # Only protect foh when it's part of foh-agency.com
 # All other instances of foh get replaced normally
@@ -288,21 +309,26 @@ safe_replace() {
 
 # TRANSFORMATION STEPS
 
+# Callback functions for text domain replacement
+replace_single_quotes() {
+    local file="$1"
+    safe_replace "$file" "'foh'" "'${THEME_SLUG}'"
+}
+
+replace_double_quotes() {
+    local file="$1"
+    safe_replace "$file" "\"foh\"" "\"${THEME_SLUG}\""
+}
+
 # Replace text domain in single and double quotes
 update_text_domains() {
     print_info "Step 1/11: Replacing text domain in single quotes..."
-
-    while read -r file; do
-        safe_replace "$file" "'foh'" "'${THEME_SLUG}'" || return 1
-    done < <(find . -type f "${TEXT_FILE_EXTENSIONS[@]}" "${EXCLUDE_PATHS[@]}")
-    print_success "Text domain (single quotes) replaced"
+    replace_in_theme_files replace_single_quotes
+    print_success "Text domain (single quotes) replaced. ${files_processed} files checked."
 
     print_info "Step 2/11: Replacing text domain in double quotes..."
-
-    while read -r file; do
-        safe_replace "$file" "\"foh\"" "\"${THEME_SLUG}\"" || return 1
-    done < <(find . -type f "${TEXT_FILE_EXTENSIONS[@]}" "${EXCLUDE_PATHS[@]}")
-    print_success "Text domain (double quotes) replaced"
+    replace_in_theme_files replace_double_quotes
+    print_success "Text domain (double quotes) replaced. ${files_processed} files checked."
 }
 
 
