@@ -339,8 +339,8 @@ replace_pot_references() {
     safe_replace "$file" "foh\\.pot" "${THEME_SLUG}.pot"
 }
 
-# Callback function for handle prefixes
-replace_handle_prefixes() {
+# Callback function for hyphen prefixes
+replace_hyphen_prefixes() {
     local file="$1"
     local pattern="foh-"
     local replacement="${THEME_SLUG}-"
@@ -404,14 +404,18 @@ update_code_prefixes() {
     replace_in_theme_files replace_function_prefix
     print_success "Function prefix replaced. ${files_processed} files checked."
 
-    print_info "Step 5/12: Replacing camel case prefix..."
+    print_info "Step 5/12: Replacing prefixes with handles..."
+    replace_in_theme_files replace_hyphen_prefixes
+    print_success "Prefixes with hyphens replaced. ${files_processed} files checked."
+
+    print_info "Step 6/12: Replacing camel case prefix..."
     replace_in_theme_files replace_camel_prefix
     print_success "Camel case prefix replaced. ${files_processed} files checked."
 }
 
 # Update style.css theme header
 update_theme_header() {
-    print_info "Step 6/12: Updating style.css header information..."
+    print_info "Step 7/12: Updating style.css header information..."
     
     sed -i.bak \
         -e "s/^Theme Name:.*/Theme Name: ${THEME_NAME}/" \
@@ -426,23 +430,16 @@ update_theme_header() {
 
 # Replace translation file references
 update_pot_references() {
-    print_info "Step 7/12: Replacing .pot file references..."
+    print_info "Step 8/12: Replacing .pot file references..."
     replace_in_theme_files replace_pot_references
     print_success ".pot file references replaced. ${files_processed} files checked."
 }
 
 # Update DocBlock namespaces and comments
 update_docblocks() {
-    print_info "Step 8/12: Replacing namespace in DocBlocks..."
+    print_info "Step 9/12: Replacing namespace in DocBlocks..."
     replace_in_theme_files replace_docblocks
     print_success "DocBlocks updated. ${files_processed} files checked."
-}
-
-# Replace handle prefixes (CSS/JS handles, etc.)
-update_handle_prefixes() {
-    print_info "Step 9/12: Replacing prefixed handles..."
-    replace_in_theme_files replace_handle_prefixes
-    print_success "Prefixed handles replaced. ${files_processed} files checked."
 }
 
 # Update repository URLs
@@ -496,7 +493,8 @@ show_completion_summary() {
     print_info "✨ What was changed:"
     echo "  • Slug: 'foh' → '${THEME_SLUG}'"
     echo "  • Constants: FOH_ → ${THEME_SLUG_UPPER}_"
-    echo "  • Function prefix: foh_ → ${THEME_SLUG}_"
+    echo "  • Other underscored prefixes: foh_ → ${THEME_SLUG}_"
+    echo "  • Hyphen prefixes: foh- → ${THEME_SLUG}-"
     echo "  • Camel prefixes: fohFooBar → ${THEME_SLUG}FooBar"
     echo "  • Theme info: ${THEME_NAME} by ${THEME_AUTHOR}"
     echo "  • Repository: ${REPO_URL}"
@@ -535,15 +533,14 @@ main() {
     echo
 
     # Execute all transformation steps
-    # update_slug_in_quotes || return 1
+    update_slug_in_quotes || return 1
     update_code_prefixes || return 1
-    # update_theme_header || return 1
-    # update_pot_references || return 1
-    # update_docblocks || return 1
-    # update_handle_prefixes || return 1
-    # update_bracket_references || return 1
-    # update_repo_urls || return 1
-    # rename_files || return 1
+    update_theme_header || return 1
+    update_pot_references || return 1
+    update_docblocks || return 1
+    update_bracket_references || return 1
+    update_repo_urls || return 1
+    rename_files || return 1
 
     # Only show completion summary if all steps succeeded
     show_completion_summary
