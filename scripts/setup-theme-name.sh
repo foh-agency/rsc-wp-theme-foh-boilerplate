@@ -514,10 +514,11 @@ show_completion_summary() {
     echo
     print_warning "${BOLD}📋 Your manual next steps:${NC}"
     echo "  1. Review the changes with: git diff"
-    echo "  2. Update footer.php links with your information"
-    echo "  3. Update webpack.common.js with your local site directory"
-    echo "  4. Run: npm install"
-    echo "  5. Run: composer install"
+    echo "  2. Search manually for any leftover mentions of FOH. This script covers many instances but not all."
+    echo "  3. Update footer.php links with your information"
+    echo "  4. Update webpack.common.js with your local site directory"
+    echo "  5. Run: npm install"
+    echo "  6. Run: composer install"
     echo
     print_info "📁 You should make sure the theme directory is renamed to: ${THEME_SLUG}"
     print_success "🚀 You're all set! The theme is ready for development."
