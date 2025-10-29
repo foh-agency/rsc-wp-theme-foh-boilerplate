@@ -6,46 +6,46 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
- * @package ELTHEME
+ * @package FOH
  */
 
 ?>
 
 	<footer id="colophon" class="site-footer">
 		<!-- Footer menu location -->
-		<nav id="eltheme-footer-navigation">
+		<nav id="foh-footer-navigation">
 			<?php
 			wp_nav_menu(
 				array(
 					'theme_location' => 'footer',
-					'menu_id'        => 'eltheme-footer-menu',
+					'menu_id'        => 'foh-footer-menu',
 					'depth'          => 1,
 					'fallback_cb'    => false,
 				)
 			);
 			?>
-		</nav><!-- #eltheme-footer-navigation -->
+		</nav><!-- #foh-footer-navigation -->
 
 		<!-- Footer widget area 1 -->
 		<?php get_sidebar( 'footer-1' ); ?>
 
 		<!-- Legal menu location -->
-		<nav id="eltheme-legal-navigation">
+		<nav id="foh-legal-navigation">
 			<?php
 			wp_nav_menu(
 				array(
 					'theme_location' => 'legal',
-					'menu_id'        => 'eltheme-legal-menu',
+					'menu_id'        => 'foh-legal-menu',
 					'fallback_cb'    => false,
 				)
 			);
 			?>
-		</nav><!-- #eltheme-legal-navigation -->
+		</nav><!-- #foh-legal-navigation -->
 
 		<div class="site-info">
-			<?php $eltheme_blog_info = get_bloginfo( 'name' ); ?>
-			<?php if ( ! empty( $eltheme_blog_info ) ) : ?>
-				<?php echo esc_html( sprintf( '&copy; %s %s', $eltheme_blog_info, date_format( date_create(), 'o' ) ) ); ?>
+			<?php $foh_blog_info = get_bloginfo( 'name' ); ?>
+			<?php if ( ! empty( $foh_blog_info ) ) : ?>
+				<?php echo esc_html( sprintf( '&copy; %s %s', $foh_blog_info, date_format( date_create(), 'o' ) ) ); ?>
 			<?php endif; ?>
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->

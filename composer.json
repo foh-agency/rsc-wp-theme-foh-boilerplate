@@ -1,5 +1,5 @@
 {
-    "name": "foh-agency/eltheme",
+    "name": "foh-agency/foh",
     "type": "wordpress-theme",
     "description": "Custom WordPress theme boilerplate based on Underscores, with Webpack and GSAP.",
     "keywords": [
@@ -23,10 +23,10 @@
     },
     "scripts": {
         "lint:php": "phpcs . --standard=phpcs.xml.dist",
-        "make-pot": "wp i18n make-pot . languages/eltheme.pot"
+        "make-pot": "wp i18n make-pot . languages/foh.pot"
     },
     "support": {
-        "issues": "https://github.com/eltheme-agency/rsc-wp-theme-eltheme-boilerplate/issues",
-        "source": "https://github.com/eltheme-agency/rsc-wp-theme-eltheme-boilerplate"
+        "issues": "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate/issues",
+        "source": "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate"
     }
 }

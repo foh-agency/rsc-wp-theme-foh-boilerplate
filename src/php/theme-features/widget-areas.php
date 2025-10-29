@@ -4,19 +4,19 @@
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  *
- * @package eltheme
+ * @package FOH
  */
 
 /**
  * Register widget areas 
  */
-function eltheme_widgets_init() {
+function foh_widgets_init() {
 	// Sidebar 1.
 	register_sidebar(
 		array(
-			'name'          => esc_html__( 'Sidebar', 'eltheme' ),
+			'name'          => esc_html__( 'Sidebar', 'foh' ),
 			'id'            => 'sidebar-1',
-			'description'   => esc_html__( 'Add widgets here.', 'eltheme' ),
+			'description'   => esc_html__( 'Add widgets here.', 'foh' ),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h2 class="widget-title">',
@@ -27,9 +27,9 @@ function eltheme_widgets_init() {
 	// Footer widget area 1.
 	register_sidebar(
 		array(
-			'name'          => esc_html__( 'Footer logo widget area', 'eltheme' ),
+			'name'          => esc_html__( 'Footer logo widget area', 'foh' ),
 			'id'            => 'footer-logo',
-			'description'   => esc_html__( 'Add an image widget here.', 'eltheme' ),
+			'description'   => esc_html__( 'Add an image widget here.', 'foh' ),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h2 class="widget-title">',
@@ -37,4 +37,4 @@ function eltheme_widgets_init() {
 		)
 	);
 }
-add_action( 'widgets_init', 'eltheme_widgets_init' );
+add_action( 'widgets_init', 'foh_widgets_init' );

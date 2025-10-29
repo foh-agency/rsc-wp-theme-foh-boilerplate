@@ -1,6 +1,6 @@
 /*!
-Theme Name: EL Theme
-Theme URI: https://github.com/foh-agency/prj-wp-theme-evalarumbe
+Theme Name: FOH Theme
+Theme URI: https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate
 Author: FOH Agency
 Author URI: https://www.foh-agency.com/
 Description: Custom WordPress theme boilerplate based on Underscores, with Webpack and GSAP.
@@ -8,13 +8,13 @@ Version: 1.0.0
 Tested up to: 5.6
 Requires PHP: 5.6
 License: ISC
-Text Domain: eltheme
+Text Domain: foh
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 
 This theme, like WordPress, is under an open-source license.
 Use it to make something cool, have fun, and share what you've learned.
 
-EL Theme is based on FOH which is based on Underscores https://underscores.me/, (C) 2012-2020 Automattic, Inc.
+FOH Theme is based on Underscores https://underscores.me/, (C) 2012-2020 Automattic, Inc.
 Underscores is distributed under the terms of the GNU GPL v2 or later.
 
 Normalizing styles have been helped along thanks to the fine work of

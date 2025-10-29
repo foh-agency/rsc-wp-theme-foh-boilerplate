@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: FOH 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/rsc-wp-theme-eltheme-boilerplate\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/rsc-wp-theme-foh-boilerplate\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -12,7 +12,7 @@ msgstr ""
 "POT-Creation-Date: 2021-03-20T17:55:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
-"X-Domain: eltheme\n"
+"X-Domain: foh\n"
 
 #. Theme Name of the theme
 msgid "FOH"
@@ -20,7 +20,7 @@ msgstr ""
 
 #. Theme URI of the theme
 #. Author URI of the theme
-msgid "https://www.eltheme-agency.com/"
+msgid "https://www.foh-agency.com/"
 msgstr ""
 
 #. Description of the theme
@@ -86,31 +86,31 @@ msgstr ""
 msgid "Next:"
 msgstr ""
 
-#: src/php/eltheme-features/navigation.php:16
+#: src/php/foh-features/navigation.php:16
 msgid "Header"
 msgstr ""
 
-#: src/php/eltheme-features/navigation.php:17
+#: src/php/foh-features/navigation.php:17
 msgid "Footer"
 msgstr ""
 
-#: src/php/eltheme-features/navigation.php:18
+#: src/php/foh-features/navigation.php:18
 msgid "Legal"
 msgstr ""
 
-#: src/php/eltheme-features/widget-areas.php:17
+#: src/php/foh-features/widget-areas.php:17
 msgid "Sidebar"
 msgstr ""
 
-#: src/php/eltheme-features/widget-areas.php:19
+#: src/php/foh-features/widget-areas.php:19
 msgid "Add widgets here."
 msgstr ""
 
-#: src/php/eltheme-features/widget-areas.php:30
+#: src/php/foh-features/widget-areas.php:30
 msgid "Footer logo widget area"
 msgstr ""
 
-#: src/php/eltheme-features/widget-areas.php:32
+#: src/php/foh-features/widget-areas.php:32
 msgid "Add an image widget here."
 msgstr ""
 

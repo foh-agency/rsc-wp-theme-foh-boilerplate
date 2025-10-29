@@ -65,7 +65,7 @@ See README.md: Workflows > Linting and Formatting > PHPCS
 		 Multiple valid text domains can be provided as a comma-delimited list. -->
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="eltheme"/>
+			<property name="text_domain" type="array" value="foh"/>
 		</properties>
 	</rule>
 
@@ -97,7 +97,7 @@ See README.md: Workflows > Linting and Formatting > PHPCS
 		 Multiple valid prefixes can be provided as a comma-delimited list. -->
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
-			<property name="prefixes" type="array" value="eltheme" />
+			<property name="prefixes" type="array" value="foh" />
 		</properties>
 	</rule>
 
