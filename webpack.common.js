@@ -7,7 +7,7 @@ const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 // Prepare project paths
 // For local development, we need to specify the name of dir that holds wp-config.php
 const siteRoot =
-  process.env.NODE_ENV === "development" ? "evalarumbe/" : "";
+  process.env.NODE_ENV === "development" ? "foh-starter-theme-test/" : "";
 // And the theme dir
 const themeFragment = "wp-content/themes/foh/";
 
