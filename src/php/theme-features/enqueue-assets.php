@@ -10,11 +10,11 @@
  * 
  * Source maps are included.
  * 
- * @package eltheme
+ * @package FOH
  */
 
-define( 'ELTHEME_WEBPACK_DIST_URI', get_template_directory_uri() . '/dist' );
-define( 'ELTHEME_WEBPACK_DIST_DIRECTORY', get_template_directory() . '/dist' );
+define( 'FOH_WEBPACK_DIST_URI', get_template_directory_uri() . '/dist' );
+define( 'FOH_WEBPACK_DIST_DIRECTORY', get_template_directory() . '/dist' );
 
 /**
  * Retrieves the manifest and returns the contents as an associative array.
@@ -64,19 +64,19 @@ define( 'FOH_WEBPACK_MANIFEST_KEYS', array_keys( FOH_WEBPACK_MANIFEST ) );
 /**
  * Enqueue styles produced by Webpack.
  */
-function eltheme_load_stylesheets() {
-	// From the manifest, extract keys ending in .css (stylesheets) or .css.map (source maps).
+function foh_load_stylesheets() {
+	// Frfohe manifest, extract keys ending in .css (stylesheets) or .css.map (source maps).
 	$pattern    = '/^.*\.(css|css\.map)$/';
-	$style_keys = preg_grep( $pattern, ELTHEME_WEBPACK_MANIFEST_KEYS );
+	$style_keys = preg_grep( $pattern, FOH_WEBPACK_MANIFEST_KEYS );
 
 	foreach ( $style_keys as $plain_filename ) {
 		// TODO: these first few lines also appear in another loop in this file. Make DRY?
 		// Query the manifest to find the hashed file path.
-		$hashed_filepath_fragment = ELTHEME_WEBPACK_MANIFEST[ $plain_filename ];
+		$hashed_filepath_fragment = FOH_WEBPACK_MANIFEST[ $plain_filename ];
 		// Get the file system location (e.g. /Users/whatever).
-		$hashed_filepath = ELTHEME_WEBPACK_DIST_DIRECTORY . $hashed_filepath_fragment;
+		$hashed_filepath = FOH_WEBPACK_DIST_DIRECTORY . $hashed_filepath_fragment;
 		// Get the remote location (e.g. http://localhost:8888/whatever).
-		$hashed_filepath_uri = ELTHEME_WEBPACK_DIST_URI . $hashed_filepath_fragment;
+		$hashed_filepath_uri = FOH_WEBPACK_DIST_URI . $hashed_filepath_fragment;
 	
 		// file_exists needs to test the file system path, not the remote one.
 		if ( file_exists( $hashed_filepath ) ) {
@@ -96,20 +96,20 @@ function eltheme_load_stylesheets() {
 /** 
  * Enqueue js produced by Webpack.
  */
-function eltheme_load_local_scripts() {
+function foh_load_local_scripts() {
 	// Enqueue all scripts in dist, including any chunks split out in Webpack's production mode.
 	$pattern = '/^.*\.(js|js\.map)$/';
 
-	$script_keys = preg_grep( $pattern, ELTHEME_WEBPACK_MANIFEST_KEYS );
+	$script_keys = preg_grep( $pattern, FOH_WEBPACK_MANIFEST_KEYS );
 	
 	foreach ( $script_keys as $plain_filename ) {
 		// TODO: these first few lines also appear in another loop in this file. Make DRY?
 		// Query the manifest to find the hashed file path.
-		$hashed_filepath_fragment = ELTHEME_WEBPACK_MANIFEST[ $plain_filename ];
+		$hashed_filepath_fragment = FOH_WEBPACK_MANIFEST[ $plain_filename ];
 		// Get the file system location (e.g. /Users/whatever).
-		$hashed_filepath = ELTHEME_WEBPACK_DIST_DIRECTORY . $hashed_filepath_fragment;
+		$hashed_filepath = FOH_WEBPACK_DIST_DIRECTORY . $hashed_filepath_fragment;
 		// Get the remote location (e.g. http://localhost:8888/whatever).
-		$hashed_filepath_uri = ELTHEME_WEBPACK_DIST_URI . $hashed_filepath_fragment;
+		$hashed_filepath_uri = FOH_WEBPACK_DIST_URI . $hashed_filepath_fragment;
 	
 		// file_exists needs to test the file system path, not the remote one.
 		if ( file_exists( $hashed_filepath ) ) {
@@ -126,5 +126,5 @@ function eltheme_load_local_scripts() {
 	}
 }
 
-add_action( 'wp_enqueue_scripts', 'eltheme_load_stylesheets' );
-add_action( 'wp_enqueue_scripts', 'eltheme_load_local_scripts' );
+add_action( 'wp_enqueue_scripts', 'foh_load_stylesheets' );
+add_action( 'wp_enqueue_scripts', 'foh_load_local_scripts' );
