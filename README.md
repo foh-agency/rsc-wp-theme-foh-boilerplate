@@ -380,12 +380,6 @@ $ npx stylelint --print-config .
     -   [stylelint-config-wordpress](https://github.com/WordPress-Coding-Standards/stylelint-config-wordpress)
     -   [stylelint-config-recommended-scss](https://github.com/kristerkari/stylelint-config-recommended-scss)
 
--   `stylelint-config-prettier`
-
-    This one must be the last in the list, so it applies after the others.
-
-    It resolves potential conflicts between stylelint and prettier.
-
 ##### Troubleshooting ignore files
 
 Two files in the theme dir (`.stylelintignore` and `.prettierignore`) are set to not touch `style.css`, which contains theme info required by WordPress and source from `normalize.css`.
