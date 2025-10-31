@@ -239,6 +239,7 @@ The included `package.json` file contains handy scripts that run Webpack to buil
 | `@babel/core`                 | This is Babel! But it's useless without plugins or presets (which are collections of plugins). |
 | `@babel/preset-env`           | Preset based on [caniuse](https://caniuse.com/). I decide which syntax to change depending on the project's supported browsers. |
 | `@babel/register`             | Support ES6 syntax within the Webpack config files. |
+| `@tailwindcss/postcss`        | Use PostCSS to compile Tailwind. |
 | `@wordpress/eslint-plugin`    | ESLint plugin including configurations and custom rules for WordPress development. |
 | `@wordpress/prettier-config`  | WordPress Prettier shareable config for Prettier. |
 | `@wordpress/stylelint-config` | Adopt WordPress coding standards for S(CSS). |
@@ -255,6 +256,7 @@ The included `package.json` file contains handy scripts that run Webpack to buil
 | `prettier`                    | Automatic code formatter (specifies the version to be used by VS Code extension). |
 | `sass`                        | Compile SCSS syntax into CSS. |
 | `sass-loader`                 | Enable Webpack to run `sass`. |
+| `tailwindcss`                 | Tailwind CSS library. |
 | `webpack`                     | Your humble bundler. |
 | `webpack-bundle-analyzer`     | On each build, display a graphical representation of bundle files and their sizes. |
 | `webpack-cli`                 | A required helper for Webpack. |
