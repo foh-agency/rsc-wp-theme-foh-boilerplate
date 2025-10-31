@@ -1,7 +1,7 @@
 {
   "name": "foh",
   "version": "1.0.0",
-  "description": "Custom WordPress theme boilerplate based on Underscores, with Webpack and GSAP.",
+  "description": "Custom WordPress theme boilerplate based on Underscores with Webpack, Tailwind, GSAP.",
   "license": "ISC",
   "keywords": [
     "WordPress",

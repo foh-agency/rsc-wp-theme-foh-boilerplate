@@ -86,6 +86,7 @@ Familiarity with fundamental concepts of Composer, NPM, Sass, Babel, Webpack and
 -   Two widget areas (sidebar, footer)
 -   Webpack for production: Optimize bundle for caching. Include GSAP for animation.
 -   Webpack for development: Dev server with BrowserSync.
+-   Tailwind CSS
 
 ### Underscores features removed by FOH
 

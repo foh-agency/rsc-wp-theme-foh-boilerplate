@@ -14,7 +14,7 @@ A starter theme called FOH.
 
 == Description ==
 
-Custom WordPress theme boilerplate based on Underscores, with Webpack and GSAP.
+Custom WordPress theme boilerplate based on Underscores with Webpack, Tailwind, GSAP.
 
 == Installation ==
 
