@@ -1,3 +1,4 @@
+// Default styles to be animated by JS
 .js-masthead {
 	position: fixed;
 	top: 0;
@@ -5,4 +6,9 @@
 	.js-header-logo {
 		opacity: 0;
 	}
+}
+
+// Non-animated styles
+.js-masthead {
+	width: 100%;
 }
