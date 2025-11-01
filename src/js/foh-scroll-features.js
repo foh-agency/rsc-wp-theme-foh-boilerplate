@@ -14,18 +14,18 @@ gsap.registerPlugin( ScrollTrigger ); // protect against tree-shaking
  *
  * DOM Dependencies (if your DOM is different, update the selectors below):
  *
- * <header id="site-header">
- *  <div id="header-logo" class="animated">My logo!</div>
+ * <header class="js-masthead">
+ *  <div class="js-header-logo">My logo!</div>
  * </header>
  *
  * Default styles to set in CSS:
  *
- *  #site-header {
+ *  .js-masthead {
  *    position: fixed;
  *    top: 0;
  *  }
  *
- *  #header-logo {
+ *  .js-header-logo {
  *    opacity: 0;
  *  }
  */
@@ -67,7 +67,7 @@ export function initScrollableHeader() {
 	function fohRevealLogo() {
 		const logoTl = gsap.timeline();
 
-		const logo = document.querySelector( '#header-logo' );
+		const logo = document.querySelector( '.js-header-logo' );
 
 		logoTl.fromTo(
 			logo,
@@ -92,7 +92,7 @@ export function initScrollableHeader() {
 	function fohRevealEdge() {
 		const shadowTl = gsap.timeline();
 
-		const header = document.querySelector( '#masthead' );
+		const header = document.querySelector( '.js-masthead' );
 
 		shadowTl.fromTo(
 			header,
