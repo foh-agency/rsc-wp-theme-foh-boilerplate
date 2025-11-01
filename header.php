@@ -26,7 +26,11 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'foh' ); ?></a>
 
-	<header class="js-masthead">
+	<header class="
+		js-masthead
+		flex
+		justify-between
+		">
 		<div class="js-header-logo">
 			<?php
 			the_custom_logo();
