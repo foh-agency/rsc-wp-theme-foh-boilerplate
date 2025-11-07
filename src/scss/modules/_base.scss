@@ -5,3 +5,31 @@
 html {
 	font-size: 100%;
 }
+
+// Google Fonts
+@import url(https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,600,700|Montserrat:300,400,600,700);
+
+// // Local fonts
+// @font-face {
+//   font-family: 'MyFont';
+//   src: url('../static/fonts/MyFontFile-semibold.woff2') format('woff2');
+//   font-weight: 600;
+//   font-style: normal;
+// }
+
+// @font-face {
+//   font-family: 'MyFont';
+//   src: url('../static/fonts/MyFontFile-bold.woff2') format('woff2');
+//   font-weight: 700;
+//   font-style: normal;
+// }
+
+// // Define families
+// $f-family-display: 'MyFont', 'Garamond', serif;
+$f-family-primary: 'Montserrat', 'Helvetica Neue', sans-serif;
+
+// TODO: Remove testing styles
+* {
+	font-family: $f-family-primary !important;
+	font-weight: 700;
+}

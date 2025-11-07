@@ -258,6 +258,7 @@ The included `package.json` file contains handy scripts that run Webpack to buil
 | `sass`                        | Compile SCSS syntax into CSS. |
 | `sass-loader`                 | Enable Webpack to run `sass`. |
 | `tailwindcss`                 | Tailwind CSS library. |
+| `url-loader`                  | Enable Webpack to load fonts, images and other static files |
 | `webpack`                     | Your humble bundler. |
 | `webpack-bundle-analyzer`     | On each build, display a graphical representation of bundle files and their sizes. |
 | `webpack-cli`                 | A required helper for Webpack. |
