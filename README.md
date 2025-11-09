@@ -457,6 +457,8 @@ The subsection on formatting offers a couple of possible approaches to applying 
 
     ```Console
     $ composer g require --dev "squizlabs/php_codesniffer=*";
+
+    # This next line may already be in effect, take a look at your ~/.bashrc
     $ echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc
     ```
 
