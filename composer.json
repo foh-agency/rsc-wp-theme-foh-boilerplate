@@ -1,32 +1,31 @@
 {
-    "name": "foh-agency/foh",
-    "type": "wordpress-theme",
-    "description": "Custom WordPress theme boilerplate based on Underscores, with Webpack, Tailwind, GSAP.",
-    "keywords": [
-        "WordPress",
-        "Themes",
-        "Webpack",
-        "GSAP"
-    ],
-    "homepage": "https://www.evalarumbe.com/",
-    "license": "ISC",
-    "authors": [
-        {
-            "name": "FOH Agency",
-            "homepage": "https://www.foh-agency.com/"
-        }
-    ],
-    "require": {
-        "php": ">=5.6"
-    },
-    "require-dev": {
-    },
-    "scripts": {
-        "lint:php": "phpcs . --standard=phpcs.xml.dist",
-        "make-pot": "wp i18n make-pot . languages/foh.pot"
-    },
-    "support": {
-        "issues": "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate/issues",
-        "source": "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate"
-    }
+	"name": "foh-agency/foh",
+	"type": "wordpress-theme",
+	"description": "Custom WordPress theme boilerplate based on Underscores, with Webpack, Tailwind, GSAP.",
+	"keywords": [
+		"WordPress",
+		"Themes",
+		"Webpack",
+		"GSAP"
+	],
+	"homepage": "https://www.evalarumbe.com/",
+	"license": "ISC",
+	"authors": [
+		{
+			"name": "FOH Agency",
+			"homepage": "https://www.foh-agency.com/"
+		}
+	],
+	"require": {
+		"php": ">=5.6"
+	},
+	"require-dev": {},
+	"scripts": {
+		"lint:php": "phpcs . --standard=phpcs.xml.dist",
+		"make-pot": "wp i18n make-pot . languages/foh.pot"
+	},
+	"support": {
+		"issues": "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate/issues",
+		"source": "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate"
+	}
 }
