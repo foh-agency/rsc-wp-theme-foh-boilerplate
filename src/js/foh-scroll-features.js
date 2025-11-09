@@ -1,6 +1,6 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-gsap.registerPlugin( ScrollTrigger ); // protect against tree-shaking
+gsap.registerPlugin(ScrollTrigger); // protect against tree-shaking
 
 /**
  * @function initScrollableHeader
@@ -36,12 +36,12 @@ export function initScrollableHeader() {
 	 * Compose timelines and set ScrollTrigger
 	 * @param {Array} timelines - array of gsap timelines instances
 	 */
-	function triggerTimelines( timelines ) {
+	function triggerTimelines(timelines) {
 		// find the trigger element
-		const body = document.querySelector( 'body' );
+		const body = document.querySelector('body');
 
 		// create main timeline and configure the scrollTrigger
-		const mainTl = gsap.timeline( {
+		const mainTl = gsap.timeline({
 			scrollTrigger: {
 				trigger: body,
 				start: 'top top-=100', // when the top of the body reaches 100px above the top of the viewport
@@ -49,13 +49,13 @@ export function initScrollableHeader() {
 				scrub: true,
 				// markers: true, // uncomment to debug
 			},
-		} );
+		});
 
 		// add child timelines to all start at the same time
 		// (at the 'start' of the mainTl)
-		timelines.forEach( ( tl ) => {
-			mainTl.add( tl(), 'start' );
-		} );
+		timelines.forEach((tl) => {
+			mainTl.add(tl(), 'start');
+		});
 	}
 
 	/**
@@ -67,7 +67,7 @@ export function initScrollableHeader() {
 	function fohRevealLogo() {
 		const logoTl = gsap.timeline();
 
-		const logo = document.querySelector( '.js-header-logo' );
+		const logo = document.querySelector('.js-header-logo');
 
 		logoTl.fromTo(
 			logo,
@@ -92,7 +92,7 @@ export function initScrollableHeader() {
 	function fohRevealEdge() {
 		const shadowTl = gsap.timeline();
 
-		const header = document.querySelector( '.js-masthead' );
+		const header = document.querySelector('.js-masthead');
 
 		shadowTl.fromTo(
 			header,
@@ -109,5 +109,5 @@ export function initScrollableHeader() {
 		return shadowTl;
 	}
 
-	triggerTimelines( [ fohRevealLogo, fohRevealEdge ] );
+	triggerTimelines([fohRevealLogo, fohRevealEdge]);
 }

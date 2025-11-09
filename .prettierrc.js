@@ -1,3 +1,3 @@
 module.exports = {
-	...require( '@wordpress/prettier-config' ),
+	...require('@wordpress/prettier-config'),
 };

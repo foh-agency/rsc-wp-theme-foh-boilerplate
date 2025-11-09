@@ -1,64 +1,64 @@
 {
-  "name": "foh",
-  "version": "1.0.0",
-  "description": "Custom WordPress theme boilerplate based on Underscores with Webpack, Tailwind, GSAP.",
-  "license": "ISC",
-  "keywords": [
-    "WordPress",
-    "Themes",
-    "Webpack",
-    "GSAP"
-  ],
-  "homepage": "https://www.foh-agency.com/",
-  "author": "FOH Agency (https://www.foh-agency.com/)",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate"
-  },
-  "bugs": {
-    "url": "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate/issues"
-  },
-  "browserslist": [
-    "defaults"
-  ],
-  "scripts": {
-    "start": "NODE_ENV=development webpack serve --config webpack.dev.js",
-    "dev": "NODE_ENV=development webpack --config webpack.dev.js",
-    "build": "NODE_ENV=production webpack --config webpack.prod.js",
-    "build-prod-in-dev-env": "NODE_ENV=development webpack --config webpack.prod.js"
-  },
-  "dependencies": {
-    "core-js": "^3.45.1",
-    "gsap": "^3.13.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.28.3",
-    "@babel/preset-env": "^7.28.3",
-    "@babel/register": "^7.28.3",
-    "@tailwindcss/postcss": "^4.1.16",
-    "@wordpress/eslint-plugin": "^22.15.0",
-    "@wordpress/prettier-config": "^4.29.0",
-    "@wordpress/stylelint-config": "^23.21.0",
-    "babel-loader": "^10.0.0",
-    "browser-sync": "^3.0.4",
-    "browser-sync-webpack-plugin": "^2.4.0",
-    "clean-webpack-plugin": "^4.0.0",
-    "css-loader": "^7.1.2",
-    "cssnano": "^7.1.1",
-    "eslint-config-prettier": "^10.1.8",
-    "mini-css-extract-plugin": "^2.9.4",
-    "postcss-loader": "^8.1.1",
-    "postcss-preset-env": "^10.2.4",
-    "prettier": "^3.6.2",
-    "sass": "^1.90.0",
-    "sass-loader": "^16.0.5",
-    "tailwindcss": "^4.1.16",
-    "url-loader": "^4.1.1",
-    "webpack": "^5.101.3",
-    "webpack-bundle-analyzer": "^4.10.2",
-    "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.2",
-    "webpack-manifest-plugin": "^5.0.1",
-    "webpack-merge": "^6.0.1"
-  }
+	"name": "foh",
+	"version": "1.0.0",
+	"description": "Custom WordPress theme boilerplate based on Underscores with Webpack, Tailwind, GSAP.",
+	"license": "ISC",
+	"keywords": [
+		"WordPress",
+		"Themes",
+		"Webpack",
+		"GSAP"
+	],
+	"homepage": "https://www.foh-agency.com/",
+	"author": "FOH Agency (https://www.foh-agency.com/)",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate"
+	},
+	"bugs": {
+		"url": "https://github.com/foh-agency/rsc-wp-theme-foh-boilerplate/issues"
+	},
+	"browserslist": [
+		"defaults"
+	],
+	"scripts": {
+		"start": "NODE_ENV=development webpack serve --config webpack.dev.js",
+		"dev": "NODE_ENV=development webpack --config webpack.dev.js",
+		"build": "NODE_ENV=production webpack --config webpack.prod.js",
+		"build-prod-in-dev-env": "NODE_ENV=development webpack --config webpack.prod.js"
+	},
+	"dependencies": {
+		"core-js": "^3.45.1",
+		"gsap": "^3.13.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.28.3",
+		"@babel/preset-env": "^7.28.3",
+		"@babel/register": "^7.28.3",
+		"@tailwindcss/postcss": "^4.1.16",
+		"@wordpress/eslint-plugin": "^22.15.0",
+		"@wordpress/prettier-config": "^4.29.0",
+		"@wordpress/stylelint-config": "^23.21.0",
+		"babel-loader": "^10.0.0",
+		"browser-sync": "^3.0.4",
+		"browser-sync-webpack-plugin": "^2.4.0",
+		"clean-webpack-plugin": "^4.0.0",
+		"css-loader": "^7.1.2",
+		"cssnano": "^7.1.1",
+		"eslint-config-prettier": "^10.1.8",
+		"mini-css-extract-plugin": "^2.9.4",
+		"postcss-loader": "^8.1.1",
+		"postcss-preset-env": "^10.2.4",
+		"prettier": "^3.6.2",
+		"sass": "^1.90.0",
+		"sass-loader": "^16.0.5",
+		"tailwindcss": "^4.1.16",
+		"url-loader": "^4.1.1",
+		"webpack": "^5.101.3",
+		"webpack-bundle-analyzer": "^4.10.2",
+		"webpack-cli": "^6.0.1",
+		"webpack-dev-server": "^5.2.2",
+		"webpack-manifest-plugin": "^5.0.1",
+		"webpack-merge": "^6.0.1"
+	}
 }
