@@ -672,8 +672,10 @@ textarea {
 	top: 0;
 }
 
+
+/* Keep submenu visible when nested menu item has focus */
 .main-navigation ul ul li:hover > ul,
-.main-navigation ul ul li.focus > ul {
+.main-navigation ul ul li.js-focus > ul {
 	display: block;
 	left: auto;
 }
@@ -683,7 +685,7 @@ textarea {
 }
 
 .main-navigation ul li:hover > ul,
-.main-navigation ul li.focus > ul {
+.main-navigation ul li.js-focus > ul {
 	left: auto;
 }
 
@@ -697,14 +699,14 @@ textarea {
 }
 
 /* Small menu. */
-.menu-toggle,
-.main-navigation.toggled ul {
+.js-menu-toggle,
+.main-navigation.js-toggled ul {
 	display: block;
 }
 
 @media screen and (min-width: 37.5em) {
 
-	.menu-toggle {
+	.js-menu-toggle {
 		display: none;
 	}
 

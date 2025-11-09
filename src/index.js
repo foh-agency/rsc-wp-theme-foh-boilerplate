@@ -5,7 +5,8 @@ import './scss/main.scss';
 import { initScrollableHeader } from './js/foh-scroll-features.js';
 
 // TODO: Consider better ways to import these default Underscores files:
-import './js/navigation.js';
+import './js/nav-handle-focus.js';
+import './js/nav-toggle-mobile-drawer.js';
 // import './js/customizer.js'; // This depends on jQuery and it's not a priority to include it right now, so let's not.
 
 (() => {
