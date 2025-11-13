@@ -25,7 +25,8 @@ require_once get_stylesheet_directory() . '/src/php/theme-features/enqueue-asset
 function foh_scripts() {
 	wp_enqueue_style( 'foh-style', get_stylesheet_uri(), array(), FOH_VERSION );
 
-	wp_enqueue_script( 'foh-navigation', get_template_directory_uri() . '/src/js/navigation.js', array(), FOH_VERSION, true );
+	wp_enqueue_script( 'foh-navigation', get_template_directory_uri() . '/src/js/nav-handle-focus.js', array(), FOH_VERSION, true );
+	wp_enqueue_script( 'foh-navigation', get_template_directory_uri() . '/src/js/nav-toggle-mobile-drawer.js', array(), FOH_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
