@@ -1,0 +1,6 @@
+@use '../mixins/menu-lab' as *;
+
+.foh-drawer {
+  // See params usage guide in _menu.scss where the @mixin is defined
+  @include menu-lab($location, $has-drawer, $drawer-only);
+}
