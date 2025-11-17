@@ -1,0 +1,142 @@
+/* Nest this mixin inside a selector to provide context */
+
+// Params
+// $location, $has-drawer, $drawer-only
+// $location: ['header' | 'footer]    Corresponds to WP menu location
+// $has-drawer: [true | false]        Does this menu ever want to be displayed as a drawer?
+// $drawer-only: [true | false]       Do you only ever want to show the mini-menu (so the full list of items can only ever be in the drawer)?
+// TODO: $drawer-only should only make a difference if $has-drawer is true. test this and comment as much.
+
+// Usage
+// Footer: ('footer', false, false)
+// Header: ('header', true, true)
+// Header (previously): ('header', true, false)
+
+// TODO: ADD LOGIC THAT USES THE NEW PARAM TO CONTROL THE FLOW
+@mixin menu-lab($location, $has-drawer: true, $drawer-only: true) {
+  // Base menu styles:
+  // These styles apply only to the full menu list in any location,
+  // both in and out of the drawer.
+  // Some of these are overridden below for different use cases (see comments) 
+  ul {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0;
+    width: 100vw;
+
+    li {
+      list-style-type: none;
+      display: block;
+      
+      font-size: $line-height + rem;
+      font-family: $f-family-primary;
+      font-weight: $f-weight-light;
+      line-height: $line-height;
+      
+      text-align: center;
+      padding: $size-0-5 + rem 0;
+    
+      &:hover {
+        color: white;
+        background-color: $white-overlay-light;
+      }
+  
+      a {
+        color: $brand-white;
+        text-decoration: none;
+  
+        &:active {
+          color: $white-overlay-medium;
+        }
+      }
+    }
+
+    @if ($has-drawer) {
+      // Drawer menu styles:
+      // These styles apply within the drawer,
+      // and to the full list when displayed outside of the drawer.
+      // These styles may override some Base menu styles defined above.
+      width: 75vw;
+      max-width: $size-24 + rem;
+      min-height: 100%;
+
+      li {
+        text-align: left;
+        padding: $size-0-5 + rem 0 $size-0-5 + rem $size-2 + rem;
+        &:first-of-type {
+          margin-top: $size-4 + rem;
+        }
+
+        a:hover {
+          border: none;
+        }
+      }
+    }
+
+    @if ($location == 'header') and ($drawer-only == false) {
+      @media (min-width: $br-mini-menu + px) {
+        // Full list menu styles outside of drawer (when drawer is present but closed):
+        // These styles apply only to the full list when displayed outside the drawer
+        // These styles may override both Base and Drawer menu styles defined above.
+        display: flex;
+        top: 0;
+        height: auto;
+        width: auto;
+        background: none;
+        justify-content: flex-end;
+        box-shadow: none;
+        border-top: none;
+        padding: $size-0-5 + rem 0;
+        font-size: $f-0-8 + rem;
+  
+        li {
+          padding-left: 0;
+          padding-right: 1ch;
+          
+          &:first-of-type {
+            margin-top: 0;
+          }
+  
+          &:last-child {
+            padding-right: 0;
+          }
+  
+          &:hover {
+            background: none;
+          }
+  
+          a {
+            color: $brand-white;
+            text-decoration: none;
+            border-style: solid;
+            border-width: 0 0 $b-width-md + px 0;
+            border-color: rgba(0, 0, 0, 0);
+      
+            &:hover {
+              border-style: solid;
+              border-width: 0 0 $b-width-md + px 0;
+              border-color: $brand-white;
+            }
+      
+            &:active {
+              color: $white-overlay-medium;
+              border-color: $white-overlay-medium;
+            }
+          }
+        }
+      }
+
+      @media (min-width: $desktop-lower + px) {
+        font-size: $f-0-8 + rem;
+      }
+    }
+
+    @if ($location == 'footer') {
+      a:hover {
+        color: $brand-white;
+        border: none;
+      }
+    }
+  }
+}
