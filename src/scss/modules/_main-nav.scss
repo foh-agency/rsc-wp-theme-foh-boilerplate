@@ -1,4 +1,4 @@
-@use '../mixins/menu-lab' as *;
+@use '../mixins/menu' as *;
 
 // Vars passed to @mixin menu.
 // See usage guide in _menu.scss for more detail
@@ -8,5 +8,5 @@ $drawer-only: false; // False: menu is also shown outside drawer on wider viewpo
 
 .foh-drawer {
   // See params usage guide in _menu.scss where the @mixin is defined
-  @include menu-lab($location, $has-drawer, $drawer-only);
+  @include menu($location, $has-drawer, $drawer-only);
 }
