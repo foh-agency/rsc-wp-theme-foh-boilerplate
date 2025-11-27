@@ -5,7 +5,21 @@
 $location: 'header';
 $has-drawer: true;
 
-.foh-drawer {
-  // See params usage guide in _menu.scss where the @mixin is defined
-  @include menu($location, $has-drawer);
+.main-navigation {
+    // Just testing
+    background-color: rgba(255, 0, 255, 0.5);
+
+  .js-menu-toggle {
+    display: block;
+
+    @media screen and (min-width: 720px) {
+      display: none;
+    }
+  }
+
+  .foh-drawer {  
+    // See params usage guide in _menu.scss where the @mixin is defined
+    @include menu($location, $has-drawer);
+  }
 }
+
