@@ -1,19 +1,16 @@
 /* Nest this mixin inside a selector to provide context */
 
 // Params
-// $location, $has-drawer, $drawer-only
+// $location, $has-drawer
 // $location: ['header' | 'footer]    Corresponds to WP menu location
 // $has-drawer: [true | false]        Does this menu ever want to be displayed as a drawer?
-// $drawer-only: [true | false]       Do you only ever want to show the mini-menu (so the full list of items can only ever be in the drawer)?
-// TODO: $drawer-only should only make a difference if $has-drawer is true. test this and comment as much.
 
 // Usage
-// Footer: ('footer', false, false)
-// Header: ('header', true, true)
-// Header (previously): ('header', true, false)
+// Footer: ('footer', false)
+// Header (previously): ('header', true)   e.g. menu appears with no drawer on wide viewports.
 
 // TODO: ADD LOGIC THAT USES THE NEW PARAM TO CONTROL THE FLOW
-@mixin menu($location, $has-drawer: true, $drawer-only: true) {
+@mixin menu($location, $has-drawer: true) {
   // Base menu styles:
   // These styles apply only to the full menu list in any location,
   // both in and out of the drawer.
@@ -81,7 +78,7 @@
       }
     }
 
-    @if ($location == 'header') and ($drawer-only == false) {
+    @if ($location == 'header') {
       // @media (min-width: $br-mini-menu + px) {
       @media (min-width: 720px) {
 
