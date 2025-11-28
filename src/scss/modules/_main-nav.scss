@@ -6,10 +6,8 @@ $location: 'header';
 $has-drawer: true;
 
 .main-navigation {
-    // Just testing
-    background-color: rgba(255, 0, 255, 0.5);
-
-  .js-menu-toggle {
+  .js-menu-toggle-link,
+  .js-menu-toggle-button {
     display: block;
 
     @media screen and (min-width: 720px) {
@@ -17,7 +15,35 @@ $has-drawer: true;
     }
   }
 
-  .foh-drawer {  
+  // Just testing
+  .js-menu-toggle-button {
+    background: rgba(255,255,0,0);
+  }
+
+  .foh-drawer {
+    // Just testing
+    background-color: rgba(0, 0, 255, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    transition-property: transform;
+    transition-duration: 0.35s;
+    transition-timing-function: ease-in-out;
+    transform: translateY(-100%);
+    
+    &:target {
+      transform: translateY(0);
+    }
+
+    @media screen and (min-width: 720px) {
+        position: relative;
+        width: auto;
+        height: auto;
+        transform: translateY(0);
+    }
+
     // See params usage guide in _menu.scss where the @mixin is defined
     @include menu($location, $has-drawer);
   }

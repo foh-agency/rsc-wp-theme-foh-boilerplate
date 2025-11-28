@@ -8,9 +8,10 @@
 ?>
 
 <nav id="site-navigation" class="main-navigation">
-	<button class="js-menu-toggle" aria-controls="foh-header-menu" aria-expanded="false"><?php esc_html_e( 'Menu', 'foh' ); ?></button>
+	<a class="js-menu-toggle-link"href="#main-nav-content"><?php esc_html_e( 'Menu link', 'foh' ); ?></a>
+	<button class="js-menu-toggle-button hidden" aria-controls="foh-header-menu" aria-expanded="false"><?php esc_html_e( 'Menu button', 'foh' ); ?></button>
 	<!-- Header menu location -->
-  <div class="foh-drawer">
+  <div id="main-nav-content" class="foh-drawer">
     <?php
     wp_nav_menu(
       array(
