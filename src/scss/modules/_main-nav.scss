@@ -35,6 +35,7 @@ $has-drawer: true;
     
     &:target {
       transform: translateY(0);
+      position: relative;
     }
 
     @media screen and (min-width: 720px) {
