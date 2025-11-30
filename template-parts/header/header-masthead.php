@@ -12,7 +12,7 @@
 	flex
 	justify-between
 	">
-	<div class="js-header-logo">
+	<div class="js-header-logo hidden md:inline-block">
 		<?php
 		the_custom_logo();
 		if ( is_front_page() && is_home() ) :
