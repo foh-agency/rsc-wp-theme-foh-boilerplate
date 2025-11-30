@@ -78,7 +78,7 @@
 
     @if ($location == 'header') {
       // @media (min-width: $br-mini-menu + px) {
-      @media (min-width: 720px) {
+      @media (min-width: 768px) {
 
         // Full list menu styles outside of drawer (when drawer is present but closed):
         // These styles apply only to the full list when displayed outside the drawer
@@ -140,7 +140,7 @@
       }
 
       // @media (min-width: $desktop-lower + px) {
-      @media (min-width: 720px) {
+      @media (min-width: 768px) {
         // font-size: $f-0-8 + rem;
         font-size: 0.8rem;
       }

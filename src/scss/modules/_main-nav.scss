@@ -10,7 +10,7 @@ $has-drawer: true;
   .js-menu-toggle-button {
     display: block;
 
-    @media screen and (min-width: 720px) {
+    @media screen and (min-width: 768px) {
       display: none;
     }
   }
@@ -38,7 +38,7 @@ $has-drawer: true;
       position: relative;
     }
 
-    @media screen and (min-width: 720px) {
+    @media screen and (min-width: 768px) {
         position: relative;
         width: auto;
         height: auto;
