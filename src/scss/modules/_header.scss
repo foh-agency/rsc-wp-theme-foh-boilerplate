@@ -1,6 +1,6 @@
 // Default styles to be animated by JS
 .js-masthead {
-	position: fixed;
+	position: sticky; // must not be 'fixed', so the main nav can open without JS
 	top: 0;
 
 	.js-header-logo {
