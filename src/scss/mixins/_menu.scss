@@ -16,22 +16,12 @@
   // both in and out of the drawer.
   // Some of these are overridden below for different use cases (see comments) 
   ul {
-    position: relative;
-    padding: 0;
-    width: 100vw;
+    width: 100vw; // test hovering over menu items if you're thinking of removing this
 
     li {
-      list-style-type: none;
-      display: block;
-      
-      // font-size: $line-height + rem;
-      // font-family: $f-family-primary;
-      // font-weight: $f-weight-light;
-      // line-height: $line-height;
-      
-      text-align: center;
       // padding: $size-0-5 + rem 0;
-      padding: 0.5rem 0;
+      text-align: center; // goes with padding
+      padding: 0.5rem 0; // goes with text-align
     
       &:hover {
         color: white;
@@ -56,15 +46,10 @@
       // These styles apply within the drawer,
       // and to the full list when displayed outside of the drawer.
       // These styles may override some Base menu styles defined above.
-      width: 75vw;
-      // max-width: $size-24 + rem;
-      max-width: 24rem;
-      min-height: 100%;
-
       li {
-        text-align: left;
         // padding: $size-0-5 + rem 0 $size-0-5 + rem $size-2 + rem;
-        padding: 0.5rem 0 0.5rem 2rem;
+        text-align: left; // goes with padding
+        padding: 0.5rem 0 0.5rem 2rem; // goes with text-align
         &:first-of-type {
           // margin-top: $size-4 + rem;
           margin-top: 4rem;
@@ -79,22 +64,12 @@
     @if ($location == 'header') {
       // @media (min-width: $br-mini-menu + px) {
       @media (min-width: 768px) {
-
         // Full list menu styles outside of drawer (when drawer is present but closed):
         // These styles apply only to the full list when displayed outside the drawer
         // These styles may override both Base and Drawer menu styles defined above.
         display: flex;
-        top: 0;
-        height: auto;
         width: auto;
-        background: none;
         justify-content: flex-end;
-        box-shadow: none;
-        border-top: none;
-        // padding: $size-0-5 + rem 0;
-        padding: 0.5rem 0;
-        // font-size: $f-0-8 + rem;
-        font-size: 0.8rem;
   
         li {
           padding-left: 0;
@@ -137,12 +112,6 @@
             }
           }
         }
-      }
-
-      // @media (min-width: $desktop-lower + px) {
-      @media (min-width: 768px) {
-        // font-size: $f-0-8 + rem;
-        font-size: 0.8rem;
       }
     }
 
