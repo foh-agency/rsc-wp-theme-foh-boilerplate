@@ -46,14 +46,14 @@
       // These styles apply within the drawer,
       // and to the full list when displayed outside of the drawer.
       // These styles may override some Base menu styles defined above.
+
+      // margin-top: $size-4 + rem;
+      padding-top: 4rem;
+
       li {
         // padding: $size-0-5 + rem 0 $size-0-5 + rem $size-2 + rem;
         text-align: left; // goes with padding
         padding: 0.5rem 0 0.5rem 2rem; // goes with text-align
-        &:first-of-type {
-          // margin-top: $size-4 + rem;
-          margin-top: 4rem;
-        }
 
         a:hover {
           border: none;
@@ -70,14 +70,11 @@
         display: flex;
         width: auto;
         justify-content: flex-end;
+        padding-top: 0;
   
         li {
           padding-left: 0;
           padding-right: 1ch;
-          
-          &:first-of-type {
-            margin-top: 0;
-          }
   
           &:last-child {
             padding-right: 0;

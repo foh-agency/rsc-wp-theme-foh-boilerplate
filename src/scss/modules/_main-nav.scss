@@ -5,24 +5,12 @@
 $location: 'header';
 $has-drawer: true;
 
+// z-index usage documented in: themes/foh-test/template-parts/header/header-masthead.php
+
 .main-navigation {
-  .js-menu-toggle-link,
-  .js-menu-toggle-button {
-    display: block;
-
-    @media screen and (min-width: 768px) {
-      display: none;
-    }
-  }
-
-  // Just testing
-  .js-menu-toggle-button {
-    background: rgba(255,255,0,0);
-  }
-
   .foh-drawer {
     // Just testing
-    background-color: rgba(0, 0, 255, 0.5);
+    background-color: rgba(150, 150, 250, 1);
     position: absolute;
     top: 0;
     left: 0;
@@ -36,6 +24,10 @@ $has-drawer: true;
     &:target {
       transform: translateY(0);
       position: relative;
+    }
+
+    body:has(&:target) {
+      overflow: hidden;
     }
 
     @media screen and (min-width: 768px) {
