@@ -10,7 +10,7 @@ $has-drawer: true;
 .main-navigation {
   .foh-drawer {
     // Just testing
-    background-color: rgba(150, 150, 250, 1);
+    background-color: rgba(150, 150, 250, 1) !important;
     position: absolute;
     top: 0;
     left: 0;
