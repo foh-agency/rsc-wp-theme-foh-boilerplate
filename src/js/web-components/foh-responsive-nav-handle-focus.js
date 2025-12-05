@@ -6,7 +6,7 @@
  * 
  * Much of this functionality was included with Underscores in navigation.js
  */
-(function () {
+export function handleFocusOnDropdownEnabledNav() {
   const siteNavigation = document.getElementById('site-navigation');
   // Return early if the navigation don't exist.
   if (!siteNavigation) {
@@ -67,4 +67,4 @@
       menuItem.classList.toggle('js-focus');
     }
   }
-})();
+}
