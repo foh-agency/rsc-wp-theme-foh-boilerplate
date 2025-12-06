@@ -22,12 +22,9 @@ export default class ResponsiveNav extends HTMLElement {
       return;
     }
 
-    // bind event handlers
-    // this.initEventHandlers = this.initEventHandlers.bind(this);
+    // Bind event handlers
     this.handleToggle = this.handleToggle.bind(this);
     this.handleClickOffMenu = this.handleClickOffMenu.bind(this);
-
-    // this.initEventHandlers();
   }
 
   // Show the JS-enabled toggleButton, instead of the no-JS open/close links
@@ -62,7 +59,7 @@ export default class ResponsiveNav extends HTMLElement {
 
     this.toggleButton.addEventListener('click', this.handleToggle );
       
-    // Remove the .js-toggled class and set aria-expanded to false when the user clicks outside the navigation.
+    // Close the menu when the user clicks outside the navigation.
     document.addEventListener('click', this.handleClickOffMenu);
   }
 
