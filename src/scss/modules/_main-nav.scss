@@ -1,0 +1,54 @@
+@use '../mixins/menu' as *;
+
+// Vars passed to @mixin menu.
+// See usage guide in _menu.scss for more detail
+$location: 'header';
+$has-drawer: true;
+
+// z-index usage documented in: themes/foh-test/template-parts/header/header-masthead.php
+
+.main-navigation {
+  // The expanded drawer
+  // no-JS
+  .foh-drawer:target,
+  // JS-enabled
+  .js-menu-toggle-button[aria-expanded="true"] + .foh-drawer {
+    transform: translateY(0);
+    position: relative;
+  }
+
+  // no-JS
+  body:has(.foh-drawer:target),
+  // JS-enabled
+  body:has(.js-menu-toggle-button[aria-expanded="true"])  {
+    overflow: hidden;
+  }
+
+  // The drawer content (small screen sizes)
+  .foh-drawer {
+    display: block; // needed because custom elements default to inline
+    // Just testing
+    background-color: rgba(150, 150, 250, 1) !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    transition-property: transform;
+    transition-duration: 0.35s;
+    transition-timing-function: ease-in-out;
+    transform: translateY(-100%);
+
+    // Show the menu in the header, without drawer (large screen sizes)
+    @media screen and (min-width: 768px) {
+        position: relative;
+        width: auto;
+        height: auto;
+        transform: translateY(0);
+    }
+
+    // The content of the ul (all screen sizes)
+    // See params usage guide in _menu.scss where the @mixin is defined
+    @include menu($location, $has-drawer);
+  }
+}
