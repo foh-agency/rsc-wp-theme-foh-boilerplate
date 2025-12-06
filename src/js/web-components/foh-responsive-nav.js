@@ -3,21 +3,20 @@
  * Some of this functionality was included with Underscores in navigation.js
  */
 export default class ResponsiveNav extends HTMLElement {
-  static siteNavigation = document.querySelector('#site-navigation');
-
   constructor() {
     super();
+    this.siteNavigation = document.querySelector('#site-navigation');
     // Return early if the navigation don't exist.
-    if (!ResponsiveNav.siteNavigation) {
+    if (!this.siteNavigation) {
       return;
     }
     // Return early if the button doesn't exist.
-    this.toggleButton = ResponsiveNav.siteNavigation.querySelector('.js-menu-toggle-button');
+    this.toggleButton = this.siteNavigation.querySelector('.js-menu-toggle-button');
     if ('undefined' === typeof this.toggleButton) {
       return;
     }
     // Hide menu toggle button if menu is empty and return early.
-    this.menu = ResponsiveNav.siteNavigation.getElementsByTagName('ul')[0];
+    this.menu = this.siteNavigation.getElementsByTagName('ul')[0];
     if ('undefined' === typeof this.menu) {
       this.toggleButton.style.display = 'none';
       return;
@@ -34,7 +33,7 @@ export default class ResponsiveNav extends HTMLElement {
   // Toggle the .js-toggled class and the aria-expanded value each time the button is clicked.
   handleToggle() {
     if (this.toggleButton.getAttribute('aria-expanded') === 'true') {
-      ResponsiveNav.siteNavigation.classList.toggle('js-toggled');
+      this.siteNavigation.classList.toggle('js-toggled');
       this.toggleButton.setAttribute('aria-expanded', 'false');
     } else {
       this.toggleButton.setAttribute('aria-expanded', 'true');
@@ -42,9 +41,9 @@ export default class ResponsiveNav extends HTMLElement {
   }
 
   handleClickOffMenu (event) {
-    const isClickInside = ResponsiveNav.siteNavigation.contains(event.target);
+    const isClickInside = this.siteNavigation.contains(event.target);
     if (!isClickInside) {
-      ResponsiveNav.siteNavigation.classList.remove('js-toggled');
+      this.siteNavigation.classList.remove('js-toggled');
       this.toggleButton.setAttribute('aria-expanded', 'false');
     }
   }
