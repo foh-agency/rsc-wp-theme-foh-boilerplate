@@ -61,31 +61,24 @@
         // These styles apply only to the full list when displayed outside the drawer
         // These styles may override both Base and Drawer menu styles defined above.
         @apply flex justify-end w-auto pt-0;
-  
+
         li {
           padding-right: 1ch;
 
           &:first-of-type {
             padding-left: 1ch;
           }
-          
+
           a {
             padding-left: 0;
-          }
-  
-          &:hover {
-            background: none;
-          }
-  
-          a {
             // color: $brand-white;
             color: rgba(238, 237, 239, 1);
             // border-color: $brand-white;
             border-color: rgba(238, 237, 239, 1);
-            @apply no-underline border-solid border-b-2 border-black/0; // TODO: relpace black with my tw brand white but border should keep opacity 0
+            @apply no-underline border-0 border-b-2 border-black/0; // TODO: relpace black with my tw brand white but border should keep opacity 0
       
             &:hover {
-              @apply border-solid border-b-2;
+              @apply border-0 border-b-2 bg-transparent;
               // border-color: $brand-white;
               border-color: rgba(238, 237, 239, 1);
             }
