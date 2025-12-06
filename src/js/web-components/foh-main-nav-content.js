@@ -9,42 +9,33 @@
 export default class MainNavContent extends HTMLElement {
   constructor() {
     super();
-
-    
-    this.siteNavigation = document.getElementById('site-navigation');
     // Return early if the navigation don't exist.
+    this.siteNavigation = document.getElementById('site-navigation');
     if (!this.siteNavigation) {
       return;
     }
-    this.menu = this.siteNavigation.querySelector('ul');
     // Return early if menu is empty.
+    this.menu = this.siteNavigation.querySelector('ul');
     if ('undefined' === typeof this.menu) {
       return;
     }
-    // Add .js-nav-menu class if not present (used later in this file for focus management)
-    if (!this.menu.classList.contains('js-nav-menu')) {
-      this.menu.classList.add('js-nav-menu');
-    }
+
     // Get all the link elements within the menu.
     this.links = this.menu.querySelectorAll('a');
-    // Get all the link elements with children within the menu.
-    // If your menu items have children, you should set these classes in the template
+    // Get all the link elements within children (dropdowns) within the menu.
+    // If you want to enable nested dropdown menus, you should set these classes in the template
     this.linksWithChildren = this.menu.querySelectorAll(
       '.js-menu-item-has-children > a, .js_page_item_has_children > a'
     );
-    // Toggle focus each time a menu link is focused or blurred.
-    for (const link of this.links) {
-      link.addEventListener('focus', this.toggleFocus, true);
-      link.addEventListener('blur', this.toggleFocus, true);
-    }
-    
-    // Nested menus: Toggle focus each time a menu link with children receive a touch event.
-    for (const link of this.linksWithChildren) {
-      link.addEventListener('touchstart', this.toggleFocus, false);
+
+    // Add .js-nav-menu class if not present (used by this.toggleFocus)
+    if (!this.menu.classList.contains('js-nav-menu')) {
+      this.menu.classList.add('js-nav-menu');
     }
 
     this.toggleFocus = this.toggleFocus.bind(this);
   }
+
   /**
    * Sets or removes .focus class on the parent <li> (and ancestor <li> elements) 
    * of a focused/blurred/touched link.
@@ -73,5 +64,29 @@ export default class MainNavContent extends HTMLElement {
       }
       menuItem.classList.toggle('js-focus');
     }
+  }
+
+  connectedCallback() {
+    // Toggle focus each time a menu link is focused or blurred.
+    for (const link of this.links) {
+      link.addEventListener('focus', this.toggleFocus, true);
+      link.addEventListener('blur', this.toggleFocus, true);
+    }
+    // Nested menus: Toggle focus each time a menu link with children receive a touch event.
+    for (const link of this.linksWithChildren) {
+      link.addEventListener('touchstart', this.toggleFocus, false);
+    }
+  }
+
+  disconnectedCallback() {
+    // Remove event listeners
+    for (const link of this.links) {
+      link.removeEventListener('focus', this.toggleFocus, true);
+      link.removeEventListener('blur', this.toggleFocus, true);
+    }
+    for (const link of this.linksWithChildren) {
+      link.removeEventListener('touchstart', this.toggleFocus, false);
+    }
+    
   }
 }

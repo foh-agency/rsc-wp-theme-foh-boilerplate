@@ -62,6 +62,10 @@ export default class ResponsiveNav extends HTMLElement {
     // Close the menu when the user clicks outside the navigation.
     document.addEventListener('click', this.handleClickOffMenu);
   }
-
-  // TODO: disconnected callback to remove listeners
+  
+  disconnectedCallback() {
+    // Remove event listeners
+    this.toggleButton.removeEventListener('click', this.handleToggle );
+    document.removeEventListener('click', this.handleClickOffMenu);
+  }
 }
