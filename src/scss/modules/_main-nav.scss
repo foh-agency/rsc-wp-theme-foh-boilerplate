@@ -8,8 +8,25 @@ $has-drawer: true;
 // z-index usage documented in: themes/foh-test/template-parts/header/header-masthead.php
 
 .main-navigation {
-  foh-main-nav-content.foh-drawer {      
-    display: block; // custom elements default to inline
+  // The expanded drawer
+  // no-JS
+  .foh-drawer:target,
+  // JS-enabled
+  .js-menu-toggle-button[aria-expanded="true"] + .foh-drawer {
+    transform: translateY(0);
+    position: relative;
+  }
+
+  // no-JS
+  body:has(.foh-drawer:target),
+  // JS-enabled
+  body:has(.js-menu-toggle-button[aria-expanded="true"])  {
+    overflow: hidden;
+  }
+
+  // The drawer content (small screen sizes)
+  .foh-drawer {
+    display: block; // needed because custom elements default to inline
     // Just testing
     background-color: rgba(150, 150, 250, 1) !important;
     position: absolute;
@@ -22,15 +39,17 @@ $has-drawer: true;
     transition-timing-function: ease-in-out;
     transform: translateY(-100%);
     
+    // TODO: move up top, together with JS selector
     &:target {
-      transform: translateY(0);
-      position: relative;
+      // transform: translateY(0);
+      // position: relative;
     }
-
+    // TODO: move up top, together with JS selector
     body:has(&:target) {
-      overflow: hidden;
+      // overflow: hidden;
     }
 
+    // Show the menu in the header, without drawer (large screen sizes)
     @media screen and (min-width: 768px) {
         position: relative;
         width: auto;
@@ -38,6 +57,7 @@ $has-drawer: true;
         transform: translateY(0);
     }
 
+    // The content of the ul (all screen sizes)
     // See params usage guide in _menu.scss where the @mixin is defined
     @include menu($location, $has-drawer);
   }
