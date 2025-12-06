@@ -79,35 +79,39 @@ Familiarity with fundamental concepts of Composer, NPM, Sass, Babel, Webpack and
 
 ### New features introduced by FOH
 
--   Navigation
-    -   Three nav menu locations (header, footer, legal)
-    -   Breadcrumbs for pages that aren't top level.
-    -   Contextual navigation ('prev' and 'next' links between sibling pages that aren't top level)
--   Two widget areas (sidebar, footer)
--   Webpack for production: Optimize bundle for caching. Include GSAP for animation.
--   Webpack for development: Dev server with BrowserSync.
--   Tailwind CSS
+- Navigation
+    - Three nav menu locations (header, footer, legal)
+      - Header nav (main nav):
+        - displays as a drawer for small screens (progressively enhanced, works with/without JS)
+        - can be configured to support nested dropdown menus (untested feature ported from Underscores)
+        - documents related z-index values in header-masthead.php
+    - Breadcrumbs for pages that aren't top level.
+  - Contextual navigation ('prev' and 'next' links between sibling pages that aren't top level)
+- Two widget areas (sidebar, footer)
+- Webpack for production: Optimize bundle for caching. Include GSAP for animation.
+- Webpack for development: Dev server with BrowserSync.
+- Tailwind CSS
 
 ### Underscores features removed by FOH
 
 #### Composer packages and associated scripts
 
--   `dealerdirect/phpcodesniffer-composer-installer` (Installed globally).
--   `wptrt/wpthemereview` (Installed globally).
--   `php-parallel-lint/php-parallel-lint` (Replaced by VS Code extension).
--   `wp-cli/i18n-command` (Installed globally).
+- `dealerdirect/phpcodesniffer-composer-installer` (Installed globally).
+- `wptrt/wpthemereview` (Installed globally).
+- `php-parallel-lint/php-parallel-lint` (Replaced by VS Code extension).
+- `wp-cli/i18n-command` (Installed globally).
 
 More info in sections below:
 
--   [Linting and Formatting](#linting-and-formatting)
--   [Internationalization i18n and Localization l10n](#internationalization-i18n-and-localization-l10n)
+- [Linting and Formatting](#linting-and-formatting)
+- [Internationalization i18n and Localization l10n](#internationalization-i18n-and-localization-l10n)
 
 #### NPM packages and associated scripts
 
--   `@wordpress/scripts` (Replaced by custom scripts).
--   `dir-archiver` <!-- TODO: Replace with custom deployment script + workflow. -->
--   `node-sass` (Replaced by Webpack).
--   `rtlcss` and associated config in `package.json`. (Consider re-installing when adding rtl support).
+- `@wordpress/scripts` (Replaced by custom scripts).
+- `dir-archiver` <!-- TODO: Replace with custom deployment script + workflow. -->
+- `node-sass` (Replaced by Webpack).
+- `rtlcss` and associated config in `package.json`. (Consider re-installing when adding rtl support).
 
 More info in the [NPM scripts](#npm-scripts) section below.
 
@@ -158,9 +162,9 @@ Here are the main things to consider updating.
 
 Notes:
 
--   Authors could be one or many, and can optionally include a URI.
--   Tags in `style.css` are from a pre-defined list in the [Theme Developer Handbook](https://make.wordpress.org/themes/handbook/review/required/theme-tags/).
--   Extra information in `languages/foh.pot` is auto-generated from `style.css` when running the Composer `make-pot` script.
+- Authors could be one or many, and can optionally include a URI.
+- Tags in `style.css` are from a pre-defined list in the [Theme Developer Handbook](https://make.wordpress.org/themes/handbook/review/required/theme-tags/).
+- Extra information in `languages/foh.pot` is auto-generated from `style.css` when running the Composer `make-pot` script.
 
 | composer.json  | package.json   | readme.txt   | style.css    | languages/foh.pot    | GitHub repo |
 | :------------- | :------------- | :----------- | :----------- | :------------------- | :---------- |
@@ -203,14 +207,14 @@ The included `package.json` file contains handy scripts that run Webpack to buil
 
 ### Binaries
 
--   WP-CLI (Installs the multi-purpose `wp` command).
+- WP-CLI (Installs the multi-purpose `wp` command).
 
-    -   [Global installation guide](https://make.wordpress.org/cli/handbook/guides/installing/)
+    - [Global installation guide](https://make.wordpress.org/cli/handbook/guides/installing/)
 
         See sections:
 
-        -   [Composer scripts](#composer-scripts)
-        -   [Internationalization i18n and Localization l10n](#internationalization-i18n-and-localization-l10n).
+        - [Composer scripts](#composer-scripts)
+        - [Internationalization i18n and Localization l10n](#internationalization-i18n-and-localization-l10n).
 
 ### NPM dependencies
 
@@ -359,15 +363,15 @@ This theme is configured to show stylelint errors as you type and auto-format on
 
 Two VS Code extensions read the included configs to make this happen:
 
--   [stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)
--   [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
 The following files are configured for this purpose:
 
--   .prettierignore
--   .prettierrc.json
--   .stylelintignore
--   .stylelintrc.json
+- .prettierignore
+- .prettierrc.json
+- .stylelintignore
+- .stylelintrc.json
 
 To see a list of all active rules, use this command from the theme dir:
 
@@ -377,12 +381,12 @@ $ npx stylelint --print-config .
 
 ##### Stylelint extended configs
 
--   `stylelint-config-wordpress/scss`
+- `stylelint-config-wordpress/scss`
 
     This merges two popular configs:
 
-    -   [stylelint-config-wordpress](https://github.com/WordPress-Coding-Standards/stylelint-config-wordpress)
-    -   [stylelint-config-recommended-scss](https://github.com/kristerkari/stylelint-config-recommended-scss)
+    - [stylelint-config-wordpress](https://github.com/WordPress-Coding-Standards/stylelint-config-wordpress)
+    - [stylelint-config-recommended-scss](https://github.com/kristerkari/stylelint-config-recommended-scss)
 
 ##### Troubleshooting ignore files
 
@@ -390,8 +394,8 @@ Two files in the theme dir (`.stylelintignore` and `.prettierignore`) are set to
 
 Two conditions need to be met for these ignore files to be respected:
 
--   VS Code considers the theme dir to be the project root (i.e. when you open a folder with VS Code, choose the theme dir).
--   In VS Code settings, Prettier's Ignore Path is pointing at `.prettierignore`.
+- VS Code considers the theme dir to be the project root (i.e. when you open a folder with VS Code, choose the theme dir).
+- In VS Code settings, Prettier's Ignore Path is pointing at `.prettierignore`.
 
 When I had VS Code opened to the site dir (the one that contains `wp-config.php`), the above ignore files were not respected (stylelint problems would show up for `style.css`, and saving it would auto-format it).
 
@@ -409,14 +413,14 @@ This theme is configured to show ESLint errors as you type and auto-format on sa
 
 Two VS Code extensions read the included configs to make this happen:
 
--   [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
--   [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
 The following files are configured for this purpose:
 
--   .eslintrc
--   .prettierignore
--   .prettierrc.json
+- .eslintrc
+- .prettierignore
+- .prettierrc.json
 
 ##### ESLint usage
 
@@ -494,15 +498,15 @@ The subsection on formatting offers a couple of possible approaches to applying 
     $ composer g require --dev wptrt/wpthemereview
     ```
 
-    -   WordPress: `wpcs`
+    - WordPress: `wpcs`
         As of version ^2.3, this installs the following coding standards:
         WordPress, WordPress-Extra, WordPress-Docs, WordPress-Core.
 
-    -   PHP Compatibility for WordPress: `phpcompatibility-wp`
+    - PHP Compatibility for WordPress: `phpcompatibility-wp`
         As of version ^2.1, this installs the following coding standards:
         PHPCompatibility, PHPCompatibilityParagonieRandomCompat, PHPCompatibilityParagonieSodiumCompat, PHPCompatibilityWP.
 
-    -   WordPress theme review: `wpthemereview`
+    - WordPress theme review: `wpthemereview`
         As of version ^0.2.1, this installs the following coding standard:
         WPThemeReview.
 
@@ -531,17 +535,17 @@ The subsection on formatting offers a couple of possible approaches to applying 
 
     These VS Code extensions read the included configs to make this happen:
 
-    -   [PHP Sniffer & Beautifier](https://marketplace.visualstudio.com/items?itemName=ValeryanM.vscode-phpsab)
+    - [PHP Sniffer & Beautifier](https://marketplace.visualstudio.com/items?itemName=ValeryanM.vscode-phpsab)
 
         Add the following to VS Code's `settings.json`:
 
-        -   Deactivate VS Code's default PHP validator:
+        - Deactivate VS Code's default PHP validator:
 
             ```json
             "php.validate.enable": false
             ```
 
-        -   Customize PHP Sniffer & Beautifier (Make sure to replace all instances of `<your-username>`):
+        - Customize PHP Sniffer & Beautifier (Make sure to replace all instances of `<your-username>`):
 
             Note: `onType` might drain your laptop battery, so consider it optional.
 
@@ -582,9 +586,9 @@ The subsection on formatting offers a couple of possible approaches to applying 
 
 ###### Links that inspired this PHPCS setup
 
--   [How to Set up Modern PHP Coding Standards for WordPress](https://tfrommen.de/how-to-set-up-modern-php-coding-standards-for-wordpress/) - Article, 2019
--   [PHPCS setup for WordPress projects](https://www.youtube.com/watch?v=ASVr3zG2Q4E&ab_channel=ImranSayed-CodeytekAcademy) - YouTube, 2017
--   [Annotated example of phpcs.xml.dist (syntax guide)](https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml)
+- [How to Set up Modern PHP Coding Standards for WordPress](https://tfrommen.de/how-to-set-up-modern-php-coding-standards-for-wordpress/) - Article, 2019
+- [PHPCS setup for WordPress projects](https://www.youtube.com/watch?v=ASVr3zG2Q4E&ab_channel=ImranSayed-CodeytekAcademy) - YouTube, 2017
+- [Annotated example of phpcs.xml.dist (syntax guide)](https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml)
 
 ##### PHPCS usage (linting)
 
@@ -654,8 +658,8 @@ patching file /path/to/code/file.php
 
 Example to auto-fix `functions.php`, with two additional steps:
 
--   Create the diff file before writing to it (avoid an error).
--   Examine the diff file in VS Code before applying it.
+- Create the diff file before writing to it (avoid an error).
+- Examine the diff file in VS Code before applying it.
 
 ```Console
 $ touch functions.diff
@@ -714,18 +718,18 @@ Here's how different parts of the `.pot` file get updated:
 
 Based on theme info in `style.css`:
 
--   Header entry (several headers)
+- Header entry (several headers)
 
 Based on code in the source dir (first arg):
 
--   Translator comments will be deleted
+- Translator comments will be deleted
     This refers to comments _by_ translators, i.e. those starting with `#<space>`.
     I guess it makes sense that they'd be deleted from `.pot` because translators
     should be editing `.po` files, not `.pot`.
 
--   References (filename and line number)
+- References (filename and line number)
 
--   Entire entries (if they exist in the source, they'll be created in the `.pot`),
+- Entire entries (if they exist in the source, they'll be created in the `.pot`),
     along with developer comments (made by developers for translators).
 
     Developer comments must be php (not html) comments in the following format:
@@ -744,25 +748,25 @@ So far, the way this works is by calling [load_text_domain](https://developer.wo
 
 #### Useful docs on i18n and l10n
 
--   [What is This esc_html_e() i wordpress php?](https://wordpress.stackexchange.com/questions/285657/what-is-this-esc-html-e-i-wordpress-php)
--   [Documentation with extra options for make-pot](https://developer.wordpress.org/cli/commands/i18n/make-pot/)
+- [What is This esc_html_e() i wordpress php?](https://wordpress.stackexchange.com/questions/285657/what-is-this-esc-html-e-i-wordpress-php)
+- [Documentation with extra options for make-pot](https://developer.wordpress.org/cli/commands/i18n/make-pot/)
 
 ##### Fundamental concepts and the roles of related files (`.pot`, `.po` and `.mo`)
 
--   [WP APIs handbook: Localization](https://developer.wordpress.org/apis/handbook/internationalization/localization/)
+- [WP APIs handbook: Localization](https://developer.wordpress.org/apis/handbook/internationalization/localization/)
 
 ##### Syntax in `.pot` and `.po` files, including comment types and auto-updates
 
--   [The Format of PO Files](https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html)
+- [The Format of PO Files](https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html)
 
 ##### What's this `%1$s` syntax in some of the strings in the `.pot` file?
 
--   [Learn the sprintf syntax](https://www.php.net/manual/en/function.sprintf.php)
+- [Learn the sprintf syntax](https://www.php.net/manual/en/function.sprintf.php)
 
 ##### Bonus for deeper understanding
 
--   [Header Entry](https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html#Header-Entry)
--   [Header: Plural forms](https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html#Plural-forms)
+- [Header Entry](https://www.gnu.org/software/gettext/manual/html_node/Header-Entry.html#Header-Entry)
+- [Header: Plural forms](https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html#Plural-forms)
 
 ## Appendix: Original documentation for Underscores starter theme
 
@@ -774,17 +778,17 @@ Hi. I'm a starter theme called `_s`, or `underscores`, if you like. I'm a theme 
 
 My ultra-minimal CSS might make me look like theme tartare but that means less stuff to get in your way when you're designing your awesome theme. Here are some of the other more interesting things you'll find here:
 
--   A modern workflow with a pre-made command-line interface to turn your project into a more pleasant experience.
--   A just right amount of lean, well-commented, modern, HTML5 templates.
--   A custom header implementation in `src/php/underscores-features/inc/custom-header.php`. Just add the code snippet found in the comments of `src/php/underscores-features/inc/custom-header.php` to your `header.php` template.
--   Custom template tags in `src/php/underscores-features/inc/template-tags.php` that keep your templates clean and neat and prevent code duplication.
--   Some small tweaks in `src/php/underscores-features/inc/template-functions.php` that can improve your theming experience.
--   A script at `src/js/navigation.js` that makes your menu a toggled dropdown on small screens (like your phone), ready for CSS artistry. It's enqueued in `functions.php`.
--   2 sample layouts in `sass/layouts/` made using CSS Grid for a sidebar on either side of your content. Just uncomment the layout of your choice in `sass/style.scss`.
+- A modern workflow with a pre-made command-line interface to turn your project into a more pleasant experience.
+- A just right amount of lean, well-commented, modern, HTML5 templates.
+- A custom header implementation in `src/php/underscores-features/inc/custom-header.php`. Just add the code snippet found in the comments of `src/php/underscores-features/inc/custom-header.php` to your `header.php` template.
+- Custom template tags in `src/php/underscores-features/inc/template-tags.php` that keep your templates clean and neat and prevent code duplication.
+- Some small tweaks in `src/php/underscores-features/inc/template-functions.php` that can improve your theming experience.
+- A script at `src/js/navigation.js` that makes your menu a toggled dropdown on small screens (like your phone), ready for CSS artistry. It's enqueued in `functions.php`.
+- 2 sample layouts in `sass/layouts/` made using CSS Grid for a sidebar on either side of your content. Just uncomment the layout of your choice in `sass/style.scss`.
     Note: `.no-sidebar` styles are automatically loaded.
--   Smartly organized starter CSS in `style.css` that will help you to quickly get your design off the ground.
--   Full support for `WooCommerce plugin` integration with hooks in `src/php/underscores-features/inc/woocommerce.php`, styling override woocommerce.css with product gallery features (zoom, swipe, lightbox) enabled.
--   Licensed under GPLv2 or later. :) Use it to make something cool.
+- Smartly organized starter CSS in `style.css` that will help you to quickly get your design off the ground.
+- Full support for `WooCommerce plugin` integration with hooks in `src/php/underscores-features/inc/woocommerce.php`, styling override woocommerce.css with product gallery features (zoom, swipe, lightbox) enabled.
+- Licensed under GPLv2 or later. :) Use it to make something cool.
 
 #### Installation
 
@@ -792,8 +796,8 @@ My ultra-minimal CSS might make me look like theme tartare but that means less s
 
 `_s` requires the following dependencies:
 
--   [Node.js](https://nodejs.org/)
--   [Composer](https://getcomposer.org/)
+- [Node.js](https://nodejs.org/)
+- [Composer](https://getcomposer.org/)
 
 ##### Quick Start
 
@@ -821,15 +825,15 @@ $ npm install
 
 `_s` comes packed with CLI commands tailored for WordPress theme development :
 
--   `composer lint:wpcs` : checks all PHP files against [PHP Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/).
--   `composer lint:php` : checks all PHP files for syntax errors.
--   `composer make-pot` : generates a .pot file in the `languages/` directory.
--   `npm run compile:css` : compiles SASS files to css.
--   `npm run compile:rtl` : generates an RTL stylesheet.
--   `npm run watch` : watches all SASS files and recompiles them to css when they change.
--   `npm run lint:scss` : checks all SASS files against [CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/).
--   `npm run lint:js` : checks all JavaScript files against [JavaScript Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/).
--   `npm run bundle` : generates a .zip archive for distribution, excluding development and system files.
+- `composer lint:wpcs` : checks all PHP files against [PHP Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/).
+- `composer lint:php` : checks all PHP files for syntax errors.
+- `composer make-pot` : generates a .pot file in the `languages/` directory.
+- `npm run compile:css` : compiles SASS files to css.
+- `npm run compile:rtl` : generates an RTL stylesheet.
+- `npm run watch` : watches all SASS files and recompiles them to css when they change.
+- `npm run lint:scss` : checks all SASS files against [CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/).
+- `npm run lint:js` : checks all JavaScript files against [JavaScript Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/).
+- `npm run bundle` : generates a .zip archive for distribution, excluding development and system files.
 
 Now you're ready to go! The next step is easy to say, but harder to do: make an awesome WordPress theme. :)
 

@@ -9,7 +9,6 @@
 // Footer: ('footer', false)
 // Header (previously): ('header', true)   e.g. menu appears with no drawer on wide viewports.
 
-// TODO: ADD LOGIC THAT USES THE NEW PARAM TO CONTROL THE FLOW
 @mixin menu($location, $has-drawer: true) {
   // Base menu styles:
   // These styles apply only to the full menu list in any location,

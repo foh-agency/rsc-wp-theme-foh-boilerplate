@@ -38,16 +38,6 @@ $has-drawer: true;
     transition-duration: 0.35s;
     transition-timing-function: ease-in-out;
     transform: translateY(-100%);
-    
-    // TODO: move up top, together with JS selector
-    &:target {
-      // transform: translateY(0);
-      // position: relative;
-    }
-    // TODO: move up top, together with JS selector
-    body:has(&:target) {
-      // overflow: hidden;
-    }
 
     // Show the menu in the header, without drawer (large screen sizes)
     @media screen and (min-width: 768px) {

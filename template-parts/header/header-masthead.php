@@ -7,7 +7,6 @@
  */
 ?>
 <!-- 
- TODO: Move this to the readme
 z-index usage:
 - grouped by tens (10 and 15 belong together)
 - increase in increments of 5, as a starting point.
@@ -20,7 +19,7 @@ z-index relating to header and nav:
 10: header.js-masthead
 0 (default): page content
 
-(elements with 25 and 26 are not expected to coexist, but different values are set just in case)
+(elements with 25 and 26 are not expected to coexist, but a clear winner is defined just in case)
 -->
 
 <header class="
