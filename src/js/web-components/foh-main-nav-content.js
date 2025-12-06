@@ -51,7 +51,8 @@ export default class MainNavContent extends HTMLElement {
    */
   toggleFocus(event) {
     if (event.type === 'js-focus' || event.type === 'blur') {
-      let self = this;
+      // let self = this; // I think this is an Underscores relic from before I refactored this to be a class method
+      let self = event.target;
       // Move up through the ancestors of the current link until we hit .js-nav-menu.
       while (!self.classList.contains('js-nav-menu')) {
         // On li elements toggle the class .focus.
