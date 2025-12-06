@@ -40,10 +40,9 @@ export default class ResponsiveNav extends HTMLElement {
     this.toggleButton.classList.remove('hidden');
   }
 
-  // Toggle the .js-toggled class and the aria-expanded value each time the button is clicked.
+  // Toggle aria-expanded value each time the button is clicked.
   handleToggle() {
     if (this.toggleButton.getAttribute('aria-expanded') === 'true') {
-      this.siteNavigation.classList.toggle('js-toggled');
       this.toggleButton.setAttribute('aria-expanded', 'false');
     } else {
       this.toggleButton.setAttribute('aria-expanded', 'true');
@@ -53,7 +52,6 @@ export default class ResponsiveNav extends HTMLElement {
   handleClickOffMenu (event) {
     const isClickInside = this.siteNavigation.contains(event.target);
     if (!isClickInside) {
-      this.siteNavigation.classList.remove('js-toggled');
       this.toggleButton.setAttribute('aria-expanded', 'false');
     }
   }
