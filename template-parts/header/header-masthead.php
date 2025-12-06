@@ -15,7 +15,7 @@ z-index usage:
 z-index relating to header and nav:
 26: button.js-menu-toggle-button
 25: a.js-menu-link--close
-20: div#main-nav-content.foh-drawer
+20: foh-main-nav-content#main-nav-content.foh-drawer
 15: a.js-menu-link--open
 10: header.js-masthead
 0 (default): page content

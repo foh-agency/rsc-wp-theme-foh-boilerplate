@@ -8,7 +8,8 @@ $has-drawer: true;
 // z-index usage documented in: themes/foh-test/template-parts/header/header-masthead.php
 
 .main-navigation {
-  .foh-drawer {
+  foh-main-nav-content.foh-drawer {      
+    display: block; // custom elements default to inline
     // Just testing
     background-color: rgba(150, 150, 250, 1) !important;
     position: absolute;
@@ -41,4 +42,3 @@ $has-drawer: true;
     @include menu($location, $has-drawer);
   }
 }
-
