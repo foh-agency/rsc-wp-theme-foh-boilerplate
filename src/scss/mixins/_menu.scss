@@ -18,17 +18,16 @@
     width: 100vw; // test hovering over menu items if you're thinking of removing this
 
     a {
-      display: inline-block;
       // color: $brand-white;
       color: rgba(238, 237, 239, 1);
-      text-decoration: none;
-      text-align: center; // goes with padding
-      padding: 0.5rem 0; // goes with text-align
-      width: 100%;
+      
+      // padding appropriate to center-aligned text
+      @apply text-center py-2 px-0;
+      @apply inline-block w-full no-underline;
 
       &:hover {
-          color: white;
-          // background-color: $white-overlay-light;
+        color: white;
+        // background-color: $white-overlay-light;
         background-color: rgba(255, 255, 255, 0.1);
       }
 
@@ -38,20 +37,18 @@
       }
     }
 
+    // Drawer menu styles:
+    // These styles apply within the drawer,
+    // and to the full list when displayed outside of the drawer.
+    // These styles may override some Base menu styles defined above, 
+    // which apply to menus outside a drawer in various locations (e.g. footer).
     @if ($has-drawer) {
-      // Drawer menu styles:
-      // These styles apply within the drawer,
-      // and to the full list when displayed outside of the drawer.
-      // These styles may override some Base menu styles defined above.
-
-      // margin-top: $size-4 + rem;
-      padding-top: 4rem;
+      @apply pt-10;
 
       a {
-        // padding: $size-0-5 + rem 0 $size-0-5 + rem $size-2 + rem;
-        text-align: left; // goes with padding
-        padding: 0.5rem 0 0.5rem 2rem; // goes with text-align
-    
+        // padding appropriate to left-aligned text
+        @apply text-left py-2 pl-10 pr-0;
+
         &:hover {
           border: none;
         }
@@ -63,10 +60,7 @@
         // Full list menu styles outside of drawer (when drawer is present but closed):
         // These styles apply only to the full list when displayed outside the drawer
         // These styles may override both Base and Drawer menu styles defined above.
-        display: flex;
-        width: auto;
-        justify-content: flex-end;
-        padding-top: 0;
+        @apply flex justify-end w-auto pt-0;
   
         li {
           padding-right: 1ch;
@@ -86,16 +80,12 @@
           a {
             // color: $brand-white;
             color: rgba(238, 237, 239, 1);
-            text-decoration: none;
-            border-style: solid;
-            // border-width: 0 0 $b-width-md + px 0;
-            border-width: 0 0 2px 0;
-            border-color: rgba(0, 0, 0, 0);
+            // border-color: $brand-white;
+            border-color: rgba(238, 237, 239, 1);
+            @apply no-underline border-solid border-b-2 border-black/0; // TODO: relpace black with my tw brand white but border should keep opacity 0
       
             &:hover {
-              border-style: solid;
-              // border-width: 0 0 $b-width-md + px 0;
-              border-width: 0 0 2px 0;
+              @apply border-solid border-b-2;
               // border-color: $brand-white;
               border-color: rgba(238, 237, 239, 1);
             }
