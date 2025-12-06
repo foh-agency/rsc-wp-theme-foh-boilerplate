@@ -18,26 +18,24 @@
   ul {
     width: 100vw; // test hovering over menu items if you're thinking of removing this
 
-    li {
-      // padding: $size-0-5 + rem 0;
+    a {
+      display: inline-block;
+      // color: $brand-white;
+      color: rgba(238, 237, 239, 1);
+      text-decoration: none;
       text-align: center; // goes with padding
       padding: 0.5rem 0; // goes with text-align
-    
+      width: 100%;
+
       &:hover {
-        color: white;
-        // background-color: $white-overlay-light;
+          color: white;
+          // background-color: $white-overlay-light;
         background-color: rgba(255, 255, 255, 0.1);
       }
-  
-      a {
-        // color: $brand-white;
-        color: rgba(238, 237, 239, 1);
-        text-decoration: none;
-  
-        &:active {
-          // color: $white-overlay-medium;
-          color: rgba(255, 255, 255, 0.7);
-        }
+
+      &:active {
+        // color: $white-overlay-medium;
+        color: rgba(255, 255, 255, 0.7);
       }
     }
 
@@ -50,12 +48,12 @@
       // margin-top: $size-4 + rem;
       padding-top: 4rem;
 
-      li {
+      a {
         // padding: $size-0-5 + rem 0 $size-0-5 + rem $size-2 + rem;
         text-align: left; // goes with padding
         padding: 0.5rem 0 0.5rem 2rem; // goes with text-align
-
-        a:hover {
+    
+        &:hover {
           border: none;
         }
       }
