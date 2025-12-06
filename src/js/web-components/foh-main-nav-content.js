@@ -39,6 +39,10 @@ export default class MainNavContent extends HTMLElement {
   /**
    * Sets or removes .focus class on the parent <li> (and ancestor <li> elements) 
    * of a focused/blurred/touched link.
+   * 
+   * DISCLAIMER: 
+   * This functionality was included with Underscores.
+   * I've yet to test this functionality since I haven't been working with nested menus lately.
    */
   toggleFocus(event) {
     if (event.type === 'js-focus' || event.type === 'blur') {
@@ -53,6 +57,7 @@ export default class MainNavContent extends HTMLElement {
         self = self.parentNode;
       }
     }
+
     if (event.type === 'touchstart') {
       const menuItem = this.parentNode;
       event.preventDefault();
