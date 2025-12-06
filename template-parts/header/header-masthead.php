@@ -6,29 +6,13 @@
  * @since 1.0.0
  */
 ?>
-<!-- 
-z-index usage:
-- grouped by tens (10 and 15 belong together)
-- increase in increments of 5, as a starting point.
-
-z-index relating to header and nav:
-26: button.js-menu-toggle-button
-25: a.js-menu-link--close
-20: foh-main-nav-content#main-nav-content.foh-drawer
-15: a.js-menu-link--open
-10: header.js-masthead
-0 (default): page content
-
-(elements with 25 and 26 are not expected to coexist, but a clear winner is defined just in case)
--->
 
 <header class="
 	js-masthead
 	flex
 	justify-between
-  z-10
 	">
-	<div class="js-header-logo hidden md:inline-block">
+	<div class="js-header-logo">
 		<?php
 		the_custom_logo();
 		if ( is_front_page() && is_home() ) :
