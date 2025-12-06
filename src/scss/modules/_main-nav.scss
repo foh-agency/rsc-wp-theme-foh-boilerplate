@@ -40,7 +40,7 @@ $has-drawer: true;
     transform: translateY(-100%);
 
     // Show the menu in the header, without drawer (large screen sizes)
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: --theme(--breakpoint-md)) {
         position: relative;
         width: auto;
         height: auto;
