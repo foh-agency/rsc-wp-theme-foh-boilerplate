@@ -1,0 +1,11 @@
+@mixin color {
+  // Brand tokens - primary
+  --color-ocean-blue: #3377dd;
+  --color-neon-lemon: #ffff11;
+  --color-sand: #eeedef;
+  
+  // Brand tokens - semantic
+  --color-brand-primary: var(--color-ocean-blue);
+  --color-brand-onprimary: var(--color-neon-lemon);
+  --color-brand-white: var(--color-sand);
+}

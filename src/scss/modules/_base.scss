@@ -32,4 +32,9 @@ $f-family-primary: "Montserrat", "Helvetica Neue", sans-serif;
 * {
 	font-family: $f-family-primary !important;
 	font-weight: 700;
+  
+  #secondary * {
+    @apply bg-ocean-blue; // primary variable test
+    @apply text-brand-onprimary; // semantic variable test
+  }
 }
