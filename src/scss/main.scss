@@ -4,6 +4,10 @@
 /* Vendor */
 @use "tailwindcss";
 
+/* Design tokens */
+@use "mixins/design-tokens/color" as *;
+
+
 /* Global */
 @use "modules/base";
 @use "modules/header";
@@ -13,3 +17,33 @@
 
 
 
+/* Tailwind customizations */
+/**
+ * Design token usage
+ * ===================
+ *
+ * Use semantic tokens where possible. E.g:
+ * --color-brand-error
+ * --color-brand-success
+ *
+ * Use primitive tokens to describe the brand. E.g:
+ *
+ * --color-brand-error: --color-cerise
+ * --color-brand-success: --color-bamboo
+ *
+ * --color-cerise: #e55255
+ * --color-bamboo: #00b576
+ *
+ * Workflow
+ * --------
+ * 1. Build your site using whatever primitives you need (e.g. hex colors).
+ * 2. Look for patterns.
+ * 3. Enshrine those in design tokens.
+ * 
+ * In other words, start building before having your design tokens tidy. Tidy them later.
+ * 
+ * 
+ */
+@theme {
+  @include color;
+}
