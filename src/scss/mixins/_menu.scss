@@ -18,22 +18,16 @@
     width: 100vw; // test hovering over menu items if you're thinking of removing this
 
     a {
-      // color: $brand-white;
-      color: rgba(238, 237, 239, 1);
-      
       // padding appropriate to center-aligned text
       @apply text-center py-2 px-0;
-      @apply inline-block w-full no-underline;
+      @apply text-brand-white inline-block w-full no-underline;
 
       &:hover {
-        color: white;
-        // background-color: $white-overlay-light;
-        background-color: rgba(255, 255, 255, 0.1);
+        @apply text-white bg-white/10;
       }
 
       &:active {
-        // color: $white-overlay-medium;
-        color: rgba(255, 255, 255, 0.7);
+        @apply text-white/70;
       }
     }
 
@@ -70,24 +64,14 @@
           }
 
           a {
-            padding-left: 0;
-            // color: $brand-white;
-            color: rgba(238, 237, 239, 1);
-            // border-color: $brand-white;
-            border-color: rgba(238, 237, 239, 1);
-            @apply no-underline border-0 border-b-2 border-black/0; // TODO: relpace black with my tw brand white but border should keep opacity 0
+            @apply pl-0 no-underline border-0 border-b-2 border-brand-white/0 text-brand-white;
       
             &:hover {
-              @apply border-0 border-b-2 bg-transparent;
-              // border-color: $brand-white;
-              border-color: rgba(238, 237, 239, 1);
+              @apply border-0 border-b-2 border-brand-white bg-transparent;
             }
       
             &:active {
-              // color: $white-overlay-medium;
-              color: rgba(255, 255, 255, 0.7);
-              // border-color: $white-overlay-medium;
-              border-color: rgba(255, 255, 255, 0.7);
+              @apply text-white/70 border-white/70;
             }
           }
         }
@@ -96,9 +80,7 @@
 
     @if ($location == 'footer') {
       a:hover {
-        // color: $brand-white;
-        color: rgba(238, 237, 239, 1); ;
-        border: none;
+        @apply text-brand-white border-0;
       }
     }
   }
