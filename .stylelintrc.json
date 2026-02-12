@@ -1,19 +1,13 @@
 {
-  "extends": [
-    "@wordpress/stylelint-config/scss"
-  ],
-  "rules": {
-    "comment-empty-line-before": null,
-    "declaration-block-semicolon-newline-after": "always",
-    "rule-empty-line-before": [
-      "never",
-      {
-        "except": [
-          "after-rule",
-          "first-nested",
-          "inside-block"
-        ]
-      }
-    ]
-  }
+	"extends": ["@wordpress/stylelint-config/scss"],
+	"rules": {
+		"comment-empty-line-before": null,
+		"declaration-block-semicolon-newline-after": "always",
+		"rule-empty-line-before": [
+			"never",
+			{
+				"except": ["after-rule", "first-nested", "inside-block"]
+			}
+		]
+	}
 }
