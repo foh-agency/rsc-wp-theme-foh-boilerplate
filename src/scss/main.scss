@@ -1,23 +1,6 @@
 // style.css in the theme root contains the theme info required by WordPress.
 // It also contains some fallback styles (super basic starter ones that shipped with Underscores)
 
-/* Vendor */
-@use "tailwindcss";
-
-/* Design tokens */
-@use "mixins/design-tokens/color" as *;
-
-
-/* Global */
-@use "modules/base";
-@use "modules/header";
-@use "modules/main-nav";
-
-/* Home */
-
-
-
-/* Tailwind customizations */
 /**
  * Design token usage
  * ===================
@@ -44,6 +27,16 @@
  * 
  * 
  */
-@theme {
-  @include color;
-}
+
+/* Design tokens */
+@use "mixins/design-tokens/color" as *;
+
+
+/* Global */
+@use "modules/base";
+@use "modules/header";
+@use "modules/main-nav";
+
+/* Home */
+
+
