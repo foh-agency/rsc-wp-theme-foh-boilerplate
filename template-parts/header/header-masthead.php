@@ -22,12 +22,7 @@ z-index relating to header and nav:
 (elements with 25 and 26 are not expected to coexist, but a clear winner is defined just in case)
 -->
 
-<header class="
-	js-masthead
-	flex
-	justify-between
-  z-10
-	">
+<header class="js-masthead">
 	<div class="js-header-logo hidden md:inline-block">
 		<?php
 		the_custom_logo();
