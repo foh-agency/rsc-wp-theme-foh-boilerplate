@@ -22,6 +22,11 @@ module.exports = {
         // test for any filetypes required within CSS
         test: /\.(woff|woff2|ttf|eot|svg|webp|png|jpg|gif|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         type: "asset/resource",
+        use: [
+          {
+            loader: 'url-loader',
+          }
+        ]
       },
       {
         test: /\.scss$/,
