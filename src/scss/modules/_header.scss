@@ -1,3 +1,5 @@
+@use '../constants/breakpoints' as *;
+
 // Default styles to be animated by JS
 .js-masthead {
 	position: sticky; // must not be 'fixed', so the main nav can open without JS
@@ -5,6 +7,10 @@
 
 	.js-header-logo {
 		opacity: 0;
+
+		@media (min-width: $breakpoint-3xl) {
+			display: inline-block;
+		}
 	}
 }
 

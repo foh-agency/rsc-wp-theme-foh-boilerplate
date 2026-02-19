@@ -1,3 +1,5 @@
+@use '../constants/color' as *;
+@use '../constants/breakpoints' as *;
 @use '../mixins/menu' as *;
 
 // Vars passed to @mixin menu.
@@ -8,47 +10,82 @@ $has-drawer: true;
 // z-index usage documented in: themes/foh-test/template-parts/header/header-masthead.php
 
 .main-navigation {
-  // The expanded drawer
-  // no-JS
-  .foh-drawer:target,
-  // JS-enabled
-  .js-menu-toggle-button[aria-expanded="true"] + .foh-drawer {
-    transform: translateY(0);
-    position: relative;
-  }
+	// anchor link that opens the menu in no-JS use cases
+	.js-menu-link--open {
+		z-index: 15;
+	}
 
-  // no-JS
-  body:has(.foh-drawer:target),
-  // JS-enabled
-  body:has(.js-menu-toggle-button[aria-expanded="true"])  {
-    overflow: hidden;
-  }
+	// anchor link that closes the menu in no-JS use cases
+	.js-menu-link--close {
+		z-index: 25;
+	}
 
-  // The drawer content (small screen sizes)
-  .foh-drawer {
-    display: block; // needed because custom elements default to inline
-    // Just testing
-    background-color: rgba(150, 150, 250, 1) !important;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    transition-property: transform;
-    transition-duration: 0.35s;
-    transition-timing-function: ease-in-out;
-    transform: translateY(-100%);
+	// and the expanded drawer in no-JS use cases
+	.foh-drawer:target,
+	// The menu toggle in JS-enabled use cases
+	.js-menu-toggle-button {
+		z-index: 26;
+		color: var(--color-neon-lemon);
+	}
 
-    // Show the menu in the header, without drawer (large screen sizes)
-    @media screen and (min-width: --theme(--breakpoint-md)) {
-        position: relative;
-        width: auto;
-        height: auto;
-        transform: translateY(0);
-    }
+	// Align menu buttons at top right
+	.js-menu-link--open,
+	.js-menu-link--close,
+	.js-menu-toggle-button,
+	// and the expanded drawer, in no-JS use cases
+	.foh-drawer:target {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
 
-    // The content of the ul (all screen sizes)
-    // See params usage guide in _menu.scss where the @mixin is defined
-    @include menu($location, $has-drawer);
-  }
+	.js-menu-toggle-button[aria-expanded="true"] + .foh-drawer {
+		transform: translateY(0);
+		position: relative;
+	}
+
+	// no-JS
+	body:has(.foh-drawer:target),
+	// JS-enabled
+	body:has(.js-menu-toggle-button[aria-expanded="true"])	{
+		overflow: hidden;
+	}
+
+	// The drawer content (small screen sizes)
+	.foh-drawer {
+		display: block; // needed because custom elements default to inline
+		// Just testing
+		background-color: rgba(150, 150, 250, 1) !important;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		transition-property: transform;
+		transition-duration: 0.35s;
+		transition-timing-function: ease-in-out;
+		transform: translateY(-100%);
+		z-index: 20;
+
+		// Show the menu in the header, without drawer (large screen sizes)
+		@media screen and (min-width: $breakpoint-md) {
+			position: relative;
+			width: auto;
+			height: auto;
+			transform: translateY(0);
+		}
+
+		// The content of the ul (all screen sizes)
+		// See params usage guide in _menu.scss where the @mixin is defined
+		@include menu($location, $has-drawer);
+	}
+}
+
+// Don't show a menu button on larger screens
+.js-menu-link--open,
+.js-menu-link--close,
+.js-menu-toggle-button {
+	@media screen and (min-width: $breakpoint-md) {
+		display: none;
+	}
 }

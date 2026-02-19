@@ -38,3 +38,7 @@ $f-family-primary: "Montserrat", "Helvetica Neue", sans-serif;
     @apply text-brand-onprimary; // semantic variable test
   }
 }
+
+.hidden {
+	display: none;
+}

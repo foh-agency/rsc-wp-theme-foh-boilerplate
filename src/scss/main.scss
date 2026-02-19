@@ -29,7 +29,8 @@
  */
 
 /* Design tokens */
-@use "mixins/design-tokens/color" as *;
+@use "constants/color" as *;
+@use "constants/breakpoints" as *;
 
 
 /* Global */
