@@ -23,7 +23,7 @@ z-index relating to header and nav:
 -->
 
 <header class="js-masthead">
-	<div class="js-header-logo hidden">
+	<div class="js-header-logo foh-hidden">
 		<?php
 		the_custom_logo();
 		if ( is_front_page() && is_home() ) :

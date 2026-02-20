@@ -29,9 +29,14 @@
  */
 
 /* Design tokens */
-@use "constants/color" as *;
 @use "constants/breakpoints" as *;
+@use "constants/color" as *;
+@use "constants/spacing" as *;
+@use "constants/typography" as *;
 
+/* Utilities */
+@use "utils/functions" as *;
+@use "utils/utility-classes" as *;
 
 /* Global */
 @use "modules/base";

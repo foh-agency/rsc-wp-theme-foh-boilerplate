@@ -1,3 +1,10 @@
+
+@use "../constants/breakpoints" as *;
+@use "../constants/color" as *;
+@use "../constants/spacing" as *;
+@use "../mixins/resets" as *;
+@use "../utils/functions" as *;
+
 /* Nest this mixin inside a selector to provide context */
 
 // Params
@@ -15,19 +22,25 @@
   // both in and out of the drawer.
   // Some of these are overridden below for different use cases (see comments) 
   ul {
+    @include list-reset;
     width: 100vw; // test hovering over menu items if you're thinking of removing this
 
     a {
       // padding appropriate to center-aligned text
-      @apply text-center py-2 px-0;
-      @apply text-brand-white inline-block w-full no-underline;
+      text-align: center;
+      padding: ($spacing * 2) 0;
+      display: inline-block;
+      text-decoration: none;
+      width: 100%;
+      color: $brand-white;
 
       &:hover {
-        @apply text-white bg-white/10;
+        color: white;
+        background-color: hsla(0, 0%, 100%, 0);
       }
 
       &:active {
-        @apply text-white/70;
+        color: hsla(0, 0%, 100%, 0.7);
       }
     }
 
@@ -37,11 +50,15 @@
     // These styles may override some Base menu styles defined above, 
     // which apply to menus outside a drawer in various locations (e.g. footer).
     @if ($has-drawer) {
-      @apply pt-10;
+      padding-top: to-rem(10);
 
       a {
         // padding appropriate to left-aligned text
-        @apply text-left py-2 pl-10 pr-0;
+        padding-top: $spacing * 2;
+        padding-right: 0;
+        padding-bottom: $spacing * 2;
+        padding-left: to-rem(10);
+        text-align: left;
 
         &:hover {
           border: none;
@@ -50,11 +67,14 @@
     }
 
     @if ($location == 'header') {
-      @media screen and (min-width: --theme(--breakpoint-md)) {
+      @media screen and (min-width: $breakpoint-md) {
         // Full list menu styles outside of drawer (when drawer is present but closed):
         // These styles apply only to the full list when displayed outside the drawer
         // These styles may override both Base and Drawer menu styles defined above.
-        @apply flex justify-end w-auto pt-0;
+        display: flex;
+        justify-content: end;
+        width: auto;
+        padding-top: 0;
 
         li {
           padding-right: 1ch;
@@ -64,14 +84,18 @@
           }
 
           a {
-            @apply pl-0 no-underline border-0 border-b-2 border-brand-white/0 text-brand-white;
+            color: $brand-white;
+            padding-left: 0;
+            text-decoration: none;
+            @apply border-0 border-b-2 border-brand-white/0;
       
             &:hover {
               @apply border-0 border-b-2 border-brand-white bg-transparent;
             }
       
             &:active {
-              @apply text-white/70 border-white/70;
+              color: hsla(0, 0%, 100%, 0.7);
+              @apply border-white/70;
             }
           }
         }
@@ -80,7 +104,8 @@
 
     @if ($location == 'footer') {
       a:hover {
-        @apply text-brand-white border-0;
+        color: $brand-white;
+        border: none;
       }
     }
   }

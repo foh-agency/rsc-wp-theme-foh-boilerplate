@@ -11,7 +11,7 @@
   <nav id="site-navigation" class="main-navigation">
     <a class="js-menu-link--open" href="#main-nav-content"><?php esc_html_e( 'Open menu', 'foh' ); ?></a>
 
-    <button class="js-menu-toggle-button hidden" aria-controls="foh-header-menu" aria-expanded="false"><?php esc_html_e( 'Menu', 'foh' ); ?></button>
+    <button class="js-menu-toggle-button foh-hidden" aria-controls="foh-header-menu" aria-expanded="false"><?php esc_html_e( 'Menu', 'foh' ); ?></button>
 
     <!-- Header menu location -->
     <foh-main-nav-content id="main-nav-content" class="foh-drawer">
