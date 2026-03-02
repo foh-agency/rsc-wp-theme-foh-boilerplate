@@ -1,6 +1,7 @@
 @use '../constants/color' as *;
 @use '../constants/breakpoints' as *;
 @use '../mixins/menu' as *;
+@use '../mixins/resets' as *;
 
 // Vars passed to @mixin menu.
 // See usage guide in _menu.scss for more detail
@@ -68,7 +69,7 @@ $has-drawer: true;
 		z-index: 20;
 
 		// Show the menu in the header, without drawer (large screen sizes)
-		@media screen and (min-width: $breakpoint-md) {
+		@media screen and (min-width: $breakpoint-3xl) {
 			position: relative;
 			width: auto;
 			height: auto;
@@ -85,7 +86,7 @@ $has-drawer: true;
 .js-menu-link--open,
 .js-menu-link--close,
 .js-menu-toggle-button {
-	@media screen and (min-width: $breakpoint-md) {
+	@media screen and (min-width: $breakpoint-3xl) {
 		display: none;
 	}
 }

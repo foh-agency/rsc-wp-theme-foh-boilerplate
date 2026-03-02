@@ -22,13 +22,13 @@
   // both in and out of the drawer.
   // Some of these are overridden below for different use cases (see comments) 
   ul {
-    @include list-reset;
+    @include foh-list-reset;
     width: 100vw; // test hovering over menu items if you're thinking of removing this
 
     a {
       // padding appropriate to center-aligned text
       text-align: center;
-      padding: ($spacing * 2) 0;
+      padding: to-rem(2 * $spacing) 0;
       display: inline-block;
       text-decoration: none;
       width: 100%;
@@ -36,7 +36,7 @@
 
       &:hover {
         color: white;
-        background-color: hsla(0, 0%, 100%, 0);
+        background-color: $white-10
       }
 
       &:active {
@@ -50,14 +50,14 @@
     // These styles may override some Base menu styles defined above, 
     // which apply to menus outside a drawer in various locations (e.g. footer).
     @if ($has-drawer) {
-      padding-top: to-rem(10);
+      padding-top: to-rem(10 * $spacing);
 
       a {
         // padding appropriate to left-aligned text
-        padding-top: $spacing * 2;
+        padding-top: to-rem(2 * $spacing);
         padding-right: 0;
-        padding-bottom: $spacing * 2;
-        padding-left: to-rem(10);
+        padding-bottom: to-rem(2 * $spacing);
+        padding-left: to-rem(10 * $spacing);
         text-align: left;
 
         &:hover {
@@ -67,7 +67,7 @@
     }
 
     @if ($location == 'header') {
-      @media screen and (min-width: $breakpoint-md) {
+      @media screen and (min-width: $breakpoint-3xl) {
         // Full list menu styles outside of drawer (when drawer is present but closed):
         // These styles apply only to the full list when displayed outside the drawer
         // These styles may override both Base and Drawer menu styles defined above.
@@ -87,15 +87,15 @@
             color: $brand-white;
             padding-left: 0;
             text-decoration: none;
-            @apply border-0 border-b-2 border-brand-white/0;
-      
+            border-bottom: 2px solid transparent; // placeholder
+            
             &:hover {
-              @apply border-0 border-b-2 border-brand-white bg-transparent;
+              border-bottom: 2px solid $brand-white;
             }
       
             &:active {
               color: hsla(0, 0%, 100%, 0.7);
-              @apply border-white/70;
+              border-color: hsla(0, 0%, 100%, 0.7);
             }
           }
         }

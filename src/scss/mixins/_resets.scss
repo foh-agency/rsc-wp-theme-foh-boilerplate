@@ -1,5 +1,10 @@
+@mixin foh-button-reset() {
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+}
 
-@mixin list-reset() {
+@mixin foh-list-reset() {
   margin: 0;
   padding: 0;
 
