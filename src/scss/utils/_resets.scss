@@ -1,0 +1,17 @@
+@use "../mixins/resets" as *;
+
+// Two ways to use (in order of preference):
+//
+// 1. Apply utility class in template files (.php)
+//    (source map makes clear which are reset styles)
+//
+// 2. @include the mixins within a container class name
+//    (when the DOM element that should take the class is generated, not easy to edit in templates)
+
+.foh-button-reset {
+  @include foh-button-reset;
+}
+
+.foh-list-reset {
+  @include foh-list-reset;
+}

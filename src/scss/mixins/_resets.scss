@@ -1,0 +1,14 @@
+@mixin foh-button-reset() {
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+}
+
+@mixin foh-list-reset() {
+  margin: 0;
+  padding: 0;
+
+  li {
+    list-style-type: none;
+  }
+}

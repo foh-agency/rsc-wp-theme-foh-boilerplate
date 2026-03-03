@@ -32,12 +32,10 @@ export default class ResponsiveNav extends HTMLElement {
     const openLink = this.querySelector('.js-menu-link--open');
     const closeLink = this.querySelector('.js-menu-link--close');
 
-    if (openLink) { openLink.classList.add('hidden'); }
-    if (closeLink) { closeLink.classList.add('hidden'); }
-    // Allow the toggleButton to appear...
-    this.toggleButton.classList.remove('hidden');
-    // ...except on larger screens, where we don't use the drawer
-    this.toggleButton.classList.add('md:hidden');
+    if (openLink) { openLink.classList.add('foh-hidden'); }
+    if (closeLink) { closeLink.classList.add('foh-hidden'); }
+    // Allow the toggleButton to appear
+    this.toggleButton.classList.remove('foh-hidden');
   }
 
   // Toggle aria-expanded value each time the button is clicked.

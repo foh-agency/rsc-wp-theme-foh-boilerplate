@@ -90,7 +90,6 @@ Familiarity with fundamental concepts of Composer, NPM, Sass, Babel, Webpack and
 - Two widget areas (sidebar, footer)
 - Webpack for production: Optimize bundle for caching. Include GSAP for animation.
 - Webpack for development: Dev server with BrowserSync.
-- Tailwind CSS
 
 ### Underscores features removed by FOH
 
@@ -261,7 +260,6 @@ The included `package.json` file contains handy scripts that run Webpack to buil
 | `prettier`                    | Automatic code formatter (specifies the version to be used by VS Code extension). |
 | `sass`                        | Compile SCSS syntax into CSS. |
 | `sass-loader`                 | Enable Webpack to run `sass`. |
-| `tailwindcss`                 | Tailwind CSS library. |
 | `url-loader`                  | Enable Webpack to load fonts, images and other static files |
 | `webpack`                     | Your humble bundler. |
 | `webpack-bundle-analyzer`     | On each build, display a graphical representation of bundle files and their sizes. |
