@@ -2,27 +2,27 @@
 
 // Default styles to be animated by JS
 .js-masthead {
-	position: sticky; // must not be 'fixed', so the main nav can open without JS
-	top: 0;
+  position: sticky; // must not be 'fixed', so the main nav can open without JS
+  top: 0;
 
-	.js-header-logo {
-		opacity: 0;
+  .js-header-logo {
+    opacity: 0;
 
-		@media (min-width: $breakpoint-3xl) {
-			display: inline-block;
-		}
-	}
+    @media (min-width: $breakpoint-3xl) {
+      display: inline-block;
+    }
+  }
 }
 
 // Non-animated styles
 .js-masthead {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	z-index: 10;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 10;
 }
 
 // Override style.css from Underscores
 .main-navigation {
-	width: auto;
+  width: auto;
 }
