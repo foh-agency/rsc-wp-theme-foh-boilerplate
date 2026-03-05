@@ -1,5 +1,5 @@
 @use '../constants/typography' as *;
 
 @function to-rem($px) {
-	@return #{calc($px / $f-size-body-base)}rem;
+  @return #{calc($px / $f-size-body-base)}rem;
 }
